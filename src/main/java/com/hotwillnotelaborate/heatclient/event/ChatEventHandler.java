@@ -109,5 +109,7 @@ public class ChatEventHandler {
                         + EnumChatFormatting.GRAY + "v" + HeatClient.VERSION
                         + " loaded. Type " + EnumChatFormatting.YELLOW
                         + "!help" + EnumChatFormatting.GRAY + " for commands."));
+
+        RenderHandler.onTick();
     }
 }
