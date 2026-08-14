@@ -1,6 +1,9 @@
 package com.hotwillnotelaborate.heatclient.command;
 
 import com.hotwillnotelaborate.heatclient.HeatClient;
+import com.hotwillnotelaborate.heatclient.event.PacketHandler;
+import com.hotwillnotelaborate.heatclient.event.CombatHandler;
+import com.hotwillnotelaborate.heatclient.event.PlayerHandler;
 import com.hotwillnotelaborate.heatclient.event.RenderHandler;
 import com.hotwillnotelaborate.heatclient.event.TickHandler;
 import com.hotwillnotelaborate.heatclient.event.XrayRenderer;
@@ -380,6 +383,18 @@ class CommandPanic implements Command {
         TickHandler.inventoryWalk = false;
         TickHandler.autoBow = false;
         if (TickHandler.timer) { TickHandler.timer = false; TickHandler.disableTimer(mc); }
+        TickHandler.fastUse = false;
+        TickHandler.fastBreak = false;
+        TickHandler.noHurtCam = false;
+        TickHandler.antiBlind = false;
+        PacketHandler.velocity = false;
+        PacketHandler.noFall = false;
+        if (PacketHandler.blink) { PacketHandler.blink = false; PacketHandler.clearBlink(); }
+        PacketHandler.antiExploit = false;
+        PacketHandler.noSwing = false;
+        CombatHandler.criticals = false;
+        CombatHandler.superKnockback = false;
+        PlayerHandler.autoTool = false;
         if (CommandFly.isFlying()) { String[] a = {}; new CommandFly().execute(a); }
         XrayRenderer.setEnabled(false);
         RenderHandler.tracers = false;

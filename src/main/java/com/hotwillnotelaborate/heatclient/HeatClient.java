@@ -1,11 +1,15 @@
 package com.hotwillnotelaborate.heatclient;
 
 import com.hotwillnotelaborate.heatclient.client.CompletionOverlay;
-import com.hotwillnotelaborate.heatclient.command.*;
-import com.hotwillnotelaborate.heatclient.event.ChatEventHandler;
-import com.hotwillnotelaborate.heatclient.event.RenderHandler;
-import com.hotwillnotelaborate.heatclient.event.TickHandler;
-import com.hotwillnotelaborate.heatclient.event.XrayRenderer;
+import com.hotwillnotelaborate.heatclient.command.Command;
+import com.hotwillnotelaborate.heatclient.command.CommandFly;
+import com.hotwillnotelaborate.heatclient.command.CommandHelp;
+import com.hotwillnotelaborate.heatclient.command.CommandXray;
+import com.hotwillnotelaborate.heatclient.command.CommandActive;
+import com.hotwillnotelaborate.heatclient.command.CommandFullbright;
+import com.hotwillnotelaborate.heatclient.command.CommandManager;
+import com.hotwillnotelaborate.heatclient.command.CommandRegistrar;
+import com.hotwillnotelaborate.heatclient.event.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -42,6 +46,9 @@ public class HeatClient {
         MinecraftForge.EVENT_BUS.register(new XrayRenderer());
         MinecraftForge.EVENT_BUS.register(new TickHandler());
         MinecraftForge.EVENT_BUS.register(new RenderHandler());
+        MinecraftForge.EVENT_BUS.register(new ConnectionHandler());
+        MinecraftForge.EVENT_BUS.register(new CombatHandler());
+        MinecraftForge.EVENT_BUS.register(new PlayerHandler());
 
         logger.info("Heat Client v{} loaded - {} commands registered.", VERSION,
                 commandManager.getCommands().size());

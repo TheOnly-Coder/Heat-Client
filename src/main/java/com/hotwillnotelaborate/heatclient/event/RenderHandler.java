@@ -1,5 +1,6 @@
 package com.hotwillnotelaborate.heatclient.event;
 
+import com.hotwillnotelaborate.heatclient.event.PacketHandler;
 import com.hotwillnotelaborate.heatclient.command.*;
 import com.hotwillnotelaborate.heatclient.util.McHelper;
 import com.hotwillnotelaborate.heatclient.util.ReflectionUtil;
@@ -288,6 +289,18 @@ public class RenderHandler {
         if (TickHandler.inventoryWalk) active.add(EnumChatFormatting.YELLOW + "InventoryWalk");
         if (TickHandler.autoBow) active.add(EnumChatFormatting.YELLOW + "AutoBow");
         if (TickHandler.timer) active.add(EnumChatFormatting.YELLOW + "Timer" + EnumChatFormatting.GRAY + " " + TickHandler.getTimerSpeed() + "x");
+        if (PacketHandler.velocity) active.add(EnumChatFormatting.RED + "Velocity");
+        if (PacketHandler.noFall) active.add(EnumChatFormatting.RED + "NoFall");
+        if (PacketHandler.blink) active.add(EnumChatFormatting.RED + "Blink" + EnumChatFormatting.GRAY + " [" + PacketHandler.getBlinkQueueSize() + "]");
+        if (CombatHandler.criticals) active.add(EnumChatFormatting.RED + "Criticals");
+        if (CombatHandler.superKnockback) active.add(EnumChatFormatting.RED + "SuperKB");
+        if (TickHandler.fastUse) active.add(EnumChatFormatting.YELLOW + "FastUse");
+        if (TickHandler.fastBreak) active.add(EnumChatFormatting.YELLOW + "FastBreak");
+        if (PlayerHandler.autoTool) active.add(EnumChatFormatting.YELLOW + "AutoTool");
+        if (TickHandler.noHurtCam) active.add(EnumChatFormatting.YELLOW + "NoHurtCam");
+        if (TickHandler.antiBlind) active.add(EnumChatFormatting.YELLOW + "AntiBlind");
+        if (PacketHandler.antiExploit) active.add(EnumChatFormatting.YELLOW + "AntiExploit");
+        if (PacketHandler.noSwing) active.add(EnumChatFormatting.YELLOW + "NoSwing");
         if (active.isEmpty()) return;
         FontRenderer fr = mc.fontRendererObj;
         int x = mc.displayWidth - 4, y = 4;

@@ -6,6 +6,7 @@ package com.hotwillnotelaborate.heatclient.command;
  */
 public class CommandRegistrar {
     public static void registerAll(CommandManager mgr) {
+        // Hydrogen features
         mgr.register(new CommandAntiAFK());
         mgr.register(new CommandAutoRespawn());
         mgr.register(new CommandSprint());
@@ -27,6 +28,20 @@ public class CommandRegistrar {
         mgr.register(new CommandTimer());
         mgr.register(new CommandItemESP());
         mgr.register(new CommandStorageESP());
+        // SkidBounce features
+        mgr.register(new CommandVelocity());
+        mgr.register(new CommandNoFall());
+        mgr.register(new CommandBlink());
+        mgr.register(new CommandCriticals());
+        mgr.register(new CommandSuperKnockback());
+        mgr.register(new CommandFastUse());
+        mgr.register(new CommandFastBreak());
+        mgr.register(new CommandAutoTool());
+        mgr.register(new CommandNoHurtCam());
+        mgr.register(new CommandAntiBlind());
+        mgr.register(new CommandAntiExploit());
+        mgr.register(new CommandNoSwing());
+        // System
         mgr.register(new CommandPanic());
     }
 }
