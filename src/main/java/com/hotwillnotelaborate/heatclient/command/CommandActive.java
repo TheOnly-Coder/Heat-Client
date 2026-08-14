@@ -3,6 +3,7 @@ package com.hotwillnotelaborate.heatclient.command;
 import com.hotwillnotelaborate.heatclient.event.PacketHandler;
 import com.hotwillnotelaborate.heatclient.event.CombatHandler;
 import com.hotwillnotelaborate.heatclient.event.PlayerHandler;
+import com.hotwillnotelaborate.heatclient.event.DupeHandler;
 import com.hotwillnotelaborate.heatclient.HeatClient;
 import com.hotwillnotelaborate.heatclient.event.RenderHandler;
 import com.hotwillnotelaborate.heatclient.event.TickHandler;
@@ -74,6 +75,7 @@ public class CommandActive implements Command {
         if (TickHandler.antiBlind) active.add(EnumChatFormatting.GREEN + "AntiBlind");
         if (PacketHandler.antiExploit) active.add(EnumChatFormatting.GREEN + "AntiExploit");
         if (PacketHandler.noSwing) active.add(EnumChatFormatting.GREEN + "NoSwing");
+        if (DupeHandler.enabled) active.add(EnumChatFormatting.GREEN + "Dupe" + EnumChatFormatting.GRAY + " (delay: " + DupeHandler.tickDelay + " ticks)");
 
         mc.thePlayer.addChatMessage(new ChatComponentText(
                 EnumChatFormatting.GOLD + "" + EnumChatFormatting.BOLD + "=== Active Modules ==="));

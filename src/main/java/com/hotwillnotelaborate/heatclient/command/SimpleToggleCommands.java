@@ -4,6 +4,7 @@ import com.hotwillnotelaborate.heatclient.HeatClient;
 import com.hotwillnotelaborate.heatclient.event.PacketHandler;
 import com.hotwillnotelaborate.heatclient.event.CombatHandler;
 import com.hotwillnotelaborate.heatclient.event.PlayerHandler;
+import com.hotwillnotelaborate.heatclient.event.DupeHandler;
 import com.hotwillnotelaborate.heatclient.event.RenderHandler;
 import com.hotwillnotelaborate.heatclient.event.TickHandler;
 import com.hotwillnotelaborate.heatclient.event.XrayRenderer;
@@ -392,6 +393,7 @@ class CommandPanic implements Command {
         if (PacketHandler.blink) { PacketHandler.blink = false; PacketHandler.clearBlink(); }
         PacketHandler.antiExploit = false;
         PacketHandler.noSwing = false;
+        DupeHandler.enabled = false; DupeHandler.reset();
         CombatHandler.criticals = false;
         CombatHandler.superKnockback = false;
         PlayerHandler.autoTool = false;

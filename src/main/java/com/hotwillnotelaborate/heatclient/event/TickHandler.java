@@ -23,6 +23,7 @@ import java.util.Random;
 public class TickHandler {
 
     private static final Random RAND = new Random();
+    private static boolean rshiftWasDown = false;
 
     public static boolean fullbright = false;
     public static float savedGamma = 0;
@@ -87,6 +88,15 @@ public class TickHandler {
         if (fastBreak) doFastBreak(mc);
         if (noHurtCam) doNoHurtCam(mc);
         if (antiBlind) doAntiBlind(mc);
+        if (DupeHandler.enabled) DupeHandler.onTick();
+        // Right Shift opens Dupe GUI
+        if (org.lwjgl.input.Keyboard.isKeyDown(org.lwjgl.input.Keyboard.KEY_RSHIFT)
+                && mc.currentScreen == null && !org.lwjgl.input.Keyboard.isKeyDown(org.lwjgl.input.Keyboard.KEY_LSHIFT)) {
+            if (!rshiftWasDown) {
+                mc.displayGuiScreen(new com.hotwillnotelaborate.heatclient.client.DupeGUI());
+            }
+        }
+        rshiftWasDown = org.lwjgl.input.Keyboard.isKeyDown(org.lwjgl.input.Keyboard.KEY_RSHIFT);
     }
 
     private void doFullbright(Minecraft mc) {
@@ -127,7 +137,7 @@ public class TickHandler {
     private void doSpammer(Minecraft mc) {
         spamTimer++;
         if (spamTimer >= 40) { spamTimer = 0;
-            mc.thePlayer.sendChatMessage("[Heat] Heat Client v1.5.0 - github.com/TheOnly-Coder/Heat-Client");
+            mc.thePlayer.sendChatMessage("[Heat] Heat Client v1.5.1 - github.com/TheOnly-Coder/Heat-Client");
         }
     }
 

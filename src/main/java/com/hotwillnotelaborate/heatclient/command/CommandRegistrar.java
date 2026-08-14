@@ -43,5 +43,7 @@ public class CommandRegistrar {
         mgr.register(new CommandNoSwing());
         // System
         mgr.register(new CommandPanic());
+        // v1.5.1
+        mgr.register(new CommandDupe());
     }
 }

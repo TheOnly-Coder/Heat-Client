@@ -114,6 +114,9 @@ public class McHelper {
     public static final Field ER_CAMERA_ZOOM = refCls("net.minecraft.client.renderer.EntityRenderer", "field_78503_V", "cameraZoom");
     public static final Field ER_CAMERA_YAW = refCls("net.minecraft.client.renderer.EntityRenderer", "field_78502_W", "cameraYaw");
 
+    // ---- EntityItem fields ----
+    public static final Field EI_PICKUP_DELAY = ref(EntityItem.class, "field_145804_b", "delayBeforeCanPickup");
+
     // ---- Reflected Methods (Entity) ----
     public static final Method ENTITY_IS_SNEAKING = mref(Entity.class, "func_70093_af", "isSneaking");
     public static final Method ENTITY_IS_IN_WATER = mref(Entity.class, "func_70090_H", "isInWater");
@@ -149,7 +152,7 @@ public class McHelper {
                 EP_OPEN_CONTAINER, IP_CURRENT_ITEM, CONTAINER_INVENTORY_STACKS,
                 MOP_TYPE_OF_HIT, MOP_BLOCK_POS, MOP_ENTITY_HIT,
                 TIMER_SPEED, PCM_BLOCK_HIT_DELAY, PCM_CUR_BLOCK_DAMAGE,
-                ER_CAMERA_ZOOM, ER_CAMERA_YAW
+                ER_CAMERA_ZOOM, ER_CAMERA_YAW, EI_PICKUP_DELAY
         }) { f.setAccessible(true); }
     }
 
@@ -270,5 +273,8 @@ public class McHelper {
     public static List getContainerInventoryStacks(Container c) {
         try { return (List) CONTAINER_INVENTORY_STACKS.get(c); }
         catch (Exception e) { return null; }
+    }
+    public static int getItemPickupDelay(EntityItem ei) {
+        try { return EI_PICKUP_DELAY.getInt(ei); } catch (Exception e) { return 0; }
     }
 }
