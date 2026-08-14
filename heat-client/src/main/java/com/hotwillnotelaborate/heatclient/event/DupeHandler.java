@@ -2,6 +2,7 @@ package com.hotwillnotelaborate.heatclient.event;
 
 import com.hotwillnotelaborate.heatclient.util.McHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.ChatComponentText;
 
@@ -10,10 +11,13 @@ import java.util.List;
 public class DupeHandler {
 
     public static boolean enabled = false;
-    public static int tickDelay = 0;
+    // Default: 1 tick after item enters pickup range (pickup animation starting)
+    public static int tickDelay = 1;
     public static boolean pending = false;
     private static int countdown = -1;
-    private static final float PICKUP_RANGE = 1.5f;
+    private static final float PICKUP_RANGE = 1.8f;
+    // Flag to disconnect on the NEXT tick (avoids mid-frame world null crash)
+    private static boolean shouldDisconnect = false;
 
     public static void setTickDelay(int d) {
         tickDelay = Math.max(-10, Math.min(20, d));
@@ -21,6 +25,7 @@ public class DupeHandler {
     public static void reset() {
         countdown = -1;
         pending = false;
+        shouldDisconnect = false;
     }
 
     public static void onTick() {
@@ -29,6 +34,15 @@ public class DupeHandler {
             reset();
             return;
         }
+
+        // If disconnect was flagged last tick, do it now
+        if (shouldDisconnect) {
+            shouldDisconnect = false;
+            pending = false;
+            disconnect(mc);
+            return;
+        }
+
         if (mc.currentScreen != null) return;
 
         boolean foundPickup = false;
@@ -40,6 +54,7 @@ public class DupeHandler {
         for (Object obj : entities) {
             if (!(obj instanceof EntityItem)) continue;
             EntityItem item = (EntityItem) obj;
+            // Only trigger when item's pickup delay has expired (can be collected)
             if (McHelper.getItemPickupDelay(item) > 0) continue;
 
             double ix = McHelper.getPosX(item);
@@ -57,16 +72,15 @@ public class DupeHandler {
         if (foundPickup) {
             if (countdown < 0) {
                 countdown = tickDelay;
+                pending = true;
                 if (countdown <= 0) {
-                    pending = true;
-                    disconnect(mc);
+                    shouldDisconnect = true;
                     return;
                 }
-                pending = true;
             }
             countdown--;
             if (countdown <= 0) {
-                disconnect(mc);
+                shouldDisconnect = true;
             }
         } else {
             countdown = -1;
@@ -76,14 +90,26 @@ public class DupeHandler {
 
     private static void disconnect(Minecraft mc) {
         try {
-            mc.theWorld.sendQuittingDisconnectingPacket();
-            mc.loadWorld(null);
+            if (mc.isIntegratedServerRunning()) {
+                // Singleplayer: send quit packet then show main menu
+                // Using displayGuiScreen instead of loadWorld(null) prevents
+                // the EntityRenderer NPE crash (render skips world draw when GUI is open)
+                if (mc.theWorld != null) {
+                    mc.theWorld.sendQuittingDisconnectingPacket();
+                }
+                mc.displayGuiScreen(new GuiMainMenu());
+            } else {
+                // Multiplayer: close connection then show main menu
+                if (mc.thePlayer != null && mc.thePlayer.sendQueue != null
+                        && mc.thePlayer.sendQueue.getNetworkManager() != null) {
+                    mc.thePlayer.sendQueue.getNetworkManager().closeChannel(
+                        new ChatComponentText("Dupe"));
+                }
+                mc.displayGuiScreen(new GuiMainMenu());
+            }
         } catch (Exception e) {
-            try {
-                mc.thePlayer.sendQueue.getNetworkManager().closeChannel(
-                    new net.minecraft.util.ChatComponentText("Dupe"));
-                mc.loadWorld(null);
-            } catch (Exception e2) {}
+            // Absolute fallback: just show main menu
+            try { mc.displayGuiScreen(new GuiMainMenu()); } catch (Exception ignored) {}
         }
         reset();
     }
