@@ -1,0 +1,1070 @@
+     1→/*
+     2→ * SkidBounce Hacked Client
+     3→ * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge, Forked from LiquidBounce.
+     4→ * https://github.com/ManInMyVan/SkidBounce/
+     5→ */
+     6→package net.ccbluex.liquidbounce.features.module.modules.combat
+     7→
+     8→import net.ccbluex.liquidbounce.event.events.*
+     9→import net.ccbluex.liquidbounce.event.EventManager.callEvent
+    10→import net.ccbluex.liquidbounce.event.EventState.POST
+    11→import net.ccbluex.liquidbounce.event.EventTarget
+    12→import net.ccbluex.liquidbounce.features.module.Module
+    13→import net.ccbluex.liquidbounce.features.module.ModuleCategory.COMBAT
+    14→import net.ccbluex.liquidbounce.features.module.modules.render.FreeCam
+    15→import net.ccbluex.liquidbounce.features.module.modules.targets.*
+    16→import net.ccbluex.liquidbounce.features.module.modules.targets.AntiBot.isBot
+    17→import net.ccbluex.liquidbounce.features.module.modules.world.Scaffold
+    18→import net.ccbluex.liquidbounce.utils.CPSCounter
+    19→import net.ccbluex.liquidbounce.utils.ClientUtils.runTimeTicks
+    20→import net.ccbluex.liquidbounce.utils.CooldownHelper.getAttackCooldownProgress
+    21→import net.ccbluex.liquidbounce.utils.CooldownHelper.resetLastAttackedTicks
+    22→import net.ccbluex.liquidbounce.utils.EntityUtils.isLookingOnEntities
+    23→import net.ccbluex.liquidbounce.utils.MovementUtils.isMoving
+    24→import net.ccbluex.liquidbounce.utils.PacketUtils.sendPacket
+    25→import net.ccbluex.liquidbounce.utils.PacketUtils.sendPackets
+    26→import net.ccbluex.liquidbounce.utils.RaycastUtils.raycastEntity
+    27→import net.ccbluex.liquidbounce.utils.RaycastUtils.runWithModifiedRaycastResult
+    28→import net.ccbluex.liquidbounce.utils.Rotation
+    29→import net.ccbluex.liquidbounce.utils.RotationUtils.currentRotation
+    30→import net.ccbluex.liquidbounce.utils.RotationUtils.getRotationDifference
+    31→import net.ccbluex.liquidbounce.utils.RotationUtils.getVectorForRotation
+    32→import net.ccbluex.liquidbounce.utils.RotationUtils.isRotationFaced
+    33→import net.ccbluex.liquidbounce.utils.RotationUtils.isVisible
+    34→import net.ccbluex.liquidbounce.utils.RotationUtils.limitAngleChange
+    35→import net.ccbluex.liquidbounce.utils.RotationUtils.searchCenter
+    36→import net.ccbluex.liquidbounce.utils.RotationUtils.setTargetRotation
+    37→import net.ccbluex.liquidbounce.utils.RotationUtils.toRotation
+    38→import net.ccbluex.liquidbounce.utils.SimulatedPlayer
+    39→import net.ccbluex.liquidbounce.utils.blink.FakePlayer
+    40→import net.ccbluex.liquidbounce.utils.extensions.*
+    41→import net.ccbluex.liquidbounce.utils.inventory.InventoryUtils
+    42→import net.ccbluex.liquidbounce.utils.inventory.InventoryUtils.serverOpenInventory
+    43→import net.ccbluex.liquidbounce.utils.inventory.ItemUtils.isConsumingItem
+    44→import net.ccbluex.liquidbounce.utils.misc.RandomUtils.nextFloat
+    45→import net.ccbluex.liquidbounce.utils.misc.RandomUtils.nextInt
+    46→import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawEntityBox
+    47→import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawPlatform
+    48→import net.ccbluex.liquidbounce.utils.timing.MSTimer
+    49→import net.ccbluex.liquidbounce.utils.timing.TimeUtils.randomClickDelay
+    50→import net.ccbluex.liquidbounce.value.*
+    51→import net.minecraft.client.gui.inventory.GuiContainer
+    52→import net.minecraft.enchantment.EnchantmentHelper
+    53→import net.minecraft.entity.Entity
+    54→import net.minecraft.entity.EntityLivingBase
+    55→import net.minecraft.entity.item.EntityArmorStand
+    56→import net.minecraft.entity.player.EntityPlayer
+    57→import net.minecraft.item.ItemAxe
+    58→import net.minecraft.item.ItemSword
+    59→import net.minecraft.network.play.client.C02PacketUseEntity
+    60→import net.minecraft.network.play.client.C02PacketUseEntity.Action.ATTACK
+    61→import net.minecraft.network.play.client.C02PacketUseEntity.Action.INTERACT
+    62→import net.minecraft.network.play.client.C07PacketPlayerDigging
+    63→import net.minecraft.network.play.client.C07PacketPlayerDigging.Action.RELEASE_USE_ITEM
+    64→import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
+    65→import net.minecraft.network.play.client.C0APacketAnimation
+    66→import net.minecraft.potion.Potion
+    67→import net.minecraft.util.BlockPos
+    68→import net.minecraft.util.EnumFacing
+    69→import net.minecraft.util.MovingObjectPosition
+    70→import net.minecraft.world.WorldSettings
+    71→import java.awt.Color
+    72→import kotlin.math.max
+    73→
+    74→object KillAura : Module("KillAura", COMBAT) {
+    75→    /**
+    76→     * OPTIONS
+    77→     */
+    78→
+    79→    private val simulateCooldown by BooleanValue("SimulateCooldown", false)
+    80→    private val simulateDoubleClicking by BooleanValue("SimulateDoubleClicking", false) { !simulateCooldown }
+    81→
+    82→    // CPS - Attack speed
+    83→    private val maxCPSValue = object : IntValue("MaxCPS", 8, 1..20) {
+    84→        override fun onChange(oldValue: Int, newValue: Int) = newValue.coerceAtLeast(minCPS)
+    85→
+    86→        override fun onChanged(oldValue: Int, newValue: Int) {
+    87→            attackDelay = randomClickDelay(minCPS, newValue)
+    88→        }
+    89→
+    90→        override fun isSupported() = !simulateCooldown
+    91→    }
+    92→
+    93→    private val maxCPS by maxCPSValue
+    94→
+    95→    private val minCPS: Int by object : IntValue("MinCPS", 5, 1..20) {
+    96→        override fun onChange(oldValue: Int, newValue: Int) = newValue.coerceAtMost(maxCPS)
+    97→
+    98→        override fun onChanged(oldValue: Int, newValue: Int) {
+    99→            attackDelay = randomClickDelay(newValue, maxCPS)
+   100→        }
+   101→
+   102→        override fun isSupported() = !maxCPSValue.isMinimal && !simulateCooldown
+   103→    }
+   104→
+   105→    private val hurtTime by IntValue("HurtTime", 10, 0..10) { !simulateCooldown }
+   106→
+   107→    private val clickOnly by BooleanValue("ClickOnly", false)
+   108→
+   109→    // Range
+   110→    // TODO: Make block range independent from attack range
+   111→    private val range: Double by object : DoubleValue("Range", 3.7, 1.0..8.0) {
+   112→        override fun onChanged(oldValue: Double, newValue: Double) {
+   113→            blockRange = blockRange.coerceAtMost(newValue)
+   114→        }
+   115→    }
+   116→    private val scanRange by DoubleValue("ScanRange", 2.0, 0.0..10.0)
+   117→    private val throughWallsRange by DoubleValue("ThroughWallsRange", 3.0, 0.0..8.0)
+   118→    private val rangeSprintReduction by DoubleValue("RangeSprintReduction", 0.0, 0.0..0.4)
+   119→
+   120→    // Modes
+   121→    private val priority by ListValue(
+   122→        "Priority", arrayOf(
+   123→            "Health",
+   124→            "Distance",
+   125→            "Direction",
+   126→            "LivingTime",
+   127→            "Armor",
+   128→            "HurtResistance",
+   129→            "HurtTime",
+   130→            "HealthAbsorption",
+   131→            "RegenAmplifier"
+   132→        ), "Distance"
+   133→    )
+   134→    private val targetMode by ListValue("TargetMode", arrayOf("Single", "Switch", "Multi"), "Switch")
+   135→    private val limitedMultiTargets by IntValue("LimitedMultiTargets", 0, 0..50) { targetMode == "Multi" }
+   136→    private val maxSwitchFOV by DoubleValue("MaxSwitchFOV", 90.0, 30.0..180.0) { targetMode == "Switch" }
+   137→
+   138→    // Delay
+   139→    private val switchDelay by LongValue("SwitchDelay", 15, 1L..1000L) { targetMode == "Switch" }
+   140→
+   141→    // Bypass
+   142→    private val swing by SwingValue()
+   143→
+   144→    // Settings
+   145→    // TODO: only swap view if the user didn't manually change view
+   146→    private val autoF5 by BooleanValue("AutoF5", false)
+   147→    private val onScaffold by BooleanValue("OnScaffold", false)
+   148→    private val onDestroyBlock by BooleanValue("OnDestroyBlock", false)
+   149→
+   150→    // AutoBlock
+   151→    private val autoBlock by ListValue("AutoBlock", arrayOf("Off", "Packet", "Fake"), "Packet")
+   152→    private val releaseAutoBlock by BooleanValue("ReleaseAutoBlock", true)
+   153→    { autoBlock !in arrayOf("Off", "Fake") }
+   154→    private val ignoreTickRule by BooleanValue("IgnoreTickRule", false)
+   155→    { autoBlock !in arrayOf("Off", "Fake") && releaseAutoBlock }
+   156→    private val blockRate by IntValue("BlockRate", 100, 1..100)
+   157→    { autoBlock !in arrayOf("Off", "Fake") && releaseAutoBlock }
+   158→
+   159→    private val uncpAutoBlock by BooleanValue("UpdatedNCPAutoBlock", false)
+   160→    { autoBlock !in arrayOf("Off", "Fake") && !releaseAutoBlock }
+   161→
+   162→    private val switchStartBlock by BooleanValue("SwitchStartBlock", false)
+   163→    { autoBlock !in arrayOf("Off", "Fake") }
+   164→
+   165→    private val interactAutoBlock by BooleanValue("InteractAutoBlock", true)
+   166→    { autoBlock !in arrayOf("Off", "Fake") }
+   167→
+   168→    // AutoBlock conditions
+   169→    private val smartAutoBlock by BooleanValue("SmartAutoBlock", false) { autoBlock != "Off" }
+   170→
+   171→    // Ignore all blocking conditions, except for block rate, when standing still
+   172→    private val forceBlock by BooleanValue("ForceBlockWhenStill", true)
+   173→    { autoBlock != "Off" && smartAutoBlock }
+   174→
+   175→    // Don't block if target isn't holding a sword or an axe
+   176→    private val checkWeapon by BooleanValue("CheckEnemyWeapon", true)
+   177→    { autoBlock != "Off" && smartAutoBlock }
+   178→
+   179→    // TODO: Make block range independent from attack range
+   180→    private var blockRange by object : DoubleValue("BlockRange", range, 1.0..8.0) {
+   181→        override fun isSupported() = autoBlock != "Off" && smartAutoBlock
+   182→
+   183→        override fun onChange(oldValue: Double, newValue: Double) = newValue.coerceAtMost(this@KillAura.range)
+   184→    }
+   185→
+   186→    // Don't block when you can't get damaged
+   187→    private val maxOwnHurtTime by IntValue("MaxOwnHurtTime", 3, 0..10)
+   188→    { autoBlock != "Off" && smartAutoBlock }
+   189→
+   190→    // Don't block if target isn't looking at you
+   191→    private val maxDirectionDiff by FloatValue("MaxOpponentDirectionDiff", 60f, 30f..180f)
+   192→    { autoBlock != "Off" && smartAutoBlock }
+   193→
+   194→    // Don't block if target is swinging an item and therefore cannot attack
+   195→    private val maxSwingProgress by IntValue("MaxOpponentSwingProgress", 1, 0..5)
+   196→    { autoBlock != "Off" && smartAutoBlock }
+   197→
+   198→    // Turn Speed
+   199→    private val maxTurnSpeedValue = object : FloatValue("MaxTurnSpeed", 180f, 1f..180f) {
+   200→        override fun onChange(oldValue: Float, newValue: Float) = newValue.coerceAtLeast(minTurnSpeed)
+   201→    }
+   202→    private val maxTurnSpeed by maxTurnSpeedValue
+   203→
+   204→    private val minTurnSpeed: Float by object : FloatValue("MinTurnSpeed", 180f, 1f..180f) {
+   205→        override fun onChange(oldValue: Float, newValue: Float) = newValue.coerceAtMost(maxTurnSpeed)
+   206→        override fun isSupported() = !maxTurnSpeedValue.isMinimal
+   207→    }
+   208→
+   209→    // Raycast
+   210→    private val raycastValue = BooleanValue("RayCast", true)
+   211→    private val raycast by raycastValue
+   212→    private val raycastIgnored by BooleanValue("RayCastIgnored", false) { raycastValue.isActive() }
+   213→    private val livingRaycast by BooleanValue("LivingRayCast", true) { raycastValue.isActive() }
+   214→
+   215→    // Bypass
+   216→    private val useHitDelay by BooleanValue("UseHitDelay", false)
+   217→    private val hitDelayTicks by IntValue("HitDelayTicks", 1, 1..5) { useHitDelay }
+   218→
+   219→    private val keepRotationTicks by object : IntValue("KeepRotationTicks", 5, 1..20) {
+   220→        override fun onChange(oldValue: Int, newValue: Int) = newValue.coerceAtLeast(minimum)
+   221→    }
+   222→    private val angleThresholdUntilReset by FloatValue("AngleThresholdUntilReset", 5f, 0.1f..180f)
+   223→    private val micronizedValue = BooleanValue("Micronized", true)
+   224→    private val micronized by micronizedValue
+   225→    private val micronizedStrength by FloatValue("MicronizedStrength", 0.8f, 0.2f..2f) { micronizedValue.isActive() }
+   226→
+   227→    // Rotations
+   228→    private val silentRotationValue = BooleanValue("SilentRotation", true)
+   229→    private val silentRotation by silentRotationValue
+   230→    private val rotationStrafe by ListValue(
+   231→        "Strafe",
+   232→        arrayOf("Off", "Strict", "Silent"),
+   233→        "Off"
+   234→    ) { silentRotationValue.isActive() }
+   235→    private val smootherMode by ListValue("SmootherMode", arrayOf("Linear", "Relative"), "Relative")
+   236→
+   237→    private val randomCenter by BooleanValue("RandomCenter", true)
+   238→    private val gaussianOffset by BooleanValue("GaussianOffset", false) { randomCenter }
+   239→    private val outborder by BooleanValue("Outborder", false)
+   240→    private val fov by FloatValue("FOV", 180f, 0f..180f)
+   241→
+   242→    // Prediction
+   243→    private val predictClientMovement by IntValue("PredictClientMovement", 2, 0..5)
+   244→    private val predictEnemyPosition by DoubleValue("PredictEnemyPosition", 1.5, -1.0..2.0)
+   245→
+   246→    // Extra swing
+   247→    private val failSwing by BooleanValue("FailSwing", true) { swing != "Off" }
+   248→    private val swingOnlyInAir by BooleanValue("SwingOnlyInAir", true) { swing != "Off" && failSwing }
+   249→    private val maxRotationDifferenceToSwing by FloatValue("MaxRotationDifferenceToSwing", 180f, 0f..180f)
+   250→    { swing != "Off" && failSwing }
+   251→    private val swingWhenTicksLate = object : BooleanValue("SwingWhenTicksLate", false) {
+   252→        override fun isSupported() = swing != "Off" && failSwing && maxRotationDifferenceToSwing != 180f
+   253→    }
+   254→    private val ticksLateToSwing by IntValue("TicksLateToSwing", 4, 0..20)
+   255→    { swing != "Off" && failSwing && swingWhenTicksLate.isActive() }
+   256→
+   257→    // Inventory
+   258→    private val simulateClosingInventory by BooleanValue("SimulateClosingInventory", false) { !noInventoryAttack }
+   259→    private val noInventoryAttack by BooleanValue("NoInvAttack", false)
+   260→    private val noInventoryDelay by IntValue("NoInvDelay", 200, 0..500) { noInventoryAttack }
+   261→    private val noConsumeAttack by ListValue(
+   262→        "NoConsumeAttack",
+   263→        arrayOf("Off", "NoHits", "NoRotation"),
+   264→        "Off",
+   265→    )
+   266→
+   267→    // Visuals
+   268→    private val mark by ListValue("Mark", arrayOf("Off", "Platform", "Box"), "Platform", subjective = true)
+   269→    private val boxOutline by BooleanValue("Outline", true, subjective = true) { mark == "Box" }
+   270→    private val fakeSharp by BooleanValue("FakeSharp", true, subjective = true)
+   271→
+   272→    /**
+   273→     * MODULE
+   274→     */
+   275→
+   276→    // Target
+   277→    var target: EntityLivingBase? = null
+   278→    private var hittable = false
+   279→    private val prevTargetEntities = mutableListOf<Int>()
+   280→
+   281→    // Attack delay
+   282→    private val attackTimer = MSTimer()
+   283→    private var attackDelay = 0
+   284→    private var clicks = 0
+   285→    private var attackTickTimes = mutableListOf<Pair<MovingObjectPosition, Int>>()
+   286→
+   287→    // Container Delay
+   288→    private var containerOpen = -1L
+   289→
+   290→    // Block status
+   291→    var renderBlocking = false
+   292→    var blockStatus = false
+   293→    private var blockStopInDead = false
+   294→
+   295→    // Swing
+   296→    private var cancelNextSwing = false
+   297→
+   298→    /**
+   299→     * Disable kill aura module
+   300→     */
+   301→    override fun onToggle(state: Boolean) {
+   302→        target = null
+   303→        hittable = false
+   304→        prevTargetEntities.clear()
+   305→        attackTickTimes.clear()
+   306→        attackTimer.reset()
+   307→        clicks = 0
+   308→
+   309→        if (autoF5)
+   310→            mc.gameSettings.thirdPersonView = 0
+   311→
+   312→        stopBlocking()
+   313→    }
+   314→
+   315→    /**
+   316→     * Motion event
+   317→     */
+   318→    @EventTarget
+   319→    fun onMotion(event: MotionEvent) {
+   320→        if (event.eventState != POST) {
+   321→            return
+   322→        }
+   323→        update()
+   324→    }
+   325→
+   326→    fun update() {
+   327→        if (cancelRun || (noInventoryAttack && (mc.currentScreen is GuiContainer || System.currentTimeMillis() - containerOpen < noInventoryDelay))) return
+   328→
+   329→        // Update target
+   330→        updateTarget()
+   331→
+   332→        if (autoF5 && mc.gameSettings.thirdPersonView != 1 && (target != null || mc.thePlayer.swingProgress > 0)) {
+   333→            mc.gameSettings.thirdPersonView = 1
+   334→        }
+   335→    }
+   336→
+   337→    @EventTarget
+   338→    fun onWorld(event: WorldEvent) {
+   339→        attackTickTimes.clear()
+   340→    }
+   341→
+   342→    /**
+   343→     * Tick event
+   344→     */
+   345→    @EventTarget
+   346→    fun onTick(event: TickEvent) {
+   347→        if (clickOnly && !mc.gameSettings.keyBindAttack.isKeyDown) return
+   348→
+   349→        if (blockStatus && autoBlock == "Packet" && releaseAutoBlock && !ignoreTickRule) {
+   350→            clicks = 0
+   351→            stopBlocking()
+   352→            return
+   353→        }
+   354→
+   355→        if (cancelRun) {
+   356→            target = null
+   357→            hittable = false
+   358→            stopBlocking()
+   359→            return
+   360→        }
+   361→
+   362→        if (noInventoryAttack && (mc.currentScreen is GuiContainer || System.currentTimeMillis() - containerOpen < noInventoryDelay)) {
+   363→            target = null
+   364→            hittable = false
+   365→            if (mc.currentScreen is GuiContainer) containerOpen = System.currentTimeMillis()
+   366→            return
+   367→        }
+   368→
+   369→        if (simulateCooldown && getAttackCooldownProgress() < 1f) {
+   370→            return
+   371→        }
+   372→
+   373→        if (target == null && !blockStopInDead) {
+   374→            blockStopInDead = true
+   375→            stopBlocking()
+   376→            return
+   377→        }
+   378→
+   379→        if (target != null) {
+   380→            if (mc.thePlayer.getDistanceToEntityBox(target!!) > range && blockStatus) {
+   381→                stopBlocking()
+   382→                return
+   383→            } else if (autoBlock != "Off")
+   384→                renderBlocking = true
+   385→
+   386→            // Usually when you butterfly click, you end up clicking two (and possibly more) times in a single tick.
+   387→            // Sometimes you also do not click. The positives outweigh the negatives, however.
+   388→            val extraClicks = if (simulateDoubleClicking && !simulateCooldown) nextInt(-1, 1) else 0
+   389→
+   390→            val maxClicks = clicks + extraClicks
+   391→
+   392→            repeat(maxClicks) {
+   393→                val wasBlocking = blockStatus
+   394→
+   395→                runAttack(it + 1 == maxClicks)
+   396→                clicks--
+   397→
+   398→                if (wasBlocking && !blockStatus && (releaseAutoBlock && !ignoreTickRule || autoBlock == "Off")) {
+   399→                    return
+   400→                }
+   401→            }
+   402→        } else renderBlocking = false
+   403→    }
+   404→
+   405→    /**
+   406→     * Render event
+   407→     */
+   408→    @EventTarget
+   409→    fun onRender3D(event: Render3DEvent) {
+   410→        if (cancelRun) {
+   411→            target = null
+   412→            hittable = false
+   413→            return
+   414→        }
+   415→
+   416→        if (noInventoryAttack && (mc.currentScreen is GuiContainer || System.currentTimeMillis() - containerOpen < noInventoryDelay)) {
+   417→            target = null
+   418→            hittable = false
+   419→            if (mc.currentScreen is GuiContainer) containerOpen = System.currentTimeMillis()
+   420→            return
+   421→        }
+   422→
+   423→        target ?: return
+   424→
+   425→        val hittableColor = if (hittable) Color(37, 126, 255, 70) else Color(255, 0, 0, 70)
+   426→
+   427→        if (targetMode != "Multi") {
+   428→            when (mark.lowercase()) {
+   429→                "platform" -> drawPlatform(target!!, hittableColor)
+   430→                "box" -> drawEntityBox(target!!, hittableColor, boxOutline)
+   431→            }
+   432→        }
+   433→
+   434→        if (attackTimer.hasTimePassed(attackDelay)) {
+   435→            if (maxCPS > 0)
+   436→                clicks++
+   437→            attackTimer.reset()
+   438→            attackDelay = randomClickDelay(minCPS, maxCPS)
+   439→        }
+   440→    }
+   441→
+   442→    /**
+   443→     * Packet event
+   444→     */
+   445→    @EventTarget
+   446→    fun onPacket(event: PacketEvent) {
+   447→        if (event.packet is C0APacketAnimation && cancelNextSwing) {
+   448→            cancelNextSwing = false
+   449→            event.cancelEvent()
+   450→        }
+   451→    }
+   452→
+   453→    /**
+   454→     * Attack enemy
+   455→     */
+   456→    @Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
+   457→    private fun runAttack(isLastClick: Boolean) {
+   458→        var currentTarget = this.target ?: return
+   459→
+   460→        val thePlayer = mc.thePlayer ?: return
+   461→        val theWorld = mc.theWorld ?: return
+   462→
+   463→        if (noConsumeAttack == "NoHits" && isConsumingItem) {
+   464→            return
+   465→        }
+   466→
+   467→        // Settings
+   468→        val multi = targetMode == "Multi"
+   469→        val manipulateInventory = simulateClosingInventory && !noInventoryAttack && serverOpenInventory
+   470→
+   471→        // Close inventory when open
+   472→        if (manipulateInventory) serverOpenInventory = false
+   473→
+   474→        updateHittable()
+   475→
+   476→        currentTarget = this.target ?: return
+   477→
+   478→        if (hittable && currentTarget.hurtTime > hurtTime) {
+   479→            return
+   480→        }
+   481→
+   482→        // Check if enemy is not hittable
+   483→        if (!hittable) {
+   484→            if (swing != "Off" && failSwing) {
+   485→                val rotation = currentRotation ?: thePlayer.rotation
+   486→
+   487→                // Can humans keep click consistency when performing massive rotation changes?
+   488→                // (10-30 rotation difference/doing large mouse movements for example)
+   489→                // Maybe apply to attacks too?
+   490→                if (getRotationDifference(rotation) > maxRotationDifferenceToSwing) {
+   491→                    val lastAttack = attackTickTimes.lastOrNull()?.second ?: 0
+   492→
+   493→                    // At the same time there is also a chance of the user clicking at least once in a while
+   494→                    // when the consistency has dropped a lot.
+   495→                    val shouldIgnore = swingWhenTicksLate.isActive() && runTimeTicks - lastAttack >= ticksLateToSwing
+   496→
+   497→                    if (!shouldIgnore) {
+   498→                        return
+   499→                    }
+   500→                }
+   501→
+   502→                runWithModifiedRaycastResult(rotation, range, throughWallsRange) {
+   503→                    if (swingOnlyInAir && it.typeOfHit != MovingObjectPosition.MovingObjectType.MISS) {
+   504→                        return@runWithModifiedRaycastResult
+   505→                    }
+   506→
+   507→                    if (!shouldDelayClick(it.typeOfHit)) {
+   508→                        if (it.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+   509→                            val entity = it.entityHit
+   510→
+   511→                            // Use own function instead of clickMouse() to maintain keep sprint, auto block, etc
+   512→                            if (entity is EntityLivingBase) {
+   513→                                attackEntity(entity, isLastClick)
+   514→                            }
+   515→                        } else {
+   516→                            if (swing == "Visual")
+   517→                                cancelNextSwing = true
+   518→                            // Imitate game click
+   519→                            mc.clickMouse()
+   520→                            if (swing == "Packet")
+   521→                                mc.thePlayer.isSwingInProgress = false
+   522→                        }
+   523→                        attackTickTimes += it to runTimeTicks
+   524→                    }
+   525→
+   526→                    if (isLastClick) {
+   527→                        // We return false because when you click literally once, the attack key's [pressed] status is false.
+   528→                        // Since we simulate clicks, we are supposed to respect that behavior.
+   529→                        mc.sendClickBlockToController(false)
+   530→                    }
+   531→                }
+   532→            }
+   533→        } else {
+   534→            blockStopInDead = false
+   535→            // Attack
+   536→            if (!multi) {
+   537→                attackEntity(currentTarget, isLastClick)
+   538→            } else {
+   539→                var targets = 0
+   540→
+   541→                for (entity in theWorld.loadedEntityList) {
+   542→                    val distance = thePlayer.getDistanceToEntityBox(entity)
+   543→
+   544→                    if (entity is EntityLivingBase && isEnemy(entity) && distance <= getRange(entity)) {
+   545→                        attackEntity(entity, isLastClick)
+   546→
+   547→                        targets += 1
+   548→
+   549→                        if (limitedMultiTargets != 0 && limitedMultiTargets <= targets) break
+   550→                    }
+   551→                }
+   552→            }
+   553→
+   554→            prevTargetEntities += currentTarget.entityId
+   555→
+   556→            if (target == currentTarget) this.target = null
+   557→        }
+   558→
+   559→        if (targetMode.equals("Switch", ignoreCase = true) && attackTimer.hasTimePassed(switchDelay)) {
+   560→            if (switchDelay != 0L) {
+   561→                prevTargetEntities += currentTarget.entityId
+   562→                attackTimer.reset()
+   563→            }
+   564→        }
+   565→
+   566→        // Open inventory
+   567→        if (manipulateInventory) serverOpenInventory = true
+   568→    }
+   569→
+   570→    /**
+   571→     * Update current target
+   572→     */
+   573→    private fun updateTarget() {
+   574→        if (!onScaffold && Scaffold.state)
+   575→            return
+   576→
+   577→        if (!onDestroyBlock && mc.playerController.isHittingBlock)
+   578→            return
+   579→
+   580→        // Reset fixed target to null
+   581→        target = null
+   582→
+   583→        // Settings
+   584→        val fov = fov
+   585→        val switchMode = targetMode == "Switch"
+   586→
+   587→        // Find possible targets
+   588→        val targets = mutableListOf<EntityLivingBase>()
+   589→
+   590→        val theWorld = mc.theWorld
+   591→        val thePlayer = mc.thePlayer
+   592→
+   593→        for (entity in theWorld.loadedEntityList) {
+   594→            if (entity !is EntityLivingBase || !isEnemy(entity) || (switchMode && entity.entityId in prevTargetEntities)) continue
+   595→
+   596→            var distance = thePlayer.getDistanceToEntityBox(entity)
+   597→
+   598→            if (Backtrack.handleEvents()) {
+   599→                val trackedDistance = Backtrack.getNearestTrackedDistance(entity)
+   600→
+   601→                if (distance > trackedDistance) {
+   602→                    distance = trackedDistance
+   603→                }
+   604→            }
+   605→
+   606→            val entityFov = getRotationDifference(entity)
+   607→
+   608→            if (distance <= maxRange && (fov == 180F || entityFov <= fov)) {
+   609→                if (switchMode && isLookingOnEntities(entity, maxSwitchFOV) || !switchMode) {
+   610→                    targets += entity
+   611→                }
+   612→            }
+   613→        }
+   614→
+   615→        // Sort targets by priority
+   616→        when (priority.lowercase()) {
+   617→            "distance" -> {
+   618→                targets.sortBy {
+   619→                    var result = 0.0
+   620→
+   621→                    Backtrack.runWithNearestTrackedDistance(it) {
+   622→                        result = thePlayer.getDistanceToEntityBox(it) // Sort by distance
+   623→                    }
+   624→
+   625→                    result
+   626→                }
+   627→            }
+   628→
+   629→            "direction" -> targets.sortBy {
+   630→                var result = 0f
+   631→
+   632→                Backtrack.runWithNearestTrackedDistance(it) {
+   633→                    result = getRotationDifference(it) // Sort by FOV
+   634→                }
+   635→
+   636→                result
+   637→            }
+   638→
+   639→            "health" -> targets.sortBy { it.health } // Sort by health
+   640→            "livingtime" -> targets.sortBy { -it.ticksExisted } // Sort by existence
+   641→            "armor" -> targets.sortBy { it.totalArmorValue } // Sort by armor
+   642→            "hurtresistance" -> targets.sortBy { it.hurtResistantTime } // Sort by armor hurt time
+   643→            "hurttime" -> targets.sortBy { it.hurtTime } // Sort by hurt time
+   644→            "healthabsorption" -> targets.sortBy { it.health + it.absorptionAmount } // Sort by full health with absorption effect
+   645→            "regenamplifier" -> targets.sortBy {
+   646→                if (it.isPotionActive(Potion.regeneration)) it.getActivePotionEffect(
+   647→                    Potion.regeneration
+   648→                ).amplifier else -1
+   649→            }
+   650→        }
+   651→
+   652→        // Find best target
+   653→        for (entity in targets) {
+   654→            // Update rotations to current target
+   655→            var success = false
+   656→
+   657→            Backtrack.runWithNearestTrackedDistance(entity) {
+   658→                success = updateRotations(entity)
+   659→            }
+   660→
+   661→            if (!success) {
+   662→                // when failed then try another target
+   663→                continue
+   664→            }
+   665→
+   666→            // Set target to current entity
+   667→            target = entity
+   668→            return
+   669→        }
+   670→
+   671→        // Cleanup last targets when no target found and try again
+   672→        if (prevTargetEntities.isNotEmpty()) {
+   673→            prevTargetEntities.clear()
+   674→            updateTarget()
+   675→        }
+   676→    }
+   677→
+   678→    /**
+   679→     * Check if [entity] is selected as enemy with current target options and other modules
+   680→     */
+   681→    private fun isEnemy(entity: Entity?): Boolean {
+   682→        if (entity is FakePlayer) {
+   683→            return false
+   684→        }
+   685→
+   686→        if (entity is EntityLivingBase && (Dead.state || isAlive(entity)) && entity != mc.thePlayer) {
+   687→            if (!Invisible.state && entity.isInvisible) return false
+   688→
+   689→            if (Players.state && entity is EntityPlayer) {
+   690→                if (entity.isSpectator || isBot(entity)) return false
+   691→
+   692→                if (entity.isClientFriend && !Friends.handleEvents()) return false
+   693→
+   694→                return !Teams.handleEvents() || !Teams.isInYourTeam(entity)
+   695→            }
+   696→
+   697→            return Mobs.state && entity.isMob || Animals.state && entity.isAnimal
+   698→        }
+   699→
+   700→        return false
+   701→    }
+   702→
+   703→    /**
+   704→     * Attack [entity]
+   705→     */
+   706→    private fun attackEntity(entity: EntityLivingBase, isLastClick: Boolean) {
+   707→        // Stop blocking
+   708→        val thePlayer = mc.thePlayer
+   709→
+   710→        if (!onScaffold && Scaffold.state)
+   711→            return
+   712→
+   713→        if ((thePlayer.isBlocking || renderBlocking) && (autoBlock == "Off" && blockStatus || autoBlock == "Packet" && releaseAutoBlock)) {
+   714→            stopBlocking()
+   715→
+   716→            if (!ignoreTickRule || autoBlock == "Off") {
+   717→                return
+   718→            }
+   719→        }
+   720→
+   721→        // The function is only called when we are facing an entity
+   722→        if (shouldDelayClick(MovingObjectPosition.MovingObjectType.ENTITY)) {
+   723→            return
+   724→        }
+   725→
+   726→        // Call attack event
+   727→        callEvent(AttackEvent(entity))
+   728→
+   729→        // Attack target
+   730→        mc.thePlayer.swing(swing)
+   731→
+   732→        sendPacket(C02PacketUseEntity(entity, ATTACK))
+   733→
+   734→        if (mc.playerController.currentGameType != WorldSettings.GameType.SPECTATOR)
+   735→            thePlayer.attackTargetEntityWithCurrentItem(entity)
+   736→
+   737→        // FakeSharp
+   738→        if (EnchantmentHelper.getModifierForCreature(thePlayer.heldItem, entity.creatureAttribute) <= 0f && fakeSharp)
+   739→            thePlayer.onEnchantmentCritical(entity)
+   740→
+   741→        CPSCounter.registerClick(CPSCounter.MouseButton.LEFT)
+   742→
+   743→        // Start blocking after attack
+   744→        if (autoBlock != "Off" && (thePlayer.isBlocking || canBlock) && isLastClick) {
+   745→            startBlocking(entity, interactAutoBlock, autoBlock == "Fake")
+   746→        }
+   747→
+   748→        resetLastAttackedTicks()
+   749→    }
+   750→
+   751→    /**
+   752→     * Update killaura rotations to enemy
+   753→     */
+   754→    private fun updateRotations(entity: Entity): Boolean {
+   755→        val player = mc.thePlayer ?: return false
+   756→
+   757→        if (!onScaffold && Scaffold.state)
+   758→            return false
+   759→
+   760→        if (!onDestroyBlock && mc.playerController.isHittingBlock)
+   761→            return false
+   762→
+   763→        val (predictX, predictY, predictZ) = entity.currPos.subtract(entity.prevPos)
+   764→            .times(2 + predictEnemyPosition)
+   765→
+   766→        val boundingBox = entity.hitBox.offset(predictX, predictY, predictZ)
+   767→        val (currPos, oldPos) = player.currPos to player.prevPos
+   768→
+   769→        val simPlayer = SimulatedPlayer.fromClientPlayer(player.movementInput)
+   770→
+   771→        repeat(predictClientMovement + 1) {
+   772→            simPlayer.tick()
+   773→        }
+   774→
+   775→        player.setPosAndPrevPos(simPlayer.pos)
+   776→
+   777→        val rotation = searchCenter(
+   778→            boundingBox,
+   779→            outborder && !attackTimer.hasTimePassed(attackDelay / 2),
+   780→            randomCenter,
+   781→            gaussianOffset = this.gaussianOffset,
+   782→            predict = false,
+   783→            lookRange = range.toFloat() + scanRange.toFloat(),
+   784→            attackRange = range.toFloat(),
+   785→            throughWallsRange = throughWallsRange.toFloat()
+   786→        )
+   787→
+   788→        if (rotation == null) {
+   789→            player.setPosAndPrevPos(currPos, oldPos)
+   790→
+   791→            return false
+   792→        }
+   793→
+   794→        // Get our current rotation. Otherwise, player rotation.
+   795→        val currentRotation = currentRotation ?: player.rotation
+   796→
+   797→        var limitedRotation = limitAngleChange(
+   798→            currentRotation,
+   799→            rotation,
+   800→            nextFloat(minTurnSpeed, maxTurnSpeed),
+   801→            smootherMode
+   802→        )
+   803→
+   804→        if (micronized) {
+   805→            // Is player facing the entity with current rotation?
+   806→            if (isRotationFaced(entity, maxRange, currentRotation)) {
+   807→                // Limit angle change but this time modify the turn speed.
+   808→                limitedRotation = limitAngleChange(
+   809→                    currentRotation, rotation,
+   810→                    nextFloat(endInclusive = micronizedStrength)
+   811→                )
+   812→            }
+   813→        }
+   814→
+   815→        if (silentRotation) {
+   816→            setTargetRotation(
+   817→                limitedRotation,
+   818→                keepRotationTicks,
+   819→                !(!silentRotation || rotationStrafe == "Off"),
+   820→                rotationStrafe == "Strict",
+   821→                minTurnSpeed to maxTurnSpeed,
+   822→                angleThresholdUntilReset,
+   823→                smootherMode
+   824→            )
+   825→        } else {
+   826→            limitedRotation.toPlayer(player)
+   827→        }
+   828→
+   829→        player.setPosAndPrevPos(currPos, oldPos)
+   830→
+   831→        return true
+   832→    }
+   833→
+   834→    /**
+   835→     * Check if enemy is hittable with current rotations
+   836→     */
+   837→    private fun updateHittable() {
+   838→        val eyes = mc.thePlayer.eyes
+   839→
+   840→        val currentRotation = currentRotation ?: mc.thePlayer.rotation
+   841→        val target = this.target ?: return
+   842→
+   843→        if (!onScaffold && Scaffold.state)
+   844→            return
+   845→
+   846→        if (!onDestroyBlock && mc.playerController.isHittingBlock)
+   847→            return
+   848→
+   849→        var chosenEntity: Entity? = null
+   850→
+   851→        if (raycast) {
+   852→            chosenEntity = raycastEntity(
+   853→                range,
+   854→                currentRotation.yaw,
+   855→                currentRotation.pitch
+   856→            ) { entity -> !livingRaycast || entity is EntityLivingBase && entity !is EntityArmorStand }
+   857→
+   858→            if (chosenEntity != null && chosenEntity is EntityLivingBase && (Friends.handleEvents() || !(chosenEntity is EntityPlayer && chosenEntity.isClientFriend))) {
+   859→                if (raycastIgnored && target != chosenEntity) {
+   860→                    this.target = chosenEntity
+   861→                }
+   862→            }
+   863→
+   864→            hittable = this.target == chosenEntity
+   865→        } else {
+   866→            hittable = isRotationFaced(target, range, currentRotation)
+   867→        }
+   868→
+   869→        if (!hittable) {
+   870→            return
+   871→        }
+   872→
+   873→        val targetToCheck = chosenEntity ?: this.target ?: return
+   874→
+   875→        // If player is inside entity, automatic yes because the intercept below cannot check for that
+   876→        // Minecraft does the same, see #EntityRenderer line 353
+   877→        if (targetToCheck.hitBox.isVecInside(eyes)) {
+   878→            return
+   879→        }
+   880→
+   881→        var checkNormally = true
+   882→
+   883→        if (Backtrack.handleEvents()) {
+   884→            Backtrack.loopThroughBacktrackData(targetToCheck) {
+   885→                if (targetToCheck.hitBox.isVecInside(eyes)) {
+   886→                    checkNormally = false
+   887→                    return@loopThroughBacktrackData true
+   888→                }
+   889→
+   890→                // Recreate raycast logic
+   891→                val intercept = targetToCheck.hitBox.calculateIntercept(
+   892→                    eyes,
+   893→                    eyes + getVectorForRotation(currentRotation) * range
+   894→                )
+   895→
+   896→                if (intercept != null) {
+   897→                    // Is the entity box raycast vector visible? If not, check through-wall range
+   898→                    hittable =
+   899→                        isVisible(intercept.hitVec) || mc.thePlayer.getDistanceToEntityBox(targetToCheck) <= throughWallsRange
+   900→
+   901→                    if (hittable) {
+   902→                        checkNormally = false
+   903→                        return@loopThroughBacktrackData true
+   904→                    }
+   905→                }
+   906→
+   907→                return@loopThroughBacktrackData false
+   908→            }
+   909→        }
+   910→
+   911→        if (!checkNormally) {
+   912→            return
+   913→        }
+   914→
+   915→        // Recreate raycast logic
+   916→        val intercept = targetToCheck.hitBox.calculateIntercept(
+   917→            eyes,
+   918→            eyes + getVectorForRotation(currentRotation) * range
+   919→        )
+   920→
+   921→        // Is the entity box raycast vector visible? If not, check through-wall range
+   922→        hittable =
+   923→            isVisible(intercept.hitVec) || mc.thePlayer.getDistanceToEntityBox(targetToCheck) <= throughWallsRange
+   924→    }
+   925→
+   926→    /**
+   927→     * Start blocking
+   928→     */
+   929→    private fun startBlocking(interactEntity: Entity, interact: Boolean, fake: Boolean = false) {
+   930→        if (blockStatus && !uncpAutoBlock)
+   931→            return
+   932→
+   933→        if (!onScaffold && Scaffold.state)
+   934→            return
+   935→
+   936→        if (!onDestroyBlock && mc.playerController.isHittingBlock)
+   937→            return
+   938→
+   939→        if (mc.thePlayer.isBlocking) {
+   940→            blockStatus = true
+   941→            renderBlocking = true
+   942→            return
+   943→        }
+   944→
+   945→        if (!fake) {
+   946→            if (!(blockRate > 0 && nextInt(endExclusive = 100) <= blockRate)) return
+   947→
+   948→            if (interact) {
+   949→                val positionEye = mc.thePlayer.eyes
+   950→
+   951→                val boundingBox = interactEntity.hitBox
+   952→
+   953→                val (yaw, pitch) = currentRotation ?: mc.thePlayer.rotation
+   954→
+   955→                val vec = getVectorForRotation(Rotation(yaw, pitch))
+   956→
+   957→                val lookAt = positionEye.add(vec * maxRange)
+   958→
+   959→                val movingObject = boundingBox.calculateIntercept(positionEye, lookAt) ?: return
+   960→                val hitVec = movingObject.hitVec
+   961→
+   962→                sendPackets(
+   963→                    C02PacketUseEntity(interactEntity, hitVec - interactEntity.positionVector),
+   964→                    C02PacketUseEntity(interactEntity, INTERACT)
+   965→                )
+   966→
+   967→            }
+   968→
+   969→            if (switchStartBlock) {
+   970→                InventoryUtils.serverSlot = (InventoryUtils.serverSlot + 1) % 9
+   971→                InventoryUtils.serverSlot = mc.thePlayer.inventory.currentItem
+   972→            }
+   973→
+   974→            sendPacket(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+   975→            blockStatus = true
+   976→        }
+   977→
+   978→        renderBlocking = true
+   979→
+   980→        CPSCounter.registerClick(CPSCounter.MouseButton.RIGHT)
+   981→    }
+   982→
+   983→    /**
+   984→     * Stop blocking
+   985→     */
+   986→    private fun stopBlocking() {
+   987→        if (blockStatus && !mc.thePlayer.isBlocking) {
+   988→            sendPacket(C07PacketPlayerDigging(RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
+   989→            blockStatus = false
+   990→        }
+   991→
+   992→        renderBlocking = false
+   993→    }
+   994→
+   995→    /**
+   996→     * Check if raycast landed on a different object
+   997→     *
+   998→     * The game requires at least 1 tick of cooldown on raycast object type change (miss, block, entity)
+   999→     * We are doing the same thing here but allow more cool down.
+  1000→     */
+  1001→    private fun shouldDelayClick(type: MovingObjectPosition.MovingObjectType): Boolean {
+  1002→        if (!useHitDelay) {
+  1003→            return false
+  1004→        }
+  1005→
+  1006→        val lastAttack = attackTickTimes.lastOrNull()
+  1007→
+  1008→        return lastAttack != null && lastAttack.first.typeOfHit != type && runTimeTicks - lastAttack.second <= hitDelayTicks
+  1009→    }
+  1010→
+  1011→    /**
+  1012→     * Check if run should be cancelled
+  1013→     */
+  1014→    private val cancelRun
+  1015→        inline get() = mc.thePlayer.isSpectator || !isAlive(mc.thePlayer) || FreeCam.handleEvents() || (noConsumeAttack == "NoRotation" && isConsumingItem)
+  1016→
+  1017→    /**
+  1018→     * Check if [entity] is alive
+  1019→     */
+  1020→    private fun isAlive(entity: EntityLivingBase) = entity.isEntityAlive && entity.health > 0
+  1021→
+  1022→    /**
+  1023→     * Check if player is able to block
+  1024→     */
+  1025→    private val canBlock: Boolean
+  1026→        get() {
+  1027→            if (target != null && mc.thePlayer?.heldItem?.item is ItemSword) {
+  1028→                if (smartAutoBlock) {
+  1029→                    if (!isMoving && forceBlock) return true
+  1030→
+  1031→                    if (checkWeapon && (target!!.heldItem?.item !is ItemSword && target!!.heldItem?.item !is ItemAxe))
+  1032→                        return false
+  1033→
+  1034→                    if (mc.thePlayer.hurtTime > maxOwnHurtTime) return false
+  1035→
+  1036→                    val rotationToPlayer = toRotation(mc.thePlayer.hitBox.center, true, target!!)
+  1037→
+  1038→                    if (getRotationDifference(rotationToPlayer, target!!.rotation) > maxDirectionDiff)
+  1039→                        return false
+  1040→
+  1041→                    if (target!!.swingProgressInt > maxSwingProgress) return false
+  1042→
+  1043→                    if (target!!.getDistanceToEntityBox(mc.thePlayer) > blockRange) return false
+  1044→                }
+  1045→
+  1046→                return true
+  1047→            }
+  1048→
+  1049→            return false
+  1050→        }
+  1051→
+  1052→    /**
+  1053→     * Range
+  1054→     */
+  1055→    private val maxRange
+  1056→        get() = max(range + scanRange, throughWallsRange)
+  1057→
+  1058→    private fun getRange(entity: Entity) =
+  1059→        (if (mc.thePlayer.getDistanceToEntityBox(entity) >= throughWallsRange) range + scanRange else throughWallsRange) - if (mc.thePlayer.isSprinting) rangeSprintReduction else 0.0
+  1060→
+  1061→    /**
+  1062→     * HUD Tag
+  1063→     */
+  1064→    override val tag
+  1065→        get() = targetMode
+  1066→
+  1067→    val isBlockingChestAura
+  1068→        get() = handleEvents() && target != null
+  1069→}
+  1070→

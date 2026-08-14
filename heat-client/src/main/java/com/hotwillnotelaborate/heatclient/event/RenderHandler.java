@@ -1,5 +1,6 @@
 package com.hotwillnotelaborate.heatclient.event;
 
+import com.hotwillnotelaborate.heatclient.event.PacketHandler;
 import com.hotwillnotelaborate.heatclient.command.*;
 import com.hotwillnotelaborate.heatclient.util.McHelper;
 import com.hotwillnotelaborate.heatclient.util.ReflectionUtil;
@@ -8,6 +9,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -27,6 +29,8 @@ public class RenderHandler {
     public static boolean nametags = false;
     public static boolean blockOverlay = false;
     public static boolean breadcrumbs = false;
+    public static boolean itemESP = false;
+    public static boolean storageESP = false;
     private static final LinkedList<double[]> crumbTrail = new LinkedList<double[]>();
     private static final int MAX_CRUMBS = 500;
     private static int crumbTimer = 0;
@@ -47,6 +51,8 @@ public class RenderHandler {
         if (nametags) drawNametags(mc, camX, camY, camZ);
         if (blockOverlay) drawBlockOverlay(mc);
         if (breadcrumbs) drawBreadcrumbs(mc);
+        if (itemESP) drawItemESP(mc);
+        if (storageESP) drawStorageESP(mc);
         GlStateManager.popMatrix();
     }
 
@@ -122,8 +128,8 @@ public class RenderHandler {
     private void drawNametags(Minecraft mc, double camX, double camY, double camZ) {
         FontRenderer fr = McHelper.getFontRenderer();
         if (fr == null) return;
-        double playerYaw = Math.toRadians(McHelper.getFloat(mc.getRenderManager(), McHelper.RM_PLAYER_YAW));
-        double playerPitch = Math.toRadians(McHelper.getFloat(mc.getRenderManager(), McHelper.RM_PLAYER_PITCH));
+        double playerYaw = Math.toRadians(McHelper.getYaw(mc.thePlayer));
+        double playerPitch = Math.toRadians(McHelper.getPitch(mc.thePlayer));
         GlStateManager.disableDepth();
         GlStateManager.disableLighting();
         for (Entity e : McHelper.getLoadedEntities(mc.theWorld)) {
@@ -205,6 +211,56 @@ public class RenderHandler {
         GL11.glEnable(GL11.GL_LIGHTING);
     }
 
+    private void drawItemESP(Minecraft mc) {
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glLineWidth(1.5f);
+        for (Entity e : McHelper.getLoadedEntities(mc.theWorld)) {
+            if (!(e instanceof EntityItem)) continue;
+            if (mc.thePlayer.getDistanceToEntity(e) > renderRange) continue;
+            double x = McHelper.getPosX(e) - 0.15, y = McHelper.getPosY(e) - 0.05, z = McHelper.getPosZ(e) - 0.15;
+            GlStateManager.color(1.0f, 0.8f, 0.2f, 0.5f);
+            drawOutlinedBox(x, y, z, x + 0.3, y + 0.3, z + 0.3);
+        }
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_LIGHTING);
+    }
+
+    private void drawStorageESP(Minecraft mc) {
+        try {
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+            GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glLineWidth(1.5f);
+            java.util.List teList = (java.util.List) McHelper.WORLD_LOADED_TILE_ENTITY_LIST.get(mc.theWorld);
+            double px = McHelper.getPosX(mc.thePlayer);
+            double py = McHelper.getPosY(mc.thePlayer);
+            double pz = McHelper.getPosZ(mc.thePlayer);
+            for (Object te : teList) {
+                net.minecraft.tileentity.TileEntity tile = (net.minecraft.tileentity.TileEntity) te;
+                double dx = tile.getPos().getX() + 0.5 - px;
+                double dy = tile.getPos().getY() + 0.5 - py;
+                double dz = tile.getPos().getZ() + 0.5 - pz;
+                if (dx * dx + dy * dy + dz * dz > renderRange * renderRange) continue;
+                float r = 1, g = 1, b = 1;
+                if (tile instanceof net.minecraft.tileentity.TileEntityFurnace) { r = 1; g = 0.6f; b = 0; }
+                else if (tile instanceof net.minecraft.tileentity.TileEntityChest) { r = 1; g = 1; b = 0; }
+                else if (tile instanceof net.minecraft.tileentity.TileEntityEnderChest) { r = 0.6f; g = 0.2f; b = 1; }
+                else if (tile instanceof net.minecraft.tileentity.TileEntityHopper) { r = 0.5f; g = 0.5f; b = 0.5f; }
+                else if (tile instanceof net.minecraft.tileentity.TileEntityBrewingStand) { r = 0.2f; g = 0.4f; b = 1; }
+                else continue;
+                double bx = tile.getPos().getX(), by = tile.getPos().getY(), bz = tile.getPos().getZ();
+                GlStateManager.color(r, g, b, 0.5f);
+                drawOutlinedBox(bx, by, bz, bx + 1, by + 1, bz + 1);
+            }
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
+            GL11.glEnable(GL11.GL_LIGHTING);
+        } catch (Exception ignored) {}
+    }
+
     private void drawHUD(Minecraft mc) {
         List<String> active = new ArrayList<String>();
         if (CommandFly.isFlying())
@@ -226,7 +282,25 @@ public class RenderHandler {
         if (esp) active.add(EnumChatFormatting.AQUA + "ESP");
         if (nametags) active.add(EnumChatFormatting.AQUA + "NameTags");
         if (blockOverlay) active.add(EnumChatFormatting.AQUA + "BlockOverlay");
+        if (itemESP) active.add(EnumChatFormatting.AQUA + "ItemESP");
+        if (storageESP) active.add(EnumChatFormatting.AQUA + "StorageESP");
         if (breadcrumbs) active.add(EnumChatFormatting.AQUA + "Breadcrumbs");
+        if (TickHandler.noBob) active.add(EnumChatFormatting.YELLOW + "NoBob");
+        if (TickHandler.inventoryWalk) active.add(EnumChatFormatting.YELLOW + "InventoryWalk");
+        if (TickHandler.autoBow) active.add(EnumChatFormatting.YELLOW + "AutoBow");
+        if (TickHandler.timer) active.add(EnumChatFormatting.YELLOW + "Timer" + EnumChatFormatting.GRAY + " " + TickHandler.getTimerSpeed() + "x");
+        if (PacketHandler.velocity) active.add(EnumChatFormatting.RED + "Velocity");
+        if (PacketHandler.noFall) active.add(EnumChatFormatting.RED + "NoFall");
+        if (PacketHandler.blink) active.add(EnumChatFormatting.RED + "Blink" + EnumChatFormatting.GRAY + " [" + PacketHandler.getBlinkQueueSize() + "]");
+        if (CombatHandler.criticals) active.add(EnumChatFormatting.RED + "Criticals");
+        if (CombatHandler.superKnockback) active.add(EnumChatFormatting.RED + "SuperKB");
+        if (TickHandler.fastUse) active.add(EnumChatFormatting.YELLOW + "FastUse");
+        if (TickHandler.fastBreak) active.add(EnumChatFormatting.YELLOW + "FastBreak");
+        if (PlayerHandler.autoTool) active.add(EnumChatFormatting.YELLOW + "AutoTool");
+        if (TickHandler.noHurtCam) active.add(EnumChatFormatting.YELLOW + "NoHurtCam");
+        if (TickHandler.antiBlind) active.add(EnumChatFormatting.YELLOW + "AntiBlind");
+        if (PacketHandler.antiExploit) active.add(EnumChatFormatting.YELLOW + "AntiExploit");
+        if (PacketHandler.noSwing) active.add(EnumChatFormatting.YELLOW + "NoSwing");
         if (active.isEmpty()) return;
         FontRenderer fr = mc.fontRendererObj;
         int x = mc.displayWidth - 4, y = 4;

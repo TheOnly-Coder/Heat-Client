@@ -1,5 +1,8 @@
 package com.hotwillnotelaborate.heatclient.command;
 
+import com.hotwillnotelaborate.heatclient.event.PacketHandler;
+import com.hotwillnotelaborate.heatclient.event.CombatHandler;
+import com.hotwillnotelaborate.heatclient.event.PlayerHandler;
 import com.hotwillnotelaborate.heatclient.HeatClient;
 import com.hotwillnotelaborate.heatclient.event.RenderHandler;
 import com.hotwillnotelaborate.heatclient.event.TickHandler;
@@ -52,7 +55,25 @@ public class CommandActive implements Command {
         if (RenderHandler.esp) active.add(EnumChatFormatting.GREEN + "ESP");
         if (RenderHandler.nametags) active.add(EnumChatFormatting.GREEN + "NameTags");
         if (RenderHandler.blockOverlay) active.add(EnumChatFormatting.GREEN + "BlockOverlay");
+        if (RenderHandler.itemESP) active.add(EnumChatFormatting.GREEN + "ItemESP");
+        if (RenderHandler.storageESP) active.add(EnumChatFormatting.GREEN + "StorageESP");
         if (RenderHandler.breadcrumbs) active.add(EnumChatFormatting.GREEN + "Breadcrumbs");
+        if (TickHandler.noBob) active.add(EnumChatFormatting.GREEN + "NoBob");
+        if (TickHandler.inventoryWalk) active.add(EnumChatFormatting.GREEN + "InventoryWalk");
+        if (TickHandler.autoBow) active.add(EnumChatFormatting.GREEN + "AutoBow");
+        if (TickHandler.timer) active.add(EnumChatFormatting.GREEN + "Timer" + EnumChatFormatting.GRAY + " (" + TickHandler.getTimerSpeed() + "x)");
+        if (PacketHandler.velocity) active.add(EnumChatFormatting.GREEN + "Velocity");
+        if (PacketHandler.noFall) active.add(EnumChatFormatting.GREEN + "NoFall");
+        if (PacketHandler.blink) active.add(EnumChatFormatting.GREEN + "Blink [" + PacketHandler.getBlinkQueueSize() + "]");
+        if (CombatHandler.criticals) active.add(EnumChatFormatting.GREEN + "Criticals");
+        if (CombatHandler.superKnockback) active.add(EnumChatFormatting.GREEN + "SuperKnockback");
+        if (TickHandler.fastUse) active.add(EnumChatFormatting.GREEN + "FastUse");
+        if (TickHandler.fastBreak) active.add(EnumChatFormatting.GREEN + "FastBreak");
+        if (PlayerHandler.autoTool) active.add(EnumChatFormatting.GREEN + "AutoTool");
+        if (TickHandler.noHurtCam) active.add(EnumChatFormatting.GREEN + "NoHurtCam");
+        if (TickHandler.antiBlind) active.add(EnumChatFormatting.GREEN + "AntiBlind");
+        if (PacketHandler.antiExploit) active.add(EnumChatFormatting.GREEN + "AntiExploit");
+        if (PacketHandler.noSwing) active.add(EnumChatFormatting.GREEN + "NoSwing");
 
         mc.thePlayer.addChatMessage(new ChatComponentText(
                 EnumChatFormatting.GOLD + "" + EnumChatFormatting.BOLD + "=== Active Modules ==="));

@@ -25,7 +25,7 @@ public class TickHandler {
     private static final Random RAND = new Random();
 
     public static boolean fullbright = false;
-    private static float savedGamma = 0;
+    public static float savedGamma = 0;
     public static boolean antiAFK = false;
     private static int afkTimer = 0;
     public static boolean autoRespawn = false;
@@ -44,10 +44,21 @@ public class TickHandler {
     private static int nukerDelay = 0;
     public static boolean chestStealer = false;
     private static int stealerTimer = 0;
+    public static boolean noBob = false;
+    public static boolean inventoryWalk = false;
+    public static boolean autoBow = false;
+    public static boolean timer = false;
+    private static float timerSpeed = 2.0f;
+    public static boolean fastUse = false;
+    public static boolean fastBreak = false;
+    public static boolean noHurtCam = false;
+    public static boolean antiBlind = false;
 
     public static void setCps(int min, int max) { cpsMin = Math.max(1, min); cpsMax = Math.max(1, max); }
     public static int[] getCps() { return new int[]{cpsMin, cpsMax}; }
     public static void setNukerRange(float r) { nukerRange = Math.max(1, Math.min(6, r)); }
+    public static void setTimerSpeed(float s) { timerSpeed = Math.max(0.1f, Math.min(20f, s)); }
+    public static float getTimerSpeed() { return timerSpeed; }
     public static void resetAfkTimer() { afkTimer = 0; }
     public static void resetSpamTimer() { spamTimer = 0; }
 
@@ -68,6 +79,14 @@ public class TickHandler {
         if (fastPlace) doFastPlace(mc);
         if (nuker) doNuker(mc);
         if (chestStealer) doChestStealer(mc);
+        if (noBob) doNoBob(mc);
+        if (inventoryWalk) doInventoryWalk(mc);
+        if (autoBow) doAutoBow(mc);
+        if (timer) doTimer(mc);
+        if (fastUse) doFastUse(mc);
+        if (fastBreak) doFastBreak(mc);
+        if (noHurtCam) doNoHurtCam(mc);
+        if (antiBlind) doAntiBlind(mc);
     }
 
     private void doFullbright(Minecraft mc) {
@@ -192,6 +211,94 @@ public class TickHandler {
                 return;
             }
             mc.thePlayer.closeScreen();
+        } catch (Exception ignored) {}
+    }
+
+    private void doNoBob(Minecraft mc) {
+        try {
+            McHelper.DISTANCE_WALKED_MODIFIED.setFloat(mc.thePlayer, 0f);
+        } catch (Exception ignored) {}
+    }
+
+    private void doInventoryWalk(Minecraft mc) {
+        if (mc.currentScreen == null) return;
+        try {
+            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindForward, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindForward.getKeyCode()));
+            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindBack, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindBack.getKeyCode()));
+            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindLeft, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindLeft.getKeyCode()));
+            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindRight, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindRight.getKeyCode()));
+            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindJump, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode()));
+            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindSprint, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindSprint.getKeyCode()));
+        } catch (Exception ignored) {}
+    }
+
+    private void doAutoBow(Minecraft mc) {
+        try {
+            if (!mc.thePlayer.isUsingItem()) return;
+            if (mc.thePlayer.getHeldItem() == null) return;
+            if (mc.thePlayer.getHeldItem().getItem() != net.minecraft.init.Items.bow) return;
+            if (mc.thePlayer.getItemInUseDuration() < 20) return;
+            mc.thePlayer.stopUsingItem();
+            mc.thePlayer.sendQueue.addToSendQueue(new net.minecraft.network.play.client.C07PacketPlayerDigging(
+                    net.minecraft.network.play.client.C07PacketPlayerDigging.Action.RELEASE_USE_ITEM,
+                    net.minecraft.util.BlockPos.ORIGIN, net.minecraft.util.EnumFacing.UP));
+        } catch (Exception ignored) {}
+    }
+
+    private void doTimer(Minecraft mc) {
+        try {
+            net.minecraft.util.Timer t = McHelper.getTimer(mc);
+            if (t != null) t.timerSpeed = timerSpeed;
+        } catch (Exception ignored) {}
+    }
+
+    public static void disableTimer(Minecraft mc) {
+        try {
+            net.minecraft.util.Timer t = McHelper.getTimer(mc);
+            if (t != null) t.timerSpeed = 1.0f;
+        } catch (Exception ignored) {}
+    }
+
+    private void doFastUse(Minecraft mc) {
+        try {
+            if (!mc.thePlayer.isUsingItem()) return;
+            if (mc.thePlayer.getItemInUseDuration() > 14) {
+                for (int i = 0; i < 20; i++) {
+                    mc.thePlayer.sendQueue.addToSendQueue(new net.minecraft.network.play.client.C03PacketPlayer(mc.thePlayer.onGround));
+                }
+                mc.playerController.onStoppedUsingItem(mc.thePlayer);
+            }
+        } catch (Exception ignored) {}
+    }
+
+    private void doFastBreak(Minecraft mc) {
+        try {
+            java.lang.reflect.Field f1 = net.minecraft.client.multiplayer.PlayerControllerMP.class.getDeclaredField("blockHitDelay");
+            f1.setAccessible(true); f1.setInt(mc.playerController, 0);
+            java.lang.reflect.Field f2 = net.minecraft.client.multiplayer.PlayerControllerMP.class.getDeclaredField("curBlockDamageMP");
+            f2.setAccessible(true); float v = f2.getFloat(mc.playerController); if (v > 0.8f) f2.setFloat(mc.playerController, 1.0f);
+        } catch (Exception ignored) {}
+    }
+
+    private static java.lang.reflect.Field camZoomField, camYawField;
+    static {
+        try {
+            camZoomField = net.minecraft.client.renderer.EntityRenderer.class.getDeclaredField("cameraZoom");
+            camZoomField.setAccessible(true);
+            camYawField = net.minecraft.client.renderer.EntityRenderer.class.getDeclaredField("cameraYaw");
+            camYawField.setAccessible(true);
+        } catch (Exception e) {}
+    }
+    private void doNoHurtCam(Minecraft mc) {
+        try { mc.thePlayer.hurtTime = 0; } catch (Exception ignored) {}
+    }
+
+    private void doAntiBlind(Minecraft mc) {
+        try {
+            if (mc.entityRenderer != null) {
+                if (camZoomField != null) camZoomField.setDouble(mc.entityRenderer, 1.0);
+                if (camYawField != null) camYawField.setDouble(mc.entityRenderer, 0.0);
+            }
         } catch (Exception ignored) {}
     }
 }

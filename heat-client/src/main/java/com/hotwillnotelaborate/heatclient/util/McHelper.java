@@ -6,11 +6,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerSP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.util.AxisAlignedBB;
@@ -45,6 +47,7 @@ public class McHelper {
     // ---- EntityLivingBase fields ----
     public static final Field ELB_HEALTH = ref(EntityLivingBase.class, "field_70162_ad", "health");
     public static final Field ELB_MOVE_FORWARD = ref(EntityLivingBase.class, "field_70701_bs", "moveForward");
+    public static final Field DISTANCE_WALKED_MODIFIED = ref(EntityLivingBase.class, "field_70708_bq", "distanceWalkedModified");
 
     // ---- Minecraft fields ----
     public static final Field MC_GAME_SETTINGS = ref(Minecraft.class, "field_71474_y", "gameSettings");
@@ -57,6 +60,7 @@ public class McHelper {
     public static final Field MC_FONT_RENDERER = ref(Minecraft.class, "field_71466_p", "fontRendererObj");
     public static final Field MC_DISPLAY_WIDTH = ref(Minecraft.class, "field_146274_m", "displayWidth");
     public static final Field MC_DISPLAY_HEIGHT = ref(Minecraft.class, "field_146275_n", "displayHeight");
+    public static final Field MC_TIMER = ref(Minecraft.class, "field_71428_T", "timer");
 
     // ---- RenderManager fields ----
     public static final Field RM_VIEWER_X = ref(RenderManager.class, "field_78730_l", "viewerPosX");
@@ -68,9 +72,17 @@ public class McHelper {
     // ---- GameSettings fields ----
     public static final Field GS_GAMMA = refCls("net.minecraft.client.settings.GameSettings", "field_74333_Y", "gammaSetting");
     public static final Field GS_FOV = refCls("net.minecraft.client.settings.GameSettings", "field_74340_Q", "fovSetting");
+    public static final Field GS_KEY_BIND_FORWARD = refCls("net.minecraft.client.settings.GameSettings", "field_74313_G", "keyBindForward");
+    public static final Field GS_KEY_BIND_BACK = refCls("net.minecraft.client.settings.GameSettings", "field_74317_K", "keyBindBack");
+    public static final Field GS_KEY_BIND_LEFT = refCls("net.minecraft.client.settings.GameSettings", "field_74314_H", "keyBindLeft");
+    public static final Field GS_KEY_BIND_RIGHT = refCls("net.minecraft.client.settings.GameSettings", "field_74311_E", "keyBindRight");
+    public static final Field GS_KEY_BIND_JUMP = refCls("net.minecraft.client.settings.GameSettings", "field_74315_I", "keyBindJump");
+    public static final Field GS_KEY_BIND_SPRINT = refCls("net.minecraft.client.settings.GameSettings", "field_74312_F", "keyBindSprint");
+    public static final Field KEY_BINDING_PRESSED = refCls("net.minecraft.client.settings.KeyBinding", "field_74513_e", "pressed");
 
     // ---- World fields ----
     public static final Field WORLD_LOADED_ENTITY_LIST = ref(World.class, "field_72996_f", "loadedEntityList");
+    public static final Field WORLD_LOADED_TILE_ENTITY_LIST = ref(World.class, "field_147482_g", "loadedTileEntityList");
 
     // ---- EntityPlayer fields ----
     public static final Field EP_OPEN_CONTAINER = ref(EntityPlayer.class, "field_71070_bA", "openContainer");
@@ -103,12 +115,16 @@ public class McHelper {
                 ENTITY_ROTATION_YAW, ENTITY_ROTATION_PITCH,
                 ENTITY_WIDTH, ENTITY_HEIGHT, ENTITY_IS_DEAD, ENTITY_ON_GROUND,
                 ELB_HEALTH, ELB_MOVE_FORWARD,
+                DISTANCE_WALKED_MODIFIED,
                 MC_GAME_SETTINGS, MC_THE_PLAYER, MC_THE_WORLD,
                 MC_OBJECT_MOUSE_OVER, MC_RENDER_MANAGER, MC_CURRENT_SCREEN,
-                MC_RIGHT_CLICK_DELAY, MC_FONT_RENDERER, MC_DISPLAY_WIDTH, MC_DISPLAY_HEIGHT,
+                MC_RIGHT_CLICK_DELAY, MC_FONT_RENDERER, MC_DISPLAY_WIDTH, MC_DISPLAY_HEIGHT, MC_TIMER,
                 RM_VIEWER_X, RM_VIEWER_Y, RM_VIEWER_Z, RM_PLAYER_YAW, RM_PLAYER_PITCH,
                 GS_GAMMA, GS_FOV,
-                WORLD_LOADED_ENTITY_LIST,
+                GS_KEY_BIND_FORWARD, GS_KEY_BIND_BACK, GS_KEY_BIND_LEFT,
+                GS_KEY_BIND_RIGHT, GS_KEY_BIND_JUMP, GS_KEY_BIND_SPRINT,
+                KEY_BINDING_PRESSED,
+                WORLD_LOADED_ENTITY_LIST, WORLD_LOADED_TILE_ENTITY_LIST,
                 EP_OPEN_CONTAINER,
                 MOP_TYPE_OF_HIT, MOP_BLOCK_POS, MOP_ENTITY_HIT
         }) { f.setAccessible(true); }
@@ -144,7 +160,10 @@ public class McHelper {
     public static boolean isInWater(Entity e) { return ReflectionUtil.invoke(e, ENTITY_IS_IN_WATER); }
     public static float getEyeHeight(Entity e) { return ReflectionUtil.invoke(e, ENTITY_GET_EYE_HEIGHT); }
     public static float getHealth(EntityLivingBase e) { return ReflectionUtil.getFloat(e, ELB_HEALTH); }
-    public static float getMaxHealth(EntityLivingBase e) { return ReflectionUtil.getFloat(e, ELB_MAX_HEALTH); }
+    public static float getMaxHealth(EntityLivingBase e) {
+        try { return ReflectionUtil.invoke(e, ELB_GET_MAX_HEALTH); }
+        catch (Exception ex) { return 20f; }
+    }
     public static float getMoveForward(EntityLivingBase e) { return ReflectionUtil.getFloat(e, ELB_MOVE_FORWARD); }
     public static void jump(EntityLivingBase e) { ReflectionUtil.invoke(e, ELB_JUMP); }
     public static void setSprinting(EntityPlayerSP e, boolean v) { ReflectionUtil.invoke(e, EPS_SET_SPRINTING, v); }
@@ -166,6 +185,7 @@ public class McHelper {
         try { Method m = Minecraft.class.getDeclaredMethod("func_147116_af"); m.setAccessible(true); m.invoke(mc); }
         catch (Exception ignored) {}
     }
+    public static void setGamma(float v) {
         try {
             Object gs = MC_GAME_SETTINGS.get(mc());
             GS_GAMMA.setFloat(gs, v);
@@ -187,5 +207,17 @@ public class McHelper {
     public static float getFov() {
         try { return GS_FOV.getFloat(MC_GAME_SETTINGS.get(mc())); }
         catch (Exception e) { return 70; }
+    }
+    public static float getFloat(Object obj, java.lang.reflect.Field f) { return ReflectionUtil.getFloat(obj, f); }
+    public static void setKeyBindingPressed(Object keyBinding, boolean pressed) {
+        try { KEY_BINDING_PRESSED.setBoolean(keyBinding, pressed); }
+        catch (Exception ignored) {}
+    }
+    public static net.minecraft.util.IChatComponent getDisplayName(Entity e) {
+        return (net.minecraft.util.IChatComponent) ReflectionUtil.invoke(e, ENTITY_GET_DISPLAY_NAME);
+    }
+    public static net.minecraft.util.Timer getTimer(Minecraft mc) {
+        try { return (net.minecraft.util.Timer) MC_TIMER.get(mc); }
+        catch (Exception e) { return null; }
     }
 }

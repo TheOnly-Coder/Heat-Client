@@ -1,6 +1,9 @@
 package com.hotwillnotelaborate.heatclient.command;
 
 import com.hotwillnotelaborate.heatclient.HeatClient;
+import com.hotwillnotelaborate.heatclient.event.PacketHandler;
+import com.hotwillnotelaborate.heatclient.event.CombatHandler;
+import com.hotwillnotelaborate.heatclient.event.PlayerHandler;
 import com.hotwillnotelaborate.heatclient.event.RenderHandler;
 import com.hotwillnotelaborate.heatclient.event.TickHandler;
 import com.hotwillnotelaborate.heatclient.event.XrayRenderer;
@@ -258,6 +261,105 @@ class CommandBreadcrumbs implements Command {
     }
 }
 
+class CommandNoBob implements Command {
+    @Override public String getName() { return "nobob"; }
+    @Override public String getDescription() { return "Remove view bobbing"; }
+    @Override public String getUsage() { return "!nobob"; }
+    @Override public List<String> getAliases() { return Arrays.asList("antibob"); }
+    @Override public void execute(String[] args) {
+        Minecraft mc = Minecraft.getMinecraft(); if (mc.thePlayer == null) return;
+        TickHandler.noBob = !TickHandler.noBob;
+        mc.thePlayer.addChatMessage(new ChatComponentText(
+                HeatClient.CHAT_PREFIX + EnumChatFormatting.GRAY + "NoBob "
+                        + (TickHandler.noBob ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled")));
+    }
+}
+
+class CommandInventoryWalk implements Command {
+    @Override public String getName() { return "inventorywalk"; }
+    @Override public String getDescription() { return "Move while in inventory/GUI"; }
+    @Override public String getUsage() { return "!inventorywalk"; }
+    @Override public List<String> getAliases() { return Arrays.asList("invwalk"); }
+    @Override public void execute(String[] args) {
+        Minecraft mc = Minecraft.getMinecraft(); if (mc.thePlayer == null) return;
+        TickHandler.inventoryWalk = !TickHandler.inventoryWalk;
+        mc.thePlayer.addChatMessage(new ChatComponentText(
+                HeatClient.CHAT_PREFIX + EnumChatFormatting.GRAY + "InventoryWalk "
+                        + (TickHandler.inventoryWalk ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled")));
+    }
+}
+
+class CommandAutoBow implements Command {
+    @Override public String getName() { return "autobow"; }
+    @Override public String getDescription() { return "Auto-release bow at full charge"; }
+    @Override public String getUsage() { return "!autobow"; }
+    @Override public List<String> getAliases() { return Arrays.asList("bow"); }
+    @Override public void execute(String[] args) {
+        Minecraft mc = Minecraft.getMinecraft(); if (mc.thePlayer == null) return;
+        TickHandler.autoBow = !TickHandler.autoBow;
+        mc.thePlayer.addChatMessage(new ChatComponentText(
+                HeatClient.CHAT_PREFIX + EnumChatFormatting.GRAY + "AutoBow "
+                        + (TickHandler.autoBow ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled")));
+    }
+}
+
+class CommandTimer implements Command {
+    @Override public String getName() { return "timer"; }
+    @Override public String getDescription() { return "Change game tick speed"; }
+    @Override public String getUsage() { return "!timer [speed]"; }
+    @Override public List<String> getAliases() { return Arrays.asList("speed"); }
+    @Override public void execute(String[] args) {
+        Minecraft mc = Minecraft.getMinecraft(); if (mc.thePlayer == null) return;
+        if (args.length >= 1) {
+            try {
+                float s = Float.parseFloat(args[0]);
+                TickHandler.setTimerSpeed(s);
+                if (!TickHandler.timer) TickHandler.timer = true;
+            } catch (NumberFormatException e) {
+                mc.thePlayer.addChatMessage(new ChatComponentText(
+                        HeatClient.CHAT_PREFIX + EnumChatFormatting.RED + "Invalid speed. Use 0.1-20.0."));
+                return;
+            }
+        } else {
+            TickHandler.timer = !TickHandler.timer;
+            if (!TickHandler.timer) TickHandler.disableTimer(mc);
+        }
+        mc.thePlayer.addChatMessage(new ChatComponentText(
+                HeatClient.CHAT_PREFIX + EnumChatFormatting.GRAY + "Timer "
+                        + (TickHandler.timer
+                        ? EnumChatFormatting.GREEN + "enabled" + EnumChatFormatting.GRAY + " (" + TickHandler.getTimerSpeed() + "x)"
+                        : EnumChatFormatting.RED + "disabled")));
+    }
+}
+
+class CommandItemESP implements Command {
+    @Override public String getName() { return "itemesp"; }
+    @Override public String getDescription() { return "Highlight dropped items"; }
+    @Override public String getUsage() { return "!itemesp"; }
+    @Override public List<String> getAliases() { return Arrays.asList("items"); }
+    @Override public void execute(String[] args) {
+        Minecraft mc = Minecraft.getMinecraft(); if (mc.thePlayer == null) return;
+        RenderHandler.itemESP = !RenderHandler.itemESP;
+        mc.thePlayer.addChatMessage(new ChatComponentText(
+                HeatClient.CHAT_PREFIX + EnumChatFormatting.GRAY + "ItemESP "
+                        + (RenderHandler.itemESP ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled")));
+    }
+}
+
+class CommandStorageESP implements Command {
+    @Override public String getName() { return "storageesp"; }
+    @Override public String getDescription() { return "Highlight storage blocks"; }
+    @Override public String getUsage() { return "!storageesp"; }
+    @Override public List<String> getAliases() { return Arrays.asList("storage", "chestesp"); }
+    @Override public void execute(String[] args) {
+        Minecraft mc = Minecraft.getMinecraft(); if (mc.thePlayer == null) return;
+        RenderHandler.storageESP = !RenderHandler.storageESP;
+        mc.thePlayer.addChatMessage(new ChatComponentText(
+                HeatClient.CHAT_PREFIX + EnumChatFormatting.GRAY + "StorageESP "
+                        + (RenderHandler.storageESP ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled")));
+    }
+}
+
 class CommandPanic implements Command {
     @Override public String getName() { return "panic"; }
     @Override public String getDescription() { return "Disable ALL active modules"; }
@@ -277,12 +379,30 @@ class CommandPanic implements Command {
         TickHandler.fastPlace = false;
         TickHandler.nuker = false;
         TickHandler.chestStealer = false;
+        TickHandler.noBob = false;
+        TickHandler.inventoryWalk = false;
+        TickHandler.autoBow = false;
+        if (TickHandler.timer) { TickHandler.timer = false; TickHandler.disableTimer(mc); }
+        TickHandler.fastUse = false;
+        TickHandler.fastBreak = false;
+        TickHandler.noHurtCam = false;
+        TickHandler.antiBlind = false;
+        PacketHandler.velocity = false;
+        PacketHandler.noFall = false;
+        if (PacketHandler.blink) { PacketHandler.blink = false; PacketHandler.clearBlink(); }
+        PacketHandler.antiExploit = false;
+        PacketHandler.noSwing = false;
+        CombatHandler.criticals = false;
+        CombatHandler.superKnockback = false;
+        PlayerHandler.autoTool = false;
         if (CommandFly.isFlying()) { String[] a = {}; new CommandFly().execute(a); }
         XrayRenderer.setEnabled(false);
         RenderHandler.tracers = false;
         RenderHandler.esp = false;
         RenderHandler.nametags = false;
         RenderHandler.blockOverlay = false;
+        RenderHandler.itemESP = false;
+        RenderHandler.storageESP = false;
         if (RenderHandler.breadcrumbs) { RenderHandler.breadcrumbs = false; RenderHandler.clearBreadcrumbs(); }
         mc.thePlayer.addChatMessage(new ChatComponentText(
                 HeatClient.CHAT_PREFIX + EnumChatFormatting.RED + "PANIC - All modules disabled."));
