@@ -25,7 +25,7 @@ const url   = require("url");
 // ─── Config ──────────────────────────────────────────────────────────────────
 
 const PROJECT_DIR   = resolve(__dirname, "..", "heat-client");
-const GRADLE_VER    = "4.10.3";
+const GRADLE_VER    = "2.14";
 const GRADLE_URL    = `https://services.gradle.org/distributions/gradle-${GRADLE_VER}-bin.zip`;
 const GRADLE_CACHE  = join(os.homedir(), ".forge-build", `gradle-${GRADLE_VER}`);
 const JDK_CACHE     = join(os.homedir(), ".forge-build", "jdk8");
