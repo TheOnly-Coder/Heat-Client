@@ -54,7 +54,7 @@ public class DupeGUI extends GuiScreen {
         String delayLabel = EnumChatFormatting.WHITE + "Tick Delay: " + EnumChatFormatting.AQUA + DupeHandler.tickDelay;
         mc.fontRendererObj.drawStringWithShadow(delayLabel, cx - mc.fontRendererObj.getStringWidth(delayLabel) / 2, cy + 7, 0);
 
-        String hint = EnumChatFormatting.DARK_GRAY + "(-) = disconnect before pickup, 0 = instant, (+) = after";
+        String hint = EnumChatFormatting.DARK_GRAY + "(-) before | 0-1 sweet spot | (+) after pickup";
         mc.fontRendererObj.drawStringWithShadow(hint, cx - mc.fontRendererObj.getStringWidth(hint) / 2, cy + 27, 0);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
