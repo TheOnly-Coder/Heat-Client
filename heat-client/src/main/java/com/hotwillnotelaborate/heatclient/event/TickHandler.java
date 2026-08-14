@@ -100,7 +100,7 @@ public class TickHandler {
     private void doAntiAFK(Minecraft mc) {
         afkTimer++;
         if (afkTimer >= 60) { afkTimer = 0;
-            if (McHelper.isOnGround(mc.thePlayer)) mc.thePlayer.jump();
+            if (McHelper.isOnGround(mc.thePlayer)) McHelper.jump(mc.thePlayer);
         }
     }
 
@@ -127,7 +127,7 @@ public class TickHandler {
     private void doSpammer(Minecraft mc) {
         spamTimer++;
         if (spamTimer >= 40) { spamTimer = 0;
-            mc.thePlayer.sendChatMessage("[Heat] Heat Client v1.4.0 - github.com/TheOnly-Coder/Heat-Client");
+            mc.thePlayer.sendChatMessage("[Heat] Heat Client v1.5.0 - github.com/TheOnly-Coder/Heat-Client");
         }
     }
 
@@ -142,7 +142,7 @@ public class TickHandler {
             if (type.toString().contains("ENTITY")) {
                 Entity target = (Entity) McHelper.MOP_ENTITY_HIT.get(mop);
                 if (target != null && target instanceof EntityLivingBase
-                        && !target.isDead && target != mc.thePlayer
+                        && !McHelper.isDead(target) && target != mc.thePlayer
                         && mc.thePlayer.getDistanceToEntity(target) <= 4.0) {
                     mc.playerController.attackEntity(mc.thePlayer, target);
                     mc.thePlayer.swingItem();
@@ -203,10 +203,13 @@ public class TickHandler {
             stealerTimer++;
             if (stealerTimer < 2) return;
             stealerTimer = 0;
+            List stacks = McHelper.getContainerInventoryStacks(chest);
+            if (stacks == null) return;
+            int lowerSize = chest.inventorySlots.size() - stacks.size();
             for (Slot slot : chest.inventorySlots) {
                 if (slot == null || !slot.getHasStack()) continue;
                 int id = slot.slotNumber;
-                if (id < chest.inventoryItemStacks.size()) continue;
+                if (id < stacks.size()) continue;
                 mc.playerController.windowClick(chest.windowId, id, 0, 1, mc.thePlayer);
                 return;
             }
@@ -216,20 +219,38 @@ public class TickHandler {
 
     private void doNoBob(Minecraft mc) {
         try {
-            McHelper.DISTANCE_WALKED_MODIFIED.setFloat(mc.thePlayer, 0f);
+            McHelper.ENTITY_DISTANCE_WALKED.setFloat(mc.thePlayer, 0f);
         } catch (Exception ignored) {}
     }
 
     private void doInventoryWalk(Minecraft mc) {
         if (mc.currentScreen == null) return;
         try {
-            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindForward, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindForward.getKeyCode()));
-            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindBack, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindBack.getKeyCode()));
-            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindLeft, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindLeft.getKeyCode()));
-            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindRight, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindRight.getKeyCode()));
-            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindJump, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode()));
-            McHelper.setKeyBindingPressed(mc.gameSettings.keyBindSprint, org.lwjgl.input.Keyboard.isKeyDown(mc.gameSettings.keyBindSprint.getKeyCode()));
+            Object gs = McHelper.MC_GAME_SETTINGS.get(mc);
+            Object kbf = McHelper.GS_KEY_BIND_FORWARD.get(gs);
+            Object kbb = McHelper.GS_KEY_BIND_BACK.get(gs);
+            Object kbl = McHelper.GS_KEY_BIND_LEFT.get(gs);
+            Object kbr = McHelper.GS_KEY_BIND_RIGHT.get(gs);
+            Object kbj = McHelper.GS_KEY_BIND_JUMP.get(gs);
+            Object kbs = McHelper.GS_KEY_BIND_SPRINT.get(gs);
+            McHelper.setKeyBindingPressed(kbf, org.lwjgl.input.Keyboard.isKeyDown(getKeyCode(kbf)));
+            McHelper.setKeyBindingPressed(kbb, org.lwjgl.input.Keyboard.isKeyDown(getKeyCode(kbb)));
+            McHelper.setKeyBindingPressed(kbl, org.lwjgl.input.Keyboard.isKeyDown(getKeyCode(kbl)));
+            McHelper.setKeyBindingPressed(kbr, org.lwjgl.input.Keyboard.isKeyDown(getKeyCode(kbr)));
+            McHelper.setKeyBindingPressed(kbj, org.lwjgl.input.Keyboard.isKeyDown(getKeyCode(kbj)));
+            McHelper.setKeyBindingPressed(kbs, org.lwjgl.input.Keyboard.isKeyDown(getKeyCode(kbs)));
         } catch (Exception ignored) {}
+    }
+    private static int getKeyCode(Object keyBinding) {
+        try {
+            java.lang.reflect.Field f = keyBinding.getClass().getDeclaredField("field_74512_d");
+            f.setAccessible(true); return f.getInt(keyBinding);
+        } catch (Exception e) {
+            try {
+                java.lang.reflect.Field f = keyBinding.getClass().getDeclaredField("keyCode");
+                f.setAccessible(true); return f.getInt(keyBinding);
+            } catch (Exception e2) { return 0; }
+        }
     }
 
     private void doAutoBow(Minecraft mc) {
@@ -248,14 +269,14 @@ public class TickHandler {
     private void doTimer(Minecraft mc) {
         try {
             net.minecraft.util.Timer t = McHelper.getTimer(mc);
-            if (t != null) t.timerSpeed = timerSpeed;
+            if (t != null) McHelper.setTimerSpeed(t, timerSpeed);
         } catch (Exception ignored) {}
     }
 
     public static void disableTimer(Minecraft mc) {
         try {
             net.minecraft.util.Timer t = McHelper.getTimer(mc);
-            if (t != null) t.timerSpeed = 1.0f;
+            if (t != null) McHelper.setTimerSpeed(t, 1.0f);
         } catch (Exception ignored) {}
     }
 
@@ -264,7 +285,8 @@ public class TickHandler {
             if (!mc.thePlayer.isUsingItem()) return;
             if (mc.thePlayer.getItemInUseDuration() > 14) {
                 for (int i = 0; i < 20; i++) {
-                    mc.thePlayer.sendQueue.addToSendQueue(new net.minecraft.network.play.client.C03PacketPlayer(mc.thePlayer.onGround));
+                    boolean onGround = McHelper.isOnGround(mc.thePlayer);
+                    mc.thePlayer.sendQueue.addToSendQueue(new net.minecraft.network.play.client.C03PacketPlayer(onGround));
                 }
                 mc.playerController.onStoppedUsingItem(mc.thePlayer);
             }
@@ -273,31 +295,23 @@ public class TickHandler {
 
     private void doFastBreak(Minecraft mc) {
         try {
-            java.lang.reflect.Field f1 = net.minecraft.client.multiplayer.PlayerControllerMP.class.getDeclaredField("blockHitDelay");
-            f1.setAccessible(true); f1.setInt(mc.playerController, 0);
-            java.lang.reflect.Field f2 = net.minecraft.client.multiplayer.PlayerControllerMP.class.getDeclaredField("curBlockDamageMP");
-            f2.setAccessible(true); float v = f2.getFloat(mc.playerController); if (v > 0.8f) f2.setFloat(mc.playerController, 1.0f);
+            McHelper.setPcBlockHitDelay(mc.playerController, 0);
+            float v = McHelper.getPcCurBlockDamage(mc.playerController);
+            if (v > 0.8f) McHelper.setPcCurBlockDamage(mc.playerController, 1.0f);
         } catch (Exception ignored) {}
     }
 
-    private static java.lang.reflect.Field camZoomField, camYawField;
-    static {
-        try {
-            camZoomField = net.minecraft.client.renderer.EntityRenderer.class.getDeclaredField("cameraZoom");
-            camZoomField.setAccessible(true);
-            camYawField = net.minecraft.client.renderer.EntityRenderer.class.getDeclaredField("cameraYaw");
-            camYawField.setAccessible(true);
-        } catch (Exception e) {}
-    }
     private void doNoHurtCam(Minecraft mc) {
-        try { mc.thePlayer.hurtTime = 0; } catch (Exception ignored) {}
+        try {
+            McHelper.setHurtTime(mc.thePlayer, 0);
+        } catch (Exception ignored) {}
     }
 
     private void doAntiBlind(Minecraft mc) {
         try {
             if (mc.entityRenderer != null) {
-                if (camZoomField != null) camZoomField.setDouble(mc.entityRenderer, 1.0);
-                if (camYawField != null) camYawField.setDouble(mc.entityRenderer, 0.0);
+                McHelper.setErCameraZoom(mc.entityRenderer, 1.0);
+                McHelper.setErCameraYaw(mc.entityRenderer, 0.0);
             }
         } catch (Exception ignored) {}
     }

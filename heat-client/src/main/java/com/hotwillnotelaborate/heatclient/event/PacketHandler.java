@@ -4,6 +4,7 @@ import com.hotwillnotelaborate.heatclient.HeatClient;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
+import com.hotwillnotelaborate.heatclient.util.McHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
@@ -33,13 +34,13 @@ public class PacketHandler extends ChannelDuplexHandler {
     private static Field EXP_MOTION_X, EXP_MOTION_Y, EXP_MOTION_Z;
     static {
         try {
-            VEL_ENTITY_ID = S12PacketEntityVelocity.class.getDeclaredField("field_149435_a");
+            VEL_ENTITY_ID = S12PacketEntityVelocity.class.getDeclaredField("field_149417_a");
             VEL_ENTITY_ID.setAccessible(true);
         } catch (Exception e) {
             try { VEL_ENTITY_ID = S12PacketEntityVelocity.class.getDeclaredField("entityId"); VEL_ENTITY_ID.setAccessible(true); } catch (Exception e2) {}
         }
         try {
-            C03_ON_GROUND = C03PacketPlayer.class.getDeclaredField("field_149465_i");
+            C03_ON_GROUND = C03PacketPlayer.class.getDeclaredField("field_149474_g");
             C03_ON_GROUND.setAccessible(true);
         } catch (Exception e) {
             try { C03_ON_GROUND = C03PacketPlayer.class.getDeclaredField("onGround"); C03_ON_GROUND.setAccessible(true); } catch (Exception e2) {}
@@ -84,7 +85,7 @@ public class PacketHandler extends ChannelDuplexHandler {
         if (msg instanceof Packet && mc.thePlayer != null) {
             if (noFall && msg instanceof C03PacketPlayer) {
                 try {
-                    if (mc.thePlayer.fallDistance > 2.0f && C03_ON_GROUND != null) {
+                    if (McHelper.getFallDistance(mc.thePlayer) > 2.0f && C03_ON_GROUND != null) {
                         C03_ON_GROUND.setBoolean(msg, true);
                     }
                 } catch (Exception ignored) {}

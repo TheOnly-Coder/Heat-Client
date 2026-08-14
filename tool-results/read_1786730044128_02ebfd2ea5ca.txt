@@ -1,0 +1,431 @@
+     1→     1→PolyMC version: 7.1
+     2→     2→
+     3→     3→
+     4→     4→Launched instance in online mode
+     5→     5→
+     6→     6→authserver.mojang.com resolves to:
+     7→     7→    [N/A]
+     8→     8→
+     9→     9→session.minecraft.net resolves to:
+    10→    10→    [150.171.109.209, 2603:1061:14:d6::1]
+    11→    11→
+    12→    12→textures.minecraft.net resolves to:
+    13→    13→    [150.171.109.211, 2603:1061:14:d3::1]
+    14→    14→
+    15→    15→api.mojang.com resolves to:
+    16→    16→    [150.171.109.209, 150.171.109.214, 2603:1061:14:d6::1, 2603:1061:14:d1::1]
+    17→    17→
+    18→    18→
+    19→    19→Minecraft folder is:
+    20→    20→/home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/.minecraft
+    21→    21→
+    22→    22→
+    23→    23→Java path is:
+    24→    24→/app/jdk/8/bin/java
+    25→    25→
+    26→    26→
+    27→    27→Checking Java version...
+    28→    28→Java is version 1.8.0_502, using 64 (amd64) architecture, from Oracle Corporation.
+    29→    29→
+    30→    30→
+    31→    31→Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz
+    32→    32→Intel Corporation HD Graphics 630 (rev 04)
+    33→    33→
+    34→    34→DeviceName: Onboard IGD
+    35→    35→
+    36→    36→Subsystem: Hewlett-Packard Company Device 82a2
+    37→    37→
+    38→    38→Main Class:
+    39→    39→  net.minecraft.launchwrapper.Launch
+    40→    40→
+    41→    41→Native path:
+    42→    42→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/natives
+    43→    43→
+    44→    44→Libraries:
+    45→    45→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/jinput/jinput/2.0.5/jinput-2.0.5.jar
+    46→    46→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/jutils/jutils/1.0.0/jutils-1.0.0.jar
+    47→    47→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/lwjgl/lwjgl/lwjgl/2.9.4-nightly-20150209/lwjgl-2.9.4-nightly-20150209.jar
+    48→    48→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/lwjgl/lwjgl/lwjgl_util/2.9.4-nightly-20150209/lwjgl_util-2.9.4-nightly-20150209.jar
+    49→    49→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/mojang/netty/1.8.8/netty-1.8.8.jar
+    50→    50→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/oshi-project/oshi-core/1.1/oshi-core-1.1.jar
+    51→    51→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/dev/jna/jna/3.4.0/jna-3.4.0.jar
+    52→    52→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/dev/jna/platform/3.4.0/platform-3.4.0.jar
+    53→    53→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.jar
+    54→    54→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/sf/jopt-simple/jopt-simple/4.6/jopt-simple-4.6.jar
+    55→    55→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.jar
+    56→    56→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/codecwav/20101023/codecwav-20101023.jar
+    57→    57→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.jar
+    58→    58→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.jar
+    59→    59→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/soundsystem/20120107/soundsystem-20120107.jar
+    60→    60→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/io/netty/netty-all/4.0.23.Final/netty-all-4.0.23.Final.jar
+    61→    61→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/google/guava/guava/17.0/guava-17.0.jar
+    62→    62→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar
+    63→    63→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/commons-io/commons-io/2.4/commons-io-2.4.jar
+    64→    64→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/commons-codec/commons-codec/1.9/commons-codec-1.9.jar
+    65→    65→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar
+    66→    66→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/mojang/authlib/1.5.21/authlib-1.5.21.jar
+    67→    67→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/mojang/realms/1.7.59/realms-1.7.59.jar
+    68→    68→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.jar
+    69→    69→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/httpcomponents/httpclient/4.3.3/httpclient-4.3.3.jar
+    70→    70→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
+    71→    71→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/httpcomponents/httpcore/4.3.2/httpcore-4.3.2.jar
+    72→    72→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/logging/log4j/log4j-api/2.0-beta9-fixed/log4j-api-2.0-beta9-fixed.jar
+    73→    73→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/logging/log4j/log4j-core/2.0-beta9-fixed/log4j-core-2.0-beta9-fixed.jar
+    74→    74→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/tv/twitch/twitch/6.5/twitch-6.5.jar
+    75→    75→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/minecraftforge/forge/1.8.9-11.15.1.2318-1.8.9/forge-1.8.9-11.15.1.2318-1.8.9-universal.jar
+    76→    76→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar
+    77→    77→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/ow2/asm/asm-all/5.0.3/asm-all-5.0.3.jar
+    78→    78→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/jline/jline/2.13/jline-2.13.jar
+    79→    79→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/typesafe/akka/akka-actor_2.11/2.3.3/akka-actor_2.11-2.3.3.jar
+    80→    80→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/typesafe/config/1.2.1/config-1.2.1.jar
+    81→    81→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-actors-migration_2.11/1.1.0/scala-actors-migration_2.11-1.1.0.jar
+    82→    82→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-compiler/2.11.1/scala-compiler-2.11.1.jar
+    83→    83→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/plugins/scala-continuations-library_2.11/1.0.2/scala-continuations-library_2.11-1.0.2.jar
+    84→    84→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/plugins/scala-continuations-plugin_2.11.1/1.0.2/scala-continuations-plugin_2.11.1-1.0.2.jar
+    85→    85→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-library/2.11.1/scala-library-2.11.1.jar
+    86→    86→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-parser-combinators_2.11/1.0.1/scala-parser-combinators_2.11-1.0.1.jar
+    87→    87→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-reflect/2.11.1/scala-reflect-2.11.1.jar
+    88→    88→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-swing_2.11/1.0.1/scala-swing_2.11-1.0.1.jar
+    89→    89→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-xml_2.11/1.0.2/scala-xml_2.11-1.0.2.jar
+    90→    90→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/lzma/lzma/0.0.1/lzma-0.0.1.jar
+    91→    91→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/java3d/vecmath/1.5.2/vecmath-1.5.2.jar
+    92→    92→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar
+    93→    93→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/mojang/minecraft/1.8.9/minecraft-1.8.9-client.jar
+    94→    94→
+    95→    95→Native libraries:
+    96→    96→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-linux.jar
+    97→    97→  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-linux.jar
+    98→    98→
+    99→    99→Mods:
+   100→   100→  [✔] HeatClient-1.4.0
+   101→   101→
+   102→   102→Params:
+   103→   103→  --username  --version 1.8.9 --gameDir /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/.minecraft --assetsDir /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/assets --assetIndex 1.8 --uuid  --accessToken  --userProperties  --userType  --tweakClass net.minecraftforge.fml.common.launcher.FMLTweaker
+   104→   104→
+   105→   105→Window size: 854 x 480
+   106→   106→
+   107→   107→Java Arguments:
+   108→   108→[-Xms512m, -Xmx4096m, -Duser.language=en]
+   109→   109→
+   110→   110→
+   111→   111→Minecraft process ID: 1479
+   112→   112→
+   113→   113→
+   114→   114→[18:34:23] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+   115→   115→[18:34:23] [main/INFO] [LaunchWrapper]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+   116→   116→[18:34:23] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
+   117→   117→[18:34:23] [main/INFO] [FML]: Forge Mod Loader version 11.15.1.2318 for Minecraft 1.8.9 loading
+   118→   118→[18:34:23] [main/INFO] [FML]: Java is OpenJDK 64-Bit Server VM, version 1.8.0_502, running on Linux:amd64:6.17.0-40-generic, installed at /app/jdk/8/jre
+   119→   119→[18:34:23] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+   120→   120→[18:34:23] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+   121→   121→[18:34:23] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+   122→   122→[18:34:23] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+   123→   123→[18:34:23] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+   124→   124→[18:34:24] [main/INFO] [FML]: Found valid fingerprint for Minecraft. Certificate fingerprint cd99959656f753dc28d863b46769f7f8fbaefcfc
+   125→   125→[18:34:24] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
+   126→   126→[18:34:24] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+   127→   127→[18:34:24] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+   128→   128→[18:34:24] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
+   129→   129→[18:34:24] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
+   130→   130→[18:34:24] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+   131→   131→[18:34:25] [Client thread/INFO]: Setting user: HotWillNotE
+   132→   132→[18:34:27] [Client thread/INFO]: LWJGL Version: 2.9.4
+   133→   133→[18:34:30] [Client thread/INFO] [STDOUT]: [net.minecraftforge.fml.client.SplashProgress:start:246]: ---- Minecraft Crash Report ----
+   134→   134→// Who set us up the TNT?
+   135→   135→Time: 8/14/26 6:34 PM
+   136→   136→Description: Loading screen debug info
+   137→   137→This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
+   138→   138→A detailed walkthrough of the error, its code path and all known details is as follows:
+   139→   139→---------------------------------------------------------------------------------------
+   140→   140→-- System Details --
+   141→   141→Details:
+   142→   142→        Minecraft Version: 1.8.9
+   143→   143→        Operating System: Linux (amd64) version 6.17.0-40-generic
+   144→   144→        Java Version: 1.8.0_502, Oracle Corporation
+   145→   145→        Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+   146→   146→        Memory: 581987704 bytes (555 MB) / 919076864 bytes (876 MB) up to 3817865216 bytes (3641 MB)
+   147→   147→        JVM Flags: 2 total; -Xms512m -Xmx4096m
+   148→   148→        IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+   149→   149→        FML: 
+   150→   150→        Loaded coremods (and transformers): 
+   151→   151→        GL info: ' Vendor: 'Intel' Version: '4.6 (Compatibility Profile) Mesa 26.1.5 (git-6a02618ccf)' Renderer: 'Mesa Intel(R) HD Graphics 630 (KBL GT2)'
+   152→   152→[18:34:30] [Client thread/INFO] [FML]: MinecraftForge v11.15.1.2318 Initialized
+   153→   153→[18:34:30] [Client thread/INFO] [FML]: Replaced 229 ore recipies
+   154→   154→[18:34:30] [Client thread/INFO] [FML]: Found 0 mods from the command line. Injecting into mod discoverer
+   155→   155→[18:34:30] [Client thread/INFO] [FML]: Searching /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/.minecraft/mods for mods
+   156→   156→[18:34:31] [Client thread/INFO] [FML]: Forge Mod Loader has identified 4 mods to load
+   157→   157→[18:34:31] [Client thread/INFO] [FML]: Attempting connection with missing mods [mcp, FML, Forge, heatclient] at CLIENT
+   158→   158→[18:34:31] [Client thread/INFO] [FML]: Attempting connection with missing mods [mcp, FML, Forge, heatclient] at SERVER
+   159→   159→[18:34:31] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Heat Client
+   160→   160→[18:34:31] [Client thread/INFO] [FML]: Processing ObjectHolder annotations
+   161→   161→[18:34:31] [Client thread/INFO] [FML]: Found 384 ObjectHolder annotations
+   162→   162→[18:34:31] [Client thread/INFO] [FML]: Identifying ItemStackHolder annotations
+   163→   163→[18:34:31] [Client thread/INFO] [FML]: Found 0 ItemStackHolder annotations
+   164→   164→[18:34:31] [Client thread/INFO] [FML]: Configured a dormant chunk cache size of 0
+   165→   165→[18:34:31] [Forge Version Check/INFO] [ForgeVersionCheck]: [Forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
+   166→   166→[18:34:31] [Client thread/INFO] [FML]: Applying holder lookups
+   167→   167→[18:34:31] [Client thread/INFO] [FML]: Holder lookups applied
+   168→   168→[18:34:31] [Client thread/INFO] [FML]: Injecting itemstacks
+   169→   169→[18:34:31] [Client thread/INFO] [FML]: Itemstack injection complete
+   170→   170→[18:34:31] [Client thread/INFO] [STDOUT]: [tv.twitch.StandardCoreAPI:<init>:16]: If on Windows, make sure to provide all of the necessary dll's as specified in the twitchsdk README. Also, make sure to set the PATH environment variable to point to the directory containing the dll's.
+   171→   171→[18:34:31] [Client thread/ERROR]: Couldn't initialize twitch stream
+   172→   172→[18:34:31] [Sound Library Loader/INFO]: Starting up SoundSystem...
+   173→   173→[18:34:32] [Thread-8/INFO]: Initializing LWJGL OpenAL
+   174→   174→[18:34:32] [Thread-8/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+   175→   175→[18:34:32] [Thread-8/INFO]: OpenAL initialized.
+   176→   176→[18:34:32] [Sound Library Loader/INFO]: Sound engine started
+   177→   177→[18:34:33] [Client thread/INFO] [FML]: Max texture size: 16384
+   178→   178→[18:34:33] [Client thread/INFO]: Created: 16x16 textures-atlas
+   179→   179→[18:34:34] [Client thread/INFO] [heatclient]: Heat Client v1.4.0 initializing...
+   180→   180→[18:34:34] [Client thread/INFO] [heatclient]: Heat Client v1.4.0 loaded - 27 commands registered.
+   181→   181→[18:34:34] [Client thread/INFO] [FML]: Injecting itemstacks
+   182→   182→[18:34:34] [Client thread/INFO] [FML]: Itemstack injection complete
+   183→   183→[18:34:34] [Client thread/INFO] [FML]: Forge Mod Loader has successfully loaded 4 mods
+   184→   184→[18:34:34] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Heat Client
+   185→   185→[18:34:34] [Client thread/INFO]: SoundSystem shutting down...
+   186→   186→[18:34:34] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+   187→   187→[18:34:34] [Sound Library Loader/INFO]: Starting up SoundSystem...
+   188→   188→[18:34:34] [Thread-10/INFO]: Initializing LWJGL OpenAL
+   189→   189→[18:34:34] [Thread-10/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+   190→   190→[18:34:34] [Thread-10/INFO]: OpenAL initialized.
+   191→   191→[18:34:35] [Sound Library Loader/INFO]: Sound engine started
+   192→   192→[18:34:35] [Client thread/INFO] [FML]: Max texture size: 16384
+   193→   193→[18:34:35] [Client thread/INFO]: Created: 512x512 textures-atlas
+   194→   194→[18:34:43] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+   195→   195→[18:34:43] [Server thread/INFO]: Generating keypair
+   196→   196→[18:34:43] [Server thread/INFO] [fml.ModTracker]: This world was saved with mod heatclient version 1.2.0 and it is now at version 1.4.0, things may not work well
+   197→   197→[18:34:43] [Server thread/INFO] [FML]: Injecting existing block and item data into this server instance
+   198→   198→[18:34:43] [Server thread/INFO] [FML]: Applying holder lookups
+   199→   199→[18:34:43] [Server thread/INFO] [FML]: Holder lookups applied
+   200→   200→[18:34:43] [Server thread/INFO] [FML]: Loading dimension 0 (Test Heat Client) (net.minecraft.server.integrated.IntegratedServer@7fe2df90)
+   201→   201→[18:34:43] [Server thread/INFO] [FML]: Loading dimension 1 (Test Heat Client) (net.minecraft.server.integrated.IntegratedServer@7fe2df90)
+   202→   202→[18:34:43] [Server thread/INFO] [FML]: Loading dimension -1 (Test Heat Client) (net.minecraft.server.integrated.IntegratedServer@7fe2df90)
+   203→   203→[18:34:43] [Server thread/INFO]: Preparing start region for level 0
+   204→   204→[18:34:44] [Server thread/INFO]: Changing view distance to 12, from 10
+   205→   205→[18:34:45] [Netty Local Client IO #0/INFO] [FML]: Server protocol version 2
+   206→   206→[18:34:45] [Netty Server IO #1/INFO] [FML]: Client protocol version 2
+   207→   207→[18:34:45] [Netty Server IO #1/INFO] [FML]: Client attempting to join with 4 mods : FML@8.0.99.99,heatclient@1.4.0,Forge@11.15.1.2318,mcp@9.19
+   208→   208→[18:34:45] [Netty Local Client IO #0/INFO] [FML]: [Netty Local Client IO #0] Client side modded connection established
+   209→   209→[18:34:45] [Server thread/INFO] [FML]: [Server thread] Server side modded connection established
+   210→   210→[18:34:45] [Server thread/INFO]: HotWillNotE[local:E:41797f8c] logged in with entity id 418 at (-362.88406411579575, 63.0, 318.1777500422638)
+   211→   211→[18:34:45] [Server thread/INFO]: HotWillNotE joined the game
+   212→   212→[18:34:46] [Client thread/ERROR] [FML]: Exception caught during firing event net.minecraftforge.client.event.RenderWorldLastEvent@66143420:
+   213→   213→java.lang.ExceptionInInitializerError
+   214→   214→        at com.hotwillnotelaborate.heatclient.event.RenderHandler.onRenderWorld(RenderHandler.java:43) ~[RenderHandler.class:?]
+   215→   215→        at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_14_RenderHandler_onRenderWorld_RenderWorldLastEvent.invoke(.dynamic) ~[?:?]
+   216→   216→        at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49) ~[ASMEventHandler.class:?]
+   217→   217→        at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140) [EventBus.class:?]
+   218→   218→        at net.minecraftforge.client.ForgeHooksClient.dispatchRenderLast(ForgeHooksClient.java:123) [ForgeHooksClient.class:?]
+   219→   219→        at net.minecraft.client.renderer.EntityRenderer.func_175068_a(EntityRenderer.java:1407) [bfk.class:?]
+   220→   220→        at net.minecraft.client.renderer.EntityRenderer.func_78471_a(EntityRenderer.java:1230) [bfk.class:?]
+   221→   221→        at net.minecraft.client.renderer.EntityRenderer.func_181560_a(EntityRenderer.java:1058) [bfk.class:?]
+   222→   222→        at net.minecraft.client.Minecraft.func_71411_J(Minecraft.java:1051) [ave.class:?]
+   223→   223→        at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:349) [ave.class:?]
+   224→   224→        at net.minecraft.client.main.Main.main(SourceFile:124) [Main.class:?]
+   225→   225→        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_502]
+   226→   226→        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_502]
+   227→   227→        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_502]
+   228→   228→        at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_502]
+   229→   229→        at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+   230→   230→        at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+   231→   231→        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_502]
+   232→   232→        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_502]
+   233→   233→        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_502]
+   234→   234→        at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_502]
+   235→   235→        at org.polymc.impl.OneSixLauncher.invokeMain(OneSixLauncher.java:104) [NewLaunch.jar:?]
+   236→   236→        at org.polymc.impl.OneSixLauncher.launchWithMainClass(OneSixLauncher.java:176) [NewLaunch.jar:?]
+   237→   237→        at org.polymc.impl.OneSixLauncher.launch(OneSixLauncher.java:186) [NewLaunch.jar:?]
+   238→   238→        at org.polymc.EntryPoint.listen(EntryPoint.java:144) [NewLaunch.jar:?]
+   239→   239→        at org.polymc.EntryPoint.main(EntryPoint.java:74) [NewLaunch.jar:?]
+   240→   240→Caused by: java.lang.RuntimeException: Cannot find field field_70130_a or width on net.minecraft.entity.Entity
+   241→   241→        at com.hotwillnotelaborate.heatclient.util.ReflectionUtil.getField(ReflectionUtil.java:25) ~[ReflectionUtil.class:?]
+   242→   242→        at com.hotwillnotelaborate.heatclient.util.McHelper.ref(McHelper.java:134) ~[McHelper.class:?]
+   243→   243→        at com.hotwillnotelaborate.heatclient.util.McHelper.<clinit>(McHelper.java:42) ~[McHelper.class:?]
+   244→   244→        ... 26 more
+   245→   245→Caused by: java.lang.NoSuchFieldException: width
+   246→   246→        at java.lang.Class.getDeclaredField(Class.java:2070) ~[?:1.8.0_502]
+   247→   247→        at com.hotwillnotelaborate.heatclient.util.ReflectionUtil.getField(ReflectionUtil.java:21) ~[ReflectionUtil.class:?]
+   248→   248→        at com.hotwillnotelaborate.heatclient.util.McHelper.ref(McHelper.java:134) ~[McHelper.class:?]
+   249→   249→        at com.hotwillnotelaborate.heatclient.util.McHelper.<clinit>(McHelper.java:42) ~[McHelper.class:?]
+   250→   250→        ... 26 more
+   251→   251→[18:34:46] [Client thread/ERROR] [FML]: Index: 2 Listeners:
+   252→   252→[18:34:46] [Client thread/ERROR] [FML]: 0: NORMAL
+   253→   253→[18:34:46] [Client thread/ERROR] [FML]: 1: ASM: com.hotwillnotelaborate.heatclient.event.XrayRenderer@47bcb545 onRenderWorld(Lnet/minecraftforge/client/event/RenderWorldLastEvent;)V
+   254→   254→[18:34:46] [Client thread/ERROR] [FML]: 2: ASM: com.hotwillnotelaborate.heatclient.event.RenderHandler@544502d6 onRenderWorld(Lnet/minecraftforge/client/event/RenderWorldLastEvent;)V
+   255→   255→[18:34:46] [Server thread/INFO]: Stopping server
+   256→   256→[18:34:46] [Server thread/INFO]: Saving players
+   257→   257→[18:34:46] [Server thread/INFO]: Saving worlds
+   258→   258→[18:34:46] [Server thread/INFO]: Saving chunks for level 'Test Heat Client'/Overworld
+   259→   259→[18:34:46] [Server thread/INFO]: Saving chunks for level 'Test Heat Client'/Nether
+   260→   260→[18:34:46] [Server thread/INFO]: Saving chunks for level 'Test Heat Client'/The End
+   261→   261→[18:34:47] [Server thread/INFO] [FML]: Unloading dimension 0
+   262→   262→[18:34:47] [Server thread/INFO] [FML]: Unloading dimension -1
+   263→   263→[18:34:47] [Server thread/INFO] [FML]: Unloading dimension 1
+   264→   264→[18:34:47] [Server thread/INFO] [FML]: Applying holder lookups
+   265→   265→[18:34:47] [Server thread/INFO] [FML]: Holder lookups applied
+   266→   266→[18:34:47] [Client thread/FATAL]: Unreported exception thrown!
+   267→   267→java.lang.ExceptionInInitializerError
+   268→   268→        at com.hotwillnotelaborate.heatclient.event.RenderHandler.onRenderWorld(RenderHandler.java:43) ~[RenderHandler.class:?]
+   269→   269→        at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_14_RenderHandler_onRenderWorld_RenderWorldLastEvent.invoke(.dynamic) ~[?:?]
+   270→   270→        at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49) ~[ASMEventHandler.class:?]
+   271→   271→        at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140) ~[EventBus.class:?]
+   272→   272→        at net.minecraftforge.client.ForgeHooksClient.dispatchRenderLast(ForgeHooksClient.java:123) ~[ForgeHooksClient.class:?]
+   273→   273→        at net.minecraft.client.renderer.EntityRenderer.func_175068_a(EntityRenderer.java:1407) ~[bfk.class:?]
+   274→   274→        at net.minecraft.client.renderer.EntityRenderer.func_78471_a(EntityRenderer.java:1230) ~[bfk.class:?]
+   275→   275→        at net.minecraft.client.renderer.EntityRenderer.func_181560_a(EntityRenderer.java:1058) ~[bfk.class:?]
+   276→   276→        at net.minecraft.client.Minecraft.func_71411_J(Minecraft.java:1051) ~[ave.class:?]
+   277→   277→        at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:349) [ave.class:?]
+   278→   278→        at net.minecraft.client.main.Main.main(SourceFile:124) [Main.class:?]
+   279→   279→        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_502]
+   280→   280→        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_502]
+   281→   281→        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_502]
+   282→   282→        at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_502]
+   283→   283→        at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+   284→   284→        at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+   285→   285→        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_502]
+   286→   286→        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_502]
+   287→   287→        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_502]
+   288→   288→        at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_502]
+   289→   289→        at org.polymc.impl.OneSixLauncher.invokeMain(OneSixLauncher.java:104) [NewLaunch.jar:?]
+   290→   290→        at org.polymc.impl.OneSixLauncher.launchWithMainClass(OneSixLauncher.java:176) [NewLaunch.jar:?]
+   291→   291→        at org.polymc.impl.OneSixLauncher.launch(OneSixLauncher.java:186) [NewLaunch.jar:?]
+   292→   292→        at org.polymc.EntryPoint.listen(EntryPoint.java:144) [NewLaunch.jar:?]
+   293→   293→        at org.polymc.EntryPoint.main(EntryPoint.java:74) [NewLaunch.jar:?]
+   294→   294→Caused by: java.lang.RuntimeException: Cannot find field field_70130_a or width on net.minecraft.entity.Entity
+   295→   295→        at com.hotwillnotelaborate.heatclient.util.ReflectionUtil.getField(ReflectionUtil.java:25) ~[ReflectionUtil.class:?]
+   296→   296→        at com.hotwillnotelaborate.heatclient.util.McHelper.ref(McHelper.java:134) ~[McHelper.class:?]
+   297→   297→        at com.hotwillnotelaborate.heatclient.util.McHelper.<clinit>(McHelper.java:42) ~[McHelper.class:?]
+   298→   298→        ... 26 more
+   299→   299→Caused by: java.lang.NoSuchFieldException: width
+   300→   300→        at java.lang.Class.getDeclaredField(Class.java:2070) ~[?:1.8.0_502]
+   301→   301→        at com.hotwillnotelaborate.heatclient.util.ReflectionUtil.getField(ReflectionUtil.java:21) ~[ReflectionUtil.class:?]
+   302→   302→        at com.hotwillnotelaborate.heatclient.util.McHelper.ref(McHelper.java:134) ~[McHelper.class:?]
+   303→   303→        at com.hotwillnotelaborate.heatclient.util.McHelper.<clinit>(McHelper.java:42) ~[McHelper.class:?]
+   304→   304→        ... 26 more
+   305→   305→[18:34:47] [Client thread/INFO] [STDOUT]: [net.minecraft.init.Bootstrap:func_179870_a:529]: ---- Minecraft Crash Report ----
+   306→   306→// Don't do that.
+   307→   307→Time: 8/14/26 6:34 PM
+   308→   308→Description: Unexpected error
+   309→   309→java.lang.ExceptionInInitializerError
+   310→   310→        at com.hotwillnotelaborate.heatclient.event.RenderHandler.onRenderWorld(RenderHandler.java:43)
+   311→   311→        at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_14_RenderHandler_onRenderWorld_RenderWorldLastEvent.invoke(.dynamic)
+   312→   312→        at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49)
+   313→   313→        at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140)
+   314→   314→        at net.minecraftforge.client.ForgeHooksClient.dispatchRenderLast(ForgeHooksClient.java:123)
+   315→   315→        at net.minecraft.client.renderer.EntityRenderer.func_175068_a(EntityRenderer.java:1407)
+   316→   316→        at net.minecraft.client.renderer.EntityRenderer.func_78471_a(EntityRenderer.java:1230)
+   317→   317→        at net.minecraft.client.renderer.EntityRenderer.func_181560_a(EntityRenderer.java:1058)
+   318→   318→        at net.minecraft.client.Minecraft.func_71411_J(Minecraft.java:1051)
+   319→   319→        at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:349)
+   320→   320→        at net.minecraft.client.main.Main.main(SourceFile:124)
+   321→   321→        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+   322→   322→        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+   323→   323→        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+   324→   324→        at java.lang.reflect.Method.invoke(Method.java:498)
+   325→   325→        at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+   326→   326→        at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+   327→   327→        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+   328→   328→        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+   329→   329→        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+   330→   330→        at java.lang.reflect.Method.invoke(Method.java:498)
+   331→   331→        at org.polymc.impl.OneSixLauncher.invokeMain(OneSixLauncher.java:104)
+   332→   332→        at org.polymc.impl.OneSixLauncher.launchWithMainClass(OneSixLauncher.java:176)
+   333→   333→        at org.polymc.impl.OneSixLauncher.launch(OneSixLauncher.java:186)
+   334→   334→        at org.polymc.EntryPoint.listen(EntryPoint.java:144)
+   335→   335→        at org.polymc.EntryPoint.main(EntryPoint.java:74)
+   336→   336→Caused by: java.lang.RuntimeException: Cannot find field field_70130_a or width on net.minecraft.entity.Entity
+   337→   337→        at com.hotwillnotelaborate.heatclient.util.ReflectionUtil.getField(ReflectionUtil.java:25)
+   338→   338→        at com.hotwillnotelaborate.heatclient.util.McHelper.ref(McHelper.java:134)
+   339→   339→        at com.hotwillnotelaborate.heatclient.util.McHelper.<clinit>(McHelper.java:42)
+   340→   340→        ... 26 more
+   341→   341→Caused by: java.lang.NoSuchFieldException: width
+   342→   342→        at java.lang.Class.getDeclaredField(Class.java:2070)
+   343→   343→        at com.hotwillnotelaborate.heatclient.util.ReflectionUtil.getField(ReflectionUtil.java:21)
+   344→   344→        ... 28 more
+   345→   345→A detailed walkthrough of the error, its code path and all known details is as follows:
+   346→   346→---------------------------------------------------------------------------------------
+   347→   347→-- Head --
+   348→   348→Stacktrace:
+   349→   349→        at com.hotwillnotelaborate.heatclient.event.RenderHandler.onRenderWorld(RenderHandler.java:43)
+   350→   350→        at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_14_RenderHandler_onRenderWorld_RenderWorldLastEvent.invoke(.dynamic)
+   351→   351→        at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49)
+   352→   352→        at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140)
+   353→   353→        at net.minecraftforge.client.ForgeHooksClient.dispatchRenderLast(ForgeHooksClient.java:123)
+   354→   354→        at net.minecraft.client.renderer.EntityRenderer.func_175068_a(EntityRenderer.java:1407)
+   355→   355→        at net.minecraft.client.renderer.EntityRenderer.func_78471_a(EntityRenderer.java:1230)
+   356→   356→-- Affected level --
+   357→   357→Details:
+   358→   358→        Level name: MpServer
+   359→   359→        All players: 1 total; [EntityPlayerSP['HotWillNotE'/418, l='MpServer', x=-362.88, y=63.00, z=318.18]]
+   360→   360→        Chunk stats: MultiplayerChunkCache: 0, 0
+   361→   361→        Level seed: 0
+   362→   362→        Level generator: ID 00 - default, ver 1. Features enabled: false
+   363→   363→        Level generator options: 
+   364→   364→        Level spawn location: -248.00,64.00,256.00 - World: (-248,64,256), Chunk: (at 8,4,0 in -16,16; contains blocks -256,0,256 to -241,255,271), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+   365→   365→        Level time: 1 game time, 1 day time
+   366→   366→        Level dimension: 0
+   367→   367→        Level storage version: 0x00000 - Unknown?
+   368→   368→        Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+   369→   369→        Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+   370→   370→        Forced entities: 1 total; [EntityPlayerSP['HotWillNotE'/418, l='MpServer', x=-362.88, y=63.00, z=318.18]]
+   371→   371→        Retry entities: 0 total; []
+   372→   372→        Server brand: fml,forge
+   373→   373→        Server type: Integrated singleplayer server
+   374→   374→Stacktrace:
+   375→   375→        at net.minecraft.client.multiplayer.WorldClient.func_72914_a(WorldClient.java:347)
+   376→   376→        at net.minecraft.client.Minecraft.func_71396_d(Minecraft.java:2536)
+   377→   377→        at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:378)
+   378→   378→        at net.minecraft.client.main.Main.main(SourceFile:124)
+   379→   379→        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+   380→   380→        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+   381→   381→        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+   382→   382→        at java.lang.reflect.Method.invoke(Method.java:498)
+   383→   383→        at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+   384→   384→        at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+   385→   385→        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+   386→   386→        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+   387→   387→        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+   388→   388→        at java.lang.reflect.Method.invoke(Method.java:498)
+   389→   389→        at org.polymc.impl.OneSixLauncher.invokeMain(OneSixLauncher.java:104)
+   390→   390→        at org.polymc.impl.OneSixLauncher.launchWithMainClass(OneSixLauncher.java:176)
+   391→   391→        at org.polymc.impl.OneSixLauncher.launch(OneSixLauncher.java:186)
+   392→   392→        at org.polymc.EntryPoint.listen(EntryPoint.java:144)
+   393→   393→        at org.polymc.EntryPoint.main(EntryPoint.java:74)
+   394→   394→-- System Details --
+   395→   395→Details:
+   396→   396→        Minecraft Version: 1.8.9
+   397→   397→        Operating System: Linux (amd64) version 6.17.0-40-generic
+   398→   398→        Java Version: 1.8.0_502, Oracle Corporation
+   399→   399→        Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+   400→   400→        Memory: 1355442992 bytes (1292 MB) / 1665138688 bytes (1588 MB) up to 3817865216 bytes (3641 MB)
+   401→   401→        JVM Flags: 2 total; -Xms512m -Xmx4096m
+   402→   402→        IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+   403→   403→        FML: MCP 9.19 Powered by Forge 11.15.1.2318 4 mods loaded, 4 mods active
+   404→   404→        States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+   405→   405→        UCHIJAAAA       mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+   406→   406→        UCHIJAAAA       FML{8.0.99.99} [Forge Mod Loader] (forge-1.8.9-11.15.1.2318-1.8.9-universal.jar) 
+   407→   407→        UCHIJAAAA       Forge{11.15.1.2318} [Minecraft Forge] (forge-1.8.9-11.15.1.2318-1.8.9-universal.jar) 
+   408→   408→        UCHIJAAAA       heatclient{1.4.0} [Heat Client] (HeatClient-1.4.0.jar) 
+   409→   409→        Loaded coremods (and transformers): 
+   410→   410→        GL info: ' Vendor: 'Intel' Version: '4.6 (Compatibility Profile) Mesa 26.1.5 (git-6a02618ccf)' Renderer: 'Mesa Intel(R) HD Graphics 630 (KBL GT2)'
+   411→   411→        Launched Version: 1.8.9
+   412→   412→        LWJGL: 2.9.4
+   413→   413→        OpenGL: Mesa Intel(R) HD Graphics 630 (KBL GT2) GL version 4.6 (Compatibility Profile) Mesa 26.1.5 (git-6a02618ccf), Intel
+   414→   414→        GL Caps: Using GL 1.3 multitexturing.
+   415→   415→Using GL 1.3 texture combiners.
+   416→   416→Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+   417→   417→Shaders are available because OpenGL 2.1 is supported.
+   418→   418→VBOs are available because OpenGL 1.5 is supported.
+   419→   419→        Using VBOs: No
+   420→   420→        Is Modded: Definitely; Client brand changed to 'fml,forge'
+   421→   421→        Type: Client (map_client.txt)
+   422→   422→        Resource Packs: 
+   423→   423→        Current Language: English (US)
+   424→   424→        Profiler Position: N/A (disabled)
+   425→   425→        CPU: 4x Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz
+   426→   426→[18:34:47] [Client thread/INFO] [STDOUT]: [net.minecraft.init.Bootstrap:func_179870_a:529]: #@!@# Game crashed! Crash report saved to: #@!@# /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/.minecraft/crash-reports/crash-2026-08-14_18.34.47-client.txt
+   427→   427→AL lib: (EE) alc_cleanup: 1 device not closed
+   428→   428→Process exited with code 255.
+   429→   429→Clipboard copy at: 14 Aug 2026 18:34:56 +0100
+   430→   430→Clipboard copy at: 14 Aug 2026 18:53:46 +0100
+   431→   431→
