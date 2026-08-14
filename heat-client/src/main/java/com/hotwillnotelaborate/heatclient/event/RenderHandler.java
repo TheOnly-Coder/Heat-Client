@@ -301,6 +301,9 @@ public class RenderHandler {
         if (TickHandler.antiBlind) active.add(EnumChatFormatting.YELLOW + "AntiBlind");
         if (PacketHandler.antiExploit) active.add(EnumChatFormatting.YELLOW + "AntiExploit");
         if (PacketHandler.noSwing) active.add(EnumChatFormatting.YELLOW + "NoSwing");
+        if (DupeHandler.enabled) active.add(DupeHandler.pending
+            ? EnumChatFormatting.RED + "Dupe" + EnumChatFormatting.GRAY + " PENDING"
+            : EnumChatFormatting.AQUA + "Dupe" + EnumChatFormatting.GRAY + " " + DupeHandler.tickDelay + "t");
         if (active.isEmpty()) return;
         FontRenderer fr = mc.fontRendererObj;
         int x = McHelper.getDisplayWidth() - 4, y = 4;
