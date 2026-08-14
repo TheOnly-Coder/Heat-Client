@@ -7,7 +7,7 @@
  * Automatically provisions JDK 8 + Gradle 2.14, then builds the
  * Heat Client Forge 1.8.9 mod.
  *
- * Usage:  node build-heat-client.js [--skip-jdk] [--skip-gradle] [--clean]
+ * Usage:  node build-heat-client.js [--skip-jdk] [--skip-gradle] [--clean] [--setup-only] [--build-only]
  */
 
 const { spawn, execSync, execFileSync } = require("child_process");
@@ -58,6 +58,8 @@ const OPTS = {
   skipJdk:    argv.includes("--skip-jdk"),
   skipGradle: argv.includes("--skip-gradle"),
   clean:      argv.includes("--clean"),
+  setupOnly:  argv.includes("--setup-only"),
+  buildOnly:  argv.includes("--build-only"),
 };
 
 // ─── HTTP download with progress ─────────────────────────────────────────────
@@ -373,18 +375,25 @@ async function main() {
   }
 
   // ── 3. setupDecompWorkspace ──────────────────────────────────────────
-  step(3, STEPS, "Gradle setupDecompWorkspace  (first run downloads Minecraft)");
-  try {
-    await runCmd(gradleBin, ["setupDecompWorkspace", "--no-daemon", "--console=plain"], env, PROJECT_DIR);
-    success("Decomp workspace ready.");
-  } catch (err) {
-    error(`setupDecompWorkspace failed: ${err.message}`);
-    process.exit(1);
+  if (!OPTS.buildOnly) {
+    step(3, STEPS, "Gradle setupDecompWorkspace  (first run downloads Minecraft)");
+    try {
+      await runCmd(gradleBin, ["setupDecompWorkspace", "--no-daemon", "--console=plain"], env, PROJECT_DIR);
+      success("Decomp workspace ready.");
+    } catch (err) {
+      error(`setupDecompWorkspace failed: ${err.message}`);
+      process.exit(1);
+    }
+    console.log();
+
+    if (OPTS.setupOnly) {
+      success("Setup complete. Run with --build-only to compile.");
+      process.exit(0);
+    }
   }
-  console.log();
 
   // ── 4. build ─────────────────────────────────────────────────────────
-  step(4, STEPS, "Gradle build");
+  step(OPTS.buildOnly ? 3 : 4, OPTS.buildOnly ? 3 : STEPS, "Gradle build");
   const buildArgs = ["build", "--no-daemon", "--console=plain"];
   if (OPTS.clean) buildArgs.push("clean");
   try {

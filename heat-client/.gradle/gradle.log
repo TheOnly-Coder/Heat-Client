@@ -1,0 +1,16 @@
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file '/home/z/my-project/heat-client/build.gradle' line: 22
+
+* What went wrong:
+A problem occurred evaluating root project 'HeatClient'.
+> This mapping 'stable_20' exists only for MC 1.8.8!
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 3.784 secs
