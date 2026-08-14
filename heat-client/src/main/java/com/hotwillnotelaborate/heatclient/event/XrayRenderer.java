@@ -1,8 +1,11 @@
 package com.hotwillnotelaborate.heatclient.event;
 
+import com.hotwillnotelaborate.heatclient.util.ReflectionUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.chunk.Chunk;
@@ -11,6 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.opengl.GL11;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -21,6 +25,21 @@ public class XrayRenderer {
 
     private static boolean enabled = false;
     private static boolean altMode = false;
+
+    /* ---- reflected fields (SRG name, MCP name) ---- */
+    private static final Field ENTITY_POS_X  = ReflectionUtil.getField(Entity.class, "field_70165_t", "posX");
+    private static final Field ENTITY_POS_Y  = ReflectionUtil.getField(Entity.class, "field_70163_u", "posY");
+    private static final Field ENTITY_POS_Z  = ReflectionUtil.getField(Entity.class, "field_70161_v", "posZ");
+    private static final Field RM_VIEWER_X   = ReflectionUtil.getField(RenderManager.class, "field_78730_l", "viewerPosX");
+    private static final Field RM_VIEWER_Y   = ReflectionUtil.getField(RenderManager.class, "field_78731_m", "viewerPosY");
+    private static final Field RM_VIEWER_Z   = ReflectionUtil.getField(RenderManager.class, "field_78728_n", "viewerPosZ");
+
+    static {
+        for (Field f : new Field[]{ENTITY_POS_X, ENTITY_POS_Y, ENTITY_POS_Z,
+                                   RM_VIEWER_X, RM_VIEWER_Y, RM_VIEWER_Z}) {
+            f.setAccessible(true);
+        }
+    }
 
     /* ---- ore registry ---- */
     private static final Set<Block> ORE_BLOCKS = new HashSet<Block>(Arrays.asList(
@@ -51,7 +70,6 @@ public class XrayRenderer {
     private static final Queue<int[]> scanQueue = new LinkedList<int[]>();
     private static int lastPlayerCX = Integer.MIN_VALUE;
     private static int lastPlayerCZ = Integer.MIN_VALUE;
-    private static int scanCooldown = 0;
 
     /* ---- public API ---- */
     public static boolean isEnabled() { return enabled; }
@@ -65,7 +83,7 @@ public class XrayRenderer {
     }
 
     /* ================================================================
-     *  Chunk scanning  –  runs a few chunks per tick
+     *  Chunk scanning  -  runs a few chunks per tick
      * =============================================================== */
 
     @SubscribeEvent
@@ -75,9 +93,10 @@ public class XrayRenderer {
         if (mc.thePlayer == null || mc.theWorld == null) return;
         if (!enabled) return;
 
-        // Keep fly speed applied
-        int pcx = (int) Math.floor(mc.thePlayer.posX / 16.0);
-        int pcz = (int) Math.floor(mc.thePlayer.posZ / 16.0);
+        double px = ReflectionUtil.getDouble(mc.thePlayer, ENTITY_POS_X);
+        double pz = ReflectionUtil.getDouble(mc.thePlayer, ENTITY_POS_Z);
+        int pcx = (int) Math.floor(px / 16.0);
+        int pcz = (int) Math.floor(pz / 16.0);
 
         // Rebuild queue when player moves to a new chunk
         if (pcx != lastPlayerCX || pcz != lastPlayerCZ) {
@@ -133,7 +152,7 @@ public class XrayRenderer {
     }
 
     /* ================================================================
-     *  Rendering  –  draw ore highlights
+     *  Rendering  -  draw ore highlights
      * =============================================================== */
 
     @SubscribeEvent
@@ -142,16 +161,10 @@ public class XrayRenderer {
         Minecraft mc = Minecraft.getMinecraft();
         if (mc.thePlayer == null || mc.theWorld == null) return;
 
-        float partialTicks = event.partialTicks;
-
-        double camX = mc.getRenderManager().viewerPosX;
-        double camY = mc.getRenderManager().viewerPosY;
-        double camZ = mc.getRenderManager().viewerPosZ;
-
-        // Position relative to camera
-        double relX = mc.thePlayer.posX - camX;
-        double relY = mc.thePlayer.posY - camY;
-        double relZ = mc.thePlayer.posZ - camZ;
+        RenderManager rm = mc.getRenderManager();
+        double camX = ReflectionUtil.getDouble(rm, RM_VIEWER_X);
+        double camY = ReflectionUtil.getDouble(rm, RM_VIEWER_Y);
+        double camZ = ReflectionUtil.getDouble(rm, RM_VIEWER_Z);
 
         GlStateManager.pushMatrix();
         GlStateManager.translate(-camX, -camY, -camZ);
@@ -181,11 +194,13 @@ public class XrayRenderer {
                 if (altMode) {
                     // Semi-transparent filled quads
                     GlStateManager.color(col[0], col[1], col[2], 0.15f);
-                    drawFilledBox(px - 0.5, py - 0.5, pz - 0.5, px + 0.5, py + 0.5, pz + 0.5);
+                    drawFilledBox(px - 0.5, py - 0.5, pz - 0.5,
+                                  px + 0.5, py + 0.5, pz + 0.5);
                 } else {
                     // Bright wireframe
                     GlStateManager.color(col[0], col[1], col[2], 0.85f);
-                    drawOutlinedBox(px - 0.5, py - 0.5, pz - 0.5, px + 0.5, py + 0.5, pz + 0.5);
+                    drawOutlinedBox(px - 0.5, py - 0.5, pz - 0.5,
+                                    px + 0.5, py + 0.5, pz + 0.5);
                 }
             }
         }
