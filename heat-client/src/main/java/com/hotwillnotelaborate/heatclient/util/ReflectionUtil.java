@@ -68,6 +68,23 @@ public class ReflectionUtil {
         catch (IllegalAccessException e) { throw new RuntimeException(e); }
     }
 
+    public static boolean getBoolean(Object obj, Field f) {
+        if (!f.isAccessible()) f.setAccessible(true);
+        try { return f.getBoolean(obj); }
+        catch (IllegalAccessException e) { throw new RuntimeException(e); }
+    }
+
+    public static int getInt(Object obj, Field f) {
+        if (!f.isAccessible()) f.setAccessible(true);
+        try { return f.getInt(obj); }
+        catch (IllegalAccessException e) { throw new RuntimeException(e); }
+    }
+
+    public static void setInt(Object obj, Field f, int val) {
+        if (!f.isAccessible()) f.setAccessible(true);
+        try { f.setInt(obj, val); }
+        catch (IllegalAccessException e) { throw new RuntimeException(e); }
+    }
     public static void setBoolean(Object obj, Field f, boolean val) {
         if (!f.isAccessible()) f.setAccessible(true);
         try { f.setBoolean(obj, val); }
