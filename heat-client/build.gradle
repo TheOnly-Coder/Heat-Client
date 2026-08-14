@@ -19,7 +19,7 @@ sourceCompatibility = targetCompatibility = '1.8'
 minecraft {
     version = "1.8-11.14.4.1563-1.8"
     runDir = "run"
-    mappings = "stable_20"
+    mappings = "stable_18"
 }
 
 repositories {
