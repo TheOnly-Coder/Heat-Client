@@ -1,0 +1,7 @@
+*.class
+build-classes/
+dist/
+*.jar
+*.class
+.DS_Store
+*.swp
