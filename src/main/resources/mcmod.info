@@ -1,0 +1,15 @@
+[
+  {
+    "modid": "heatclient",
+    "name": "Heat Client",
+    "description": "A command-driven utility client for Will Anarchy. Type !help in-game.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "authorList": ["HotWillNotElaborate"],
+    "credits": "HotWillNotElaborate",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

@@ -1,0 +1,17 @@
+# Build artifacts
+build-classes/
+dist/
+build/
+.gradle/
+*.class
+*.jar
+*.log
+
+# IDE
+.idea/
+*.iml
+*.swp
+.DS_Store
+
+# Uploads
+upload/
