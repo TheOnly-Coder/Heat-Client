@@ -1,6 +1,7 @@
 package com.hotwillnotelaborate.heatclient.event;
 
 import com.hotwillnotelaborate.heatclient.HeatClient;
+import com.hotwillnotelaborate.heatclient.util.McHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,9 +25,9 @@ public class CombatHandler {
 
     private void doCriticals() {
         try {
-            double px = mc.thePlayer.posX;
-            double py = mc.thePlayer.posY;
-            double pz = mc.thePlayer.posZ;
+            double px = McHelper.getPosX(mc.thePlayer);
+            double py = McHelper.getPosY(mc.thePlayer);
+            double pz = McHelper.getPosZ(mc.thePlayer);
             mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(px, py + 0.0625, pz, false));
             mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(px, py, pz, false));
         } catch (Exception ignored) {}

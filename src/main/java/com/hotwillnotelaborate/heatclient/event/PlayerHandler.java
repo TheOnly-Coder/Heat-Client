@@ -2,6 +2,7 @@ package com.hotwillnotelaborate.heatclient.event;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import com.hotwillnotelaborate.heatclient.util.McHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -39,7 +40,7 @@ public class PlayerHandler {
                 }
             }
             if (bestSlot != -1 && bestSlot != mc.thePlayer.inventory.currentItem) {
-                mc.thePlayer.inventory.currentItem = bestSlot;
+                McHelper.setInventoryCurrentItem(mc.thePlayer.inventory, bestSlot);
             }
         } catch (Exception ignored) {}
     }

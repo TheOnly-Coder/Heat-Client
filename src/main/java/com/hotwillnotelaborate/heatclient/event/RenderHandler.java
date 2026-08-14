@@ -87,9 +87,9 @@ public class RenderHandler {
         GL11.glLineWidth(1.5f);
         GL11.glBegin(GL11.GL_LINES);
         for (Entity e : McHelper.getLoadedEntities(mc.theWorld)) {
-            if (e == mc.thePlayer || e.isDead) continue;
+            if (e == mc.thePlayer || McHelper.isDead(e)) continue;
             if (mc.thePlayer.getDistanceToEntity(e) > renderRange) continue;
-            double ex = McHelper.getPosX(e), ey = McHelper.getPosY(e) + e.height / 2.0, ez = McHelper.getPosZ(e);
+            double ex = McHelper.getPosX(e), ey = McHelper.getPosY(e) + McHelper.getHeight(e) / 2.0, ez = McHelper.getPosZ(e);
             float r = 1, g = 0.2f, b = 0.2f;
             if (e instanceof EntityPlayer) { r = 1; g = 0.5f; b = 0; }
             GL11.glColor3f(r, g, b);
@@ -109,7 +109,7 @@ public class RenderHandler {
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glLineWidth(2.0f);
         for (Entity e : McHelper.getLoadedEntities(mc.theWorld)) {
-            if (e == mc.thePlayer || e.isDead) continue;
+            if (e == mc.thePlayer || McHelper.isDead(e)) continue;
             if (mc.thePlayer.getDistanceToEntity(e) > renderRange) continue;
             float w = McHelper.getWidth(e), h = McHelper.getHeight(e);
             double x = McHelper.getPosX(e) - w/2.0, y = McHelper.getPosY(e), z = McHelper.getPosZ(e) - w/2.0;
@@ -133,9 +133,9 @@ public class RenderHandler {
         GlStateManager.disableDepth();
         GlStateManager.disableLighting();
         for (Entity e : McHelper.getLoadedEntities(mc.theWorld)) {
-            if (e == mc.thePlayer || e.isDead) continue;
+            if (e == mc.thePlayer || McHelper.isDead(e)) continue;
             if (mc.thePlayer.getDistanceToEntity(e) > renderRange) continue;
-            double x = McHelper.getPosX(e), y = McHelper.getPosY(e) + e.height + 0.3, z = McHelper.getPosZ(e);
+            double x = McHelper.getPosX(e), y = McHelper.getPosY(e) + McHelper.getHeight(e) + 0.3, z = McHelper.getPosZ(e);
             double dx = x - camX, dy = y - camY, dz = z - camZ;
             double cos = Math.cos(-playerYaw), sin = Math.sin(-playerYaw);
             double nx = dx*cos - dz*sin, nz = dx*sin + dz*cos;
@@ -303,7 +303,7 @@ public class RenderHandler {
         if (PacketHandler.noSwing) active.add(EnumChatFormatting.YELLOW + "NoSwing");
         if (active.isEmpty()) return;
         FontRenderer fr = mc.fontRendererObj;
-        int x = mc.displayWidth - 4, y = 4;
+        int x = McHelper.getDisplayWidth() - 4, y = 4;
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         for (String line : active) {
