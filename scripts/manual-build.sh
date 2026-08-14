@@ -24,7 +24,7 @@ RES=/home/z/my-project/heat-client/src/main/resources
 OUT=/home/z/my-project/heat-client/build-classes
 DIST=/home/z/my-project/heat-client/dist
 
-MOD_JAR=$DIST/HeatClient-1.2.0.jar
+MOD_JAR=$DIST/HeatClient-1.3.0.jar
 
 echo "=== Step 1: Compile mod source ==="
 rm -rf "$OUT" "$DIST"
@@ -58,7 +58,7 @@ mkdir -p "$DIST"
 cp "$RES/mcmod.info" "$OUT/mcmod.info"
 
 # Expand template variables in mcmod.info
-sed -i 's/\${version}/1.2.0/g; s/\${mcversion}/1.8.9-11.15.1.2318-1.8.9/g' "$OUT/mcmod.info"
+sed -i 's/\${version}/1.3.0/g; s/\${mcversion}/1.8.9-11.15.1.2318-1.8.9/g' "$OUT/mcmod.info"
 
 # Create the mod jar with a simple manifest
 echo "Manifest-Version: 1.0" > /tmp/manifest.mf

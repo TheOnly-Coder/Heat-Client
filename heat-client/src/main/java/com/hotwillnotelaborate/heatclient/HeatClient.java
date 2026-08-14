@@ -3,7 +3,6 @@ package com.hotwillnotelaborate.heatclient;
 import com.hotwillnotelaborate.heatclient.client.CompletionOverlay;
 import com.hotwillnotelaborate.heatclient.command.*;
 import com.hotwillnotelaborate.heatclient.event.ChatEventHandler;
-import com.hotwillnotelaborate.heatclient.event.CritHandler;
 import com.hotwillnotelaborate.heatclient.event.XrayRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -16,7 +15,7 @@ public class HeatClient {
 
     public static final String MODID = "heatclient";
     public static final String NAME = "Heat Client";
-    public static final String VERSION = "1.2.0";
+    public static final String VERSION = "1.3.0";
     public static final String PREFIX = "!";
     public static final String CHAT_PREFIX = "\u00a76[Heat] "; // gold [Heat]
 
@@ -31,14 +30,12 @@ public class HeatClient {
         commandManager.register(new CommandFly());
         commandManager.register(new CommandHelp());
         commandManager.register(new CommandXray());
-        commandManager.register(new CommandCrit());
         commandManager.register(new CommandActive());
 
         // Register event handlers on the Forge event bus
         MinecraftForge.EVENT_BUS.register(new ChatEventHandler());
         MinecraftForge.EVENT_BUS.register(new CompletionOverlay());
         MinecraftForge.EVENT_BUS.register(new XrayRenderer());
-        MinecraftForge.EVENT_BUS.register(new CritHandler());
 
         logger.info("Heat Client v{} loaded - {} commands registered.", VERSION,
                 commandManager.getCommands().size());

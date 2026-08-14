@@ -1,0 +1,406 @@
+PolyMC version: 7.1
+
+
+Launched instance in online mode
+
+authserver.mojang.com resolves to:
+    [N/A]
+
+session.minecraft.net resolves to:
+    [150.171.109.214, 2603:1061:14:d6::1]
+
+textures.minecraft.net resolves to:
+    [150.171.109.216, 2603:1061:14:d5::1]
+
+api.mojang.com resolves to:
+    [150.171.109.214, 2603:1061:14:d6::1]
+
+
+Minecraft folder is:
+/home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/.minecraft
+
+
+Java path is:
+/app/jdk/8/bin/java
+
+
+Checking Java version...
+Java is version 1.8.0_502, using 64 (amd64) architecture, from Oracle Corporation.
+
+
+Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz
+Intel Corporation HD Graphics 630 (rev 04)
+
+DeviceName: Onboard IGD
+
+Subsystem: Hewlett-Packard Company Device 82a2
+
+Main Class:
+  net.minecraft.launchwrapper.Launch
+
+Native path:
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/natives
+
+Libraries:
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/jinput/jinput/2.0.5/jinput-2.0.5.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/jutils/jutils/1.0.0/jutils-1.0.0.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/lwjgl/lwjgl/lwjgl/2.9.4-nightly-20150209/lwjgl-2.9.4-nightly-20150209.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/lwjgl/lwjgl/lwjgl_util/2.9.4-nightly-20150209/lwjgl_util-2.9.4-nightly-20150209.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/mojang/netty/1.8.8/netty-1.8.8.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/oshi-project/oshi-core/1.1/oshi-core-1.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/dev/jna/jna/3.4.0/jna-3.4.0.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/dev/jna/platform/3.4.0/platform-3.4.0.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/sf/jopt-simple/jopt-simple/4.6/jopt-simple-4.6.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/codecwav/20101023/codecwav-20101023.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/paulscode/soundsystem/20120107/soundsystem-20120107.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/io/netty/netty-all/4.0.23.Final/netty-all-4.0.23.Final.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/google/guava/guava/17.0/guava-17.0.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/commons-io/commons-io/2.4/commons-io-2.4.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/commons-codec/commons-codec/1.9/commons-codec-1.9.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/mojang/authlib/1.5.21/authlib-1.5.21.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/mojang/realms/1.7.59/realms-1.7.59.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/httpcomponents/httpclient/4.3.3/httpclient-4.3.3.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/httpcomponents/httpcore/4.3.2/httpcore-4.3.2.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/logging/log4j/log4j-api/2.0-beta9-fixed/log4j-api-2.0-beta9-fixed.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/apache/logging/log4j/log4j-core/2.0-beta9-fixed/log4j-core-2.0-beta9-fixed.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/tv/twitch/twitch/6.5/twitch-6.5.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/minecraftforge/forge/1.8.9-11.15.1.2318-1.8.9/forge-1.8.9-11.15.1.2318-1.8.9-universal.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/ow2/asm/asm-all/5.0.3/asm-all-5.0.3.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/jline/jline/2.13/jline-2.13.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/typesafe/akka/akka-actor_2.11/2.3.3/akka-actor_2.11-2.3.3.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/typesafe/config/1.2.1/config-1.2.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-actors-migration_2.11/1.1.0/scala-actors-migration_2.11-1.1.0.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-compiler/2.11.1/scala-compiler-2.11.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/plugins/scala-continuations-library_2.11/1.0.2/scala-continuations-library_2.11-1.0.2.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/plugins/scala-continuations-plugin_2.11.1/1.0.2/scala-continuations-plugin_2.11.1-1.0.2.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-library/2.11.1/scala-library-2.11.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-parser-combinators_2.11/1.0.1/scala-parser-combinators_2.11-1.0.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-reflect/2.11.1/scala-reflect-2.11.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-swing_2.11/1.0.1/scala-swing_2.11-1.0.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/scala-lang/scala-xml_2.11/1.0.2/scala-xml_2.11-1.0.2.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/lzma/lzma/0.0.1/lzma-0.0.1.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/java3d/vecmath/1.5.2/vecmath-1.5.2.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/com/mojang/minecraft/1.8.9/minecraft-1.8.9-client.jar
+
+Native libraries:
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-linux.jar
+  /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/libraries/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-linux.jar
+
+Mods:
+  [✔] HeatClient-1.2.0
+
+Params:
+  --username  --version 1.8.9 --gameDir /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/.minecraft --assetsDir /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/assets --assetIndex 1.8 --uuid  --accessToken  --userProperties  --userType  --tweakClass net.minecraftforge.fml.common.launcher.FMLTweaker
+
+Window size: 854 x 480
+
+Java Arguments:
+[-Xms512m, -Xmx4096m, -Duser.language=en]
+
+
+Minecraft process ID: 1361
+
+
+[15:24:37] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[15:24:37] [main/INFO] [LaunchWrapper]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[15:24:37] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
+[15:24:37] [main/INFO] [FML]: Forge Mod Loader version 11.15.1.2318 for Minecraft 1.8.9 loading
+[15:24:37] [main/INFO] [FML]: Java is OpenJDK 64-Bit Server VM, version 1.8.0_502, running on Linux:amd64:6.17.0-40-generic, installed at /app/jdk/8/jre
+[15:24:37] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[15:24:37] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[15:24:37] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[15:24:37] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[15:24:37] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[15:24:38] [main/INFO] [FML]: Found valid fingerprint for Minecraft. Certificate fingerprint cd99959656f753dc28d863b46769f7f8fbaefcfc
+[15:24:38] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
+[15:24:38] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[15:24:38] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[15:24:39] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
+[15:24:39] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
+[15:24:39] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[15:24:39] [Client thread/INFO]: Setting user: HotWillNotE
+[15:24:41] [Client thread/INFO]: LWJGL Version: 2.9.4
+[15:24:43] [Client thread/INFO] [STDOUT]: [net.minecraftforge.fml.client.SplashProgress:start:246]: ---- Minecraft Crash Report ----
+// I blame Dinnerbone.
+Time: 8/14/26 3:24 PM
+Description: Loading screen debug info
+This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Linux (amd64) version 6.17.0-40-generic
+	Java Version: 1.8.0_502, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 814946824 bytes (777 MB) / 912261120 bytes (870 MB) up to 3817865216 bytes (3641 MB)
+	JVM Flags: 2 total; -Xms512m -Xmx4096m
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: 
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'Intel' Version: '4.6 (Compatibility Profile) Mesa 26.1.5 (git-6a02618ccf)' Renderer: 'Mesa Intel(R) HD Graphics 630 (KBL GT2)'
+[15:24:43] [Client thread/INFO] [FML]: MinecraftForge v11.15.1.2318 Initialized
+[15:24:43] [Client thread/INFO] [FML]: Replaced 229 ore recipies
+[15:24:43] [Client thread/INFO] [FML]: Found 0 mods from the command line. Injecting into mod discoverer
+[15:24:43] [Client thread/INFO] [FML]: Searching /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/.minecraft/mods for mods
+[15:24:44] [Client thread/INFO] [FML]: Forge Mod Loader has identified 4 mods to load
+[15:24:44] [Client thread/INFO] [FML]: Attempting connection with missing mods [mcp, FML, Forge, heatclient] at CLIENT
+[15:24:44] [Client thread/INFO] [FML]: Attempting connection with missing mods [mcp, FML, Forge, heatclient] at SERVER
+[15:24:44] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Heat Client
+[15:24:44] [Client thread/INFO] [FML]: Processing ObjectHolder annotations
+[15:24:44] [Client thread/INFO] [FML]: Found 384 ObjectHolder annotations
+[15:24:44] [Client thread/INFO] [FML]: Identifying ItemStackHolder annotations
+[15:24:44] [Client thread/INFO] [FML]: Found 0 ItemStackHolder annotations
+[15:24:45] [Client thread/INFO] [FML]: Configured a dormant chunk cache size of 0
+[15:24:45] [Forge Version Check/INFO] [ForgeVersionCheck]: [Forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
+[15:24:45] [Client thread/INFO] [FML]: Applying holder lookups
+[15:24:45] [Client thread/INFO] [FML]: Holder lookups applied
+[15:24:45] [Client thread/INFO] [FML]: Injecting itemstacks
+[15:24:45] [Client thread/INFO] [FML]: Itemstack injection complete
+[15:24:45] [Client thread/INFO] [STDOUT]: [tv.twitch.StandardCoreAPI:<init>:16]: If on Windows, make sure to provide all of the necessary dll's as specified in the twitchsdk README. Also, make sure to set the PATH environment variable to point to the directory containing the dll's.
+[15:24:45] [Client thread/ERROR]: Couldn't initialize twitch stream
+[15:24:45] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[15:24:45] [Thread-8/INFO]: Initializing LWJGL OpenAL
+[15:24:45] [Thread-8/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[15:24:45] [Thread-8/INFO]: OpenAL initialized.
+[15:24:45] [Sound Library Loader/INFO]: Sound engine started
+[15:24:46] [Client thread/INFO] [FML]: Max texture size: 16384
+[15:24:46] [Client thread/INFO]: Created: 16x16 textures-atlas
+[15:24:47] [Client thread/INFO] [heatclient]: Heat Client v1.2.0 initializing...
+[15:24:47] [Client thread/INFO] [heatclient]: Heat Client v1.2.0 loaded - 5 commands registered.
+[15:24:47] [Client thread/INFO] [FML]: Injecting itemstacks
+[15:24:47] [Client thread/INFO] [FML]: Itemstack injection complete
+[15:24:47] [Client thread/INFO] [FML]: Forge Mod Loader has successfully loaded 4 mods
+[15:24:47] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Heat Client
+[15:24:47] [Client thread/INFO]: SoundSystem shutting down...
+[15:24:47] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[15:24:47] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[15:24:48] [Thread-10/INFO]: Initializing LWJGL OpenAL
+[15:24:48] [Thread-10/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[15:24:48] [Thread-10/INFO]: OpenAL initialized.
+[15:24:48] [Sound Library Loader/INFO]: Sound engine started
+[15:24:48] [Client thread/INFO] [FML]: Max texture size: 16384
+[15:24:49] [Client thread/INFO]: Created: 512x512 textures-atlas
+[15:24:54] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+[15:24:54] [Server thread/INFO]: Generating keypair
+[15:24:54] [Server thread/INFO] [fml.ModTracker]: This world was saved with mod heatclient version 1.1.0 and it is now at version 1.2.0, things may not work well
+[15:24:54] [Server thread/INFO] [FML]: Injecting existing block and item data into this server instance
+[15:24:54] [Server thread/INFO] [FML]: Applying holder lookups
+[15:24:54] [Server thread/INFO] [FML]: Holder lookups applied
+[15:24:54] [Server thread/INFO] [FML]: Loading dimension 0 (Test Heat Client) (net.minecraft.server.integrated.IntegratedServer@729e0de3)
+[15:24:54] [Server thread/INFO] [FML]: Loading dimension 1 (Test Heat Client) (net.minecraft.server.integrated.IntegratedServer@729e0de3)
+[15:24:54] [Server thread/INFO] [FML]: Loading dimension -1 (Test Heat Client) (net.minecraft.server.integrated.IntegratedServer@729e0de3)
+[15:24:54] [Server thread/INFO]: Preparing start region for level 0
+[15:24:55] [Server thread/INFO]: Changing view distance to 12, from 10
+[15:24:55] [Netty Local Client IO #0/INFO] [FML]: Server protocol version 2
+[15:24:55] [Netty Server IO #1/INFO] [FML]: Client protocol version 2
+[15:24:55] [Netty Server IO #1/INFO] [FML]: Client attempting to join with 4 mods : FML@8.0.99.99,heatclient@1.2.0,Forge@11.15.1.2318,mcp@9.19
+[15:24:55] [Netty Local Client IO #0/INFO] [FML]: [Netty Local Client IO #0] Client side modded connection established
+[15:24:55] [Server thread/INFO] [FML]: [Server thread] Server side modded connection established
+[15:24:55] [Server thread/INFO]: HotWillNotE[local:E:afc45cdc] logged in with entity id 419 at (-347.18088283202803, 60.0, 306.57744534883756)
+[15:24:55] [Server thread/INFO]: HotWillNotE joined the game
+[15:24:59] [Client thread/INFO]: [CHAT] §6§l[Heat Client] §r§7v1.2.0 loaded. Type §e!help§7 for commands.
+[15:25:02] [Client thread/INFO]: [CHAT] §6§l=== Active Modules ===
+[15:25:02] [Client thread/INFO]: [CHAT] §8  No modules active.
+[15:25:10] [Client thread/INFO]: [CHAT] §6§l=== Heat Client Commands ===
+[15:25:10] [Client thread/INFO]: [CHAT] 
+[15:25:10] [Client thread/INFO]: [CHAT] §e  !fly [speed]§8 (flight)§7 - Toggle creative flight (optional speed 0.5-20)
+[15:25:10] [Client thread/INFO]: [CHAT] §e  !help§8 (?, commands)§7 - Show all available commands
+[15:25:10] [Client thread/INFO]: [CHAT] §e  !xray [alt|default]§8 (esp, ore)§7 - Toggle ore ESP (use 'alt' for subtle mode)
+[15:25:10] [Client thread/INFO]: [CHAT] §e  !crit§8 (criticals, critical)§7 - Toggle forced critical hits on every attack
+[15:25:10] [Client thread/INFO]: [CHAT] §e  !active§8 (modules, toggled)§7 - Show currently active modules
+[15:25:10] [Client thread/INFO]: [CHAT] 
+[15:25:10] [Client thread/INFO]: [CHAT] §8  Use Tab to auto-complete while typing.
+[15:25:25] [Client thread/INFO]: [CHAT] §6[Heat] §7Fly §aenabled§7 (speed: §b2.0x§7).
+[15:25:33] [Client thread/INFO]: [CHAT] §6[Heat] §7Fly §cdisabled§7.
+[15:25:41] [Client thread/INFO]: [CHAT] §6[Heat] §7X-Ray §aenabled§7 (default mode).
+[15:25:41] [Client thread/ERROR] [FML]: Exception caught during firing event net.minecraftforge.fml.common.gameevent.TickEvent$ClientTickEvent@5af69032:
+java.lang.NoSuchMethodError: net.minecraft.client.multiplayer.WorldClient.getChunkFromChunkCoords(II)Lnet/minecraft/world/chunk/Chunk;
+	at com.hotwillnotelaborate.heatclient.event.XrayRenderer.onClientTick(XrayRenderer.java:114) ~[XrayRenderer.class:?]
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_10_XrayRenderer_onClientTick_ClientTickEvent.invoke(.dynamic) ~[?:?]
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49) ~[ASMEventHandler.class:?]
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140) [EventBus.class:?]
+	at net.minecraftforge.fml.common.FMLCommonHandler.onPostClientTick(FMLCommonHandler.java:336) [FMLCommonHandler.class:?]
+	at net.minecraft.client.Minecraft.func_71407_l(Minecraft.java:2151) [ave.class:?]
+	at net.minecraft.client.Minecraft.func_71411_J(Minecraft.java:1024) [ave.class:?]
+	at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:349) [ave.class:?]
+	at net.minecraft.client.main.Main.main(SourceFile:124) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_502]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_502]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_502]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_502]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_502]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_502]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_502]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_502]
+	at org.polymc.impl.OneSixLauncher.invokeMain(OneSixLauncher.java:104) [NewLaunch.jar:?]
+	at org.polymc.impl.OneSixLauncher.launchWithMainClass(OneSixLauncher.java:176) [NewLaunch.jar:?]
+	at org.polymc.impl.OneSixLauncher.launch(OneSixLauncher.java:186) [NewLaunch.jar:?]
+	at org.polymc.EntryPoint.listen(EntryPoint.java:144) [NewLaunch.jar:?]
+	at org.polymc.EntryPoint.main(EntryPoint.java:74) [NewLaunch.jar:?]
+[15:25:41] [Client thread/ERROR] [FML]: Index: 2 Listeners:
+[15:25:41] [Client thread/ERROR] [FML]: 0: NORMAL
+[15:25:41] [Client thread/ERROR] [FML]: 1: ASM: com.hotwillnotelaborate.heatclient.event.ChatEventHandler@7de4bd8f onClientTick(Lnet/minecraftforge/fml/common/gameevent/TickEvent$ClientTickEvent;)V
+[15:25:41] [Client thread/ERROR] [FML]: 2: ASM: com.hotwillnotelaborate.heatclient.event.XrayRenderer@626967a0 onClientTick(Lnet/minecraftforge/fml/common/gameevent/TickEvent$ClientTickEvent;)V
+[15:25:41] [Client thread/ERROR] [FML]: 3: ASM: com.hotwillnotelaborate.heatclient.event.CritHandler@1000303a onClientTick(Lnet/minecraftforge/fml/common/gameevent/TickEvent$ClientTickEvent;)V
+[15:25:41] [Server thread/INFO]: Stopping server
+[15:25:41] [Server thread/INFO]: Saving players
+[15:25:41] [Server thread/INFO]: Saving worlds
+[15:25:41] [Server thread/INFO]: Saving chunks for level 'Test Heat Client'/Overworld
+[15:25:41] [Server thread/INFO]: Saving chunks for level 'Test Heat Client'/Nether
+[15:25:41] [Server thread/INFO]: Saving chunks for level 'Test Heat Client'/The End
+[15:25:42] [Server thread/INFO] [FML]: Unloading dimension 0
+[15:25:42] [Server thread/INFO] [FML]: Unloading dimension -1
+[15:25:42] [Server thread/INFO] [FML]: Unloading dimension 1
+[15:25:42] [Server thread/INFO] [FML]: Applying holder lookups
+[15:25:42] [Server thread/INFO] [FML]: Holder lookups applied
+[15:25:43] [Client thread/FATAL]: Unreported exception thrown!
+java.lang.NoSuchMethodError: net.minecraft.client.multiplayer.WorldClient.getChunkFromChunkCoords(II)Lnet/minecraft/world/chunk/Chunk;
+	at com.hotwillnotelaborate.heatclient.event.XrayRenderer.onClientTick(XrayRenderer.java:114) ~[XrayRenderer.class:?]
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_10_XrayRenderer_onClientTick_ClientTickEvent.invoke(.dynamic) ~[?:?]
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49) ~[ASMEventHandler.class:?]
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140) ~[EventBus.class:?]
+	at net.minecraftforge.fml.common.FMLCommonHandler.onPostClientTick(FMLCommonHandler.java:336) ~[FMLCommonHandler.class:?]
+	at net.minecraft.client.Minecraft.func_71407_l(Minecraft.java:2151) ~[ave.class:?]
+	at net.minecraft.client.Minecraft.func_71411_J(Minecraft.java:1024) ~[ave.class:?]
+	at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:349) [ave.class:?]
+	at net.minecraft.client.main.Main.main(SourceFile:124) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_502]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_502]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_502]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_502]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_502]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_502]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_502]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_502]
+	at org.polymc.impl.OneSixLauncher.invokeMain(OneSixLauncher.java:104) [NewLaunch.jar:?]
+	at org.polymc.impl.OneSixLauncher.launchWithMainClass(OneSixLauncher.java:176) [NewLaunch.jar:?]
+	at org.polymc.impl.OneSixLauncher.launch(OneSixLauncher.java:186) [NewLaunch.jar:?]
+	at org.polymc.EntryPoint.listen(EntryPoint.java:144) [NewLaunch.jar:?]
+	at org.polymc.EntryPoint.main(EntryPoint.java:74) [NewLaunch.jar:?]
+[15:25:43] [Client thread/INFO] [STDOUT]: [net.minecraft.init.Bootstrap:func_179870_a:529]: ---- Minecraft Crash Report ----
+// Quite honestly, I wouldn't worry myself about that.
+Time: 8/14/26 3:25 PM
+Description: Unexpected error
+java.lang.NoSuchMethodError: net.minecraft.client.multiplayer.WorldClient.getChunkFromChunkCoords(II)Lnet/minecraft/world/chunk/Chunk;
+	at com.hotwillnotelaborate.heatclient.event.XrayRenderer.onClientTick(XrayRenderer.java:114)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_10_XrayRenderer_onClientTick_ClientTickEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140)
+	at net.minecraftforge.fml.common.FMLCommonHandler.onPostClientTick(FMLCommonHandler.java:336)
+	at net.minecraft.client.Minecraft.func_71407_l(Minecraft.java:2151)
+	at net.minecraft.client.Minecraft.func_71411_J(Minecraft.java:1024)
+	at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:349)
+	at net.minecraft.client.main.Main.main(SourceFile:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.polymc.impl.OneSixLauncher.invokeMain(OneSixLauncher.java:104)
+	at org.polymc.impl.OneSixLauncher.launchWithMainClass(OneSixLauncher.java:176)
+	at org.polymc.impl.OneSixLauncher.launch(OneSixLauncher.java:186)
+	at org.polymc.EntryPoint.listen(EntryPoint.java:144)
+	at org.polymc.EntryPoint.main(EntryPoint.java:74)
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+-- Head --
+Stacktrace:
+	at com.hotwillnotelaborate.heatclient.event.XrayRenderer.onClientTick(XrayRenderer.java:114)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_10_XrayRenderer_onClientTick_ClientTickEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140)
+	at net.minecraftforge.fml.common.FMLCommonHandler.onPostClientTick(FMLCommonHandler.java:336)
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['HotWillNotE'/419, l='MpServer', x=-362.88, y=63.00, z=318.18]]
+	Chunk stats: MultiplayerChunkCache: 566, 566
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: -248.00,64.00,256.00 - World: (-248,64,256), Chunk: (at 8,4,0 in -16,16; contains blocks -256,0,256 to -241,255,271), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+	Level time: 4994 game time, 4994 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 149 total; [EntityCreeper['Creeper'/1793, l='MpServer', x=-439.50, y=13.00, z=277.50], EntitySpider['Spider'/3, l='MpServer', x=-435.50, y=13.00, z=273.50], EntitySheep['Sheep'/4, l='MpServer', x=-441.97, y=68.00, z=313.03], EntitySheep['Sheep'/5, l='MpServer', x=-435.97, y=68.00, z=321.63], EntityZombie['Zombie'/1797, l='MpServer', x=-320.50, y=23.00, z=262.50], EntitySheep['Sheep'/6, l='MpServer', x=-434.50, y=68.00, z=322.25], EntitySkeleton['Skeleton'/775, l='MpServer', x=-413.50, y=45.00, z=272.50], EntitySheep['Sheep'/7, l='MpServer', x=-435.56, y=68.00, z=323.53], EntitySkeleton['Skeleton'/8, l='MpServer', x=-438.50, y=28.00, z=364.50], EntityChicken['Chicken'/9, l='MpServer', x=-434.28, y=63.63, z=376.66], EntityChicken['Chicken'/10, l='MpServer', x=-438.22, y=63.72, z=371.06], EntityChicken['Chicken'/11, l='MpServer', x=-437.50, y=64.00, z=379.50], EntityChicken['Chicken'/12, l='MpServer', x=-435.50, y=64.00, z=381.50], EntityCreeper['Creeper'/1037, l='MpServer', x=-432.50, y=23.00, z=378.50], EntityZombie['Zombie'/1038, l='MpServer', x=-410.50, y=43.00, z=328.50], EntitySheep['Sheep'/19, l='MpServer', x=-416.22, y=64.00, z=243.00], EntityBat['Bat'/21, l='MpServer', x=-428.58, y=47.60, z=272.67], EntitySheep['Sheep'/23, l='MpServer', x=-426.78, y=63.00, z=330.09], EntitySheep['Sheep'/24, l='MpServer', x=-434.88, y=64.00, z=358.22], EntitySheep['Sheep'/25, l='MpServer', x=-429.50, y=66.00, z=365.50], EntitySheep['Sheep'/26, l='MpServer', x=-430.22, y=65.00, z=367.78], EntitySheep['Sheep'/27, l='MpServer', x=-437.97, y=64.00, z=375.97], EntityCreeper['Creeper'/1565, l='MpServer', x=-425.50, y=26.00, z=349.50], EntityCreeper['Creeper'/1567, l='MpServer', x=-437.50, y=25.00, z=367.50], EntitySpider['Spider'/1568, l='MpServer', x=-381.50, y=54.00, z=282.50], EntitySheep['Sheep'/34, l='MpServer', x=-413.56, y=64.00, z=244.72], EntityZombie['Zombie'/35, l='MpServer', x=-414.50, y=54.00, z=284.50], EntityZombie['Zombie'/37, l='MpServer', x=-406.50, y=42.00, z=298.50], EntityChicken['Chicken'/38, l='MpServer', x=-404.53, y=71.00, z=374.00], EntityChicken['Chicken'/39, l='MpServer', x=-420.44, y=69.00, z=371.63], EntityChicken['Chicken'/40, l='MpServer', x=-406.41, y=71.00, z=395.38], EntityChicken['Chicken'/41, l='MpServer', x=-405.91, y=73.00, z=389.50], EntityZombie['Zombie'/2092, l='MpServer', x=-334.50, y=42.00, z=340.50], EntityBat['Bat'/1072, l='MpServer', x=-363.25, y=22.52, z=321.60], EntitySheep['Sheep'/49, l='MpServer', x=-392.56, y=71.00, z=245.44], EntitySheep['Sheep'/50, l='MpServer', x=-391.41, y=70.00, z=246.44], EntitySheep['Sheep'/51, l='MpServer', x=-401.69, y=78.00, z=252.47], EntityZombie['Zombie'/52, l='MpServer', x=-387.50, y=55.00, z=284.50], EntitySkeleton['Skeleton'/564, l='MpServer', x=-419.50, y=24.00, z=350.50], EntityBat['Bat'/53, l='MpServer', x=-387.14, y=55.98, z=274.69], EntityPig['Pig'/54, l='MpServer', x=-388.22, y=78.00, z=279.88], EntityPig['Pig'/55, l='MpServer', x=-399.72, y=78.00, z=285.34], EntityPig['Pig'/56, l='MpServer', x=-397.84, y=83.00, z=289.47], EntityPig['Pig'/57, l='MpServer', x=-396.94, y=83.00, z=285.31], EntityCreeper['Creeper'/1593, l='MpServer', x=-403.50, y=21.00, z=373.50], EntitySkeleton['Skeleton'/1594, l='MpServer', x=-343.63, y=39.00, z=330.63], EntitySheep['Sheep'/60, l='MpServer', x=-394.09, y=76.00, z=300.91], EntityCreeper['Creeper'/1596, l='MpServer', x=-416.50, y=17.00, z=373.50], EntitySheep['Sheep'/61, l='MpServer', x=-398.31, y=76.00, z=294.72], EntitySheep['Sheep'/62, l='MpServer', x=-384.03, y=78.00, z=304.03], EntitySheep['Sheep'/63, l='MpServer', x=-394.56, y=76.00, z=291.44], EntityZombie['Zombie'/1098, l='MpServer', x=-396.50, y=46.00, z=291.50], EntityCreeper['Creeper'/79, l='MpServer', x=-377.53, y=49.00, z=252.94], EntitySheep['Sheep'/80, l='MpServer', x=-374.34, y=71.00, z=242.50], EntityZombie['Zombie'/81, l='MpServer', x=-382.50, y=14.00, z=262.50], EntityZombie['Zombie'/82, l='MpServer', x=-381.50, y=51.00, z=263.50], EntitySkeleton['Skeleton'/83, l='MpServer', x=-365.84, y=49.00, z=265.47], EntitySkeleton['Skeleton'/84, l='MpServer', x=-378.41, y=37.00, z=285.31], EntityCreeper['Creeper'/1364, l='MpServer', x=-359.50, y=45.00, z=260.50], EntityBat['Bat'/1365, l='MpServer', x=-367.75, y=48.06, z=276.25], EntityBat['Bat'/86, l='MpServer', x=-363.17, y=49.05, z=274.50], EntityItem['item.tile.doublePlant.rose'/87, l='MpServer', x=-370.50, y=77.00, z=274.66], EntityItem['item.tile.doublePlant.rose'/88, l='MpServer', x=-369.75, y=77.00, z=272.88], EntityItem['item.tile.doublePlant.rose'/89, l='MpServer', x=-368.69, y=77.00, z=276.09], EntitySkeleton['Skeleton'/90, l='MpServer', x=-378.50, y=43.00, z=301.50], EntityZombie['Zombie'/91, l='MpServer', x=-380.50, y=27.00, z=315.50], EntitySkeleton['Skeleton'/92, l='MpServer', x=-373.16, y=48.00, z=320.47], EntityBat['Bat'/93, l='MpServer', x=-361.97, y=46.57, z=315.49], EntityBat['Bat'/94, l='MpServer', x=-373.48, y=46.02, z=316.53], EntityBat['Bat'/95, l='MpServer', x=-366.86, y=31.84, z=320.54], EntityItem['item.item.seeds'/96, l='MpServer', x=-370.38, y=63.00, z=366.88], EntityItem['item.tile.flower1.dandelion'/97, l='MpServer', x=-370.66, y=63.00, z=359.75], EntityItem['item.tile.flower1.dandelion'/98, l='MpServer', x=-371.06, y=64.00, z=364.84], EntityBat['Bat'/1385, l='MpServer', x=-333.52, y=33.90, z=313.45], EntityCreeper['Creeper'/1641, l='MpServer', x=-422.50, y=19.69, z=362.57], EntitySheep['Sheep'/108, l='MpServer', x=-363.69, y=63.00, z=244.78], EntitySpider['Spider'/110, l='MpServer', x=-362.50, y=38.00, z=273.50], EntitySkeleton['Skeleton'/111, l='MpServer', x=-361.13, y=61.00, z=274.47], EntityBat['Bat'/112, l='MpServer', x=-353.84, y=22.79, z=316.59], EntityCreeper['Creeper'/113, l='MpServer', x=-355.56, y=50.00, z=299.06], EntityCreeper['Creeper'/114, l='MpServer', x=-363.50, y=31.00, z=319.50], EntitySheep['Sheep'/115, l='MpServer', x=-363.61, y=64.00, z=322.50], EntityBat['Bat'/1907, l='MpServer', x=-409.32, y=17.64, z=359.59], EntitySkeleton['Skeleton'/116, l='MpServer', x=-358.50, y=23.00, z=322.50], EntitySkeleton['Skeleton'/117, l='MpServer', x=-356.50, y=23.00, z=315.94], EntityCreeper['Creeper'/118, l='MpServer', x=-362.03, y=29.00, z=353.47], EntityItem['item.item.seeds'/119, l='MpServer', x=-367.81, y=63.00, z=365.03], EntitySheep['Sheep'/120, l='MpServer', x=-359.47, y=72.00, z=367.97], EntitySheep['Sheep'/121, l='MpServer', x=-352.34, y=73.00, z=353.22], EntitySheep['Sheep'/122, l='MpServer', x=-364.13, y=74.00, z=360.88], EntitySkeleton['Skeleton'/1146, l='MpServer', x=-368.50, y=26.00, z=294.50], EntitySheep['Sheep'/123, l='MpServer', x=-365.50, y=74.00, z=359.50], EntityCreeper['Creeper'/133, l='MpServer', x=-348.72, y=39.38, z=283.09], EntitySheep['Sheep'/134, l='MpServer', x=-343.16, y=68.00, z=295.03], EntitySkeleton['Skeleton'/135, l='MpServer', x=-351.31, y=26.00, z=303.25], EntitySkeleton['Skeleton'/137, l='MpServer', x=-341.69, y=25.00, z=309.09], EntityZombie['Zombie'/138, l='MpServer', x=-355.16, y=30.00, z=318.34], EntityZombie['Zombie'/1931, l='MpServer', x=-349.66, y=26.00, z=294.34], EntityCreeper['Creeper'/140, l='MpServer', x=-338.47, y=40.00, z=307.91], EntitySheep['Sheep'/141, l='MpServer', x=-333.76, y=64.00, z=320.79], EntityZombie['Zombie'/142, l='MpServer', x=-346.56, y=18.00, z=320.91], EntitySpider['Spider'/143, l='MpServer', x=-342.84, y=39.00, z=331.88], EntityCow['Cow'/144, l='MpServer', x=-344.41, y=63.00, z=348.69], EntityCow['Cow'/145, l='MpServer', x=-346.41, y=63.00, z=349.91], EntitySheep['Sheep'/146, l='MpServer', x=-339.50, y=63.00, z=351.50], EntitySheep['Sheep'/147, l='MpServer', x=-336.31, y=63.00, z=350.78], EntityCow['Cow'/148, l='MpServer', x=-342.47, y=63.00, z=347.53], EntitySquid['Squid'/149, l='MpServer', x=-346.49, y=62.00, z=342.51], EntityCreeper['Creeper'/150, l='MpServer', x=-342.50, y=56.00, z=361.50], EntitySheep['Sheep'/151, l='MpServer', x=-340.31, y=64.00, z=354.63], EntitySheep['Sheep'/152, l='MpServer', x=-346.25, y=63.00, z=348.78], EntitySkeleton['Skeleton'/1441, l='MpServer', x=-432.50, y=47.00, z=299.50], EntitySheep['Sheep'/165, l='MpServer', x=-326.75, y=64.00, z=245.63], EntityZombie['Zombie'/166, l='MpServer', x=-324.50, y=56.00, z=258.50], EntityZombie['Zombie'/167, l='MpServer', x=-326.50, y=57.00, z=257.50], EntityRabbit['Rabbit'/168, l='MpServer', x=-322.34, y=69.00, z=260.63], EntityCreeper['Creeper'/169, l='MpServer', x=-324.09, y=34.00, z=275.47], EntitySheep['Sheep'/170, l='MpServer', x=-311.13, y=64.00, z=290.75], EntityZombie['Zombie'/171, l='MpServer', x=-327.00, y=40.00, z=323.41], EntityItem['item.item.seeds'/172, l='MpServer', x=-324.63, y=64.00, z=308.69], EntitySheep['Sheep'/173, l='MpServer', x=-332.25, y=64.00, z=319.50], EntitySkeleton['Skeleton'/1197, l='MpServer', x=-394.53, y=56.00, z=277.13], EntitySheep['Sheep'/174, l='MpServer', x=-337.38, y=64.00, z=305.19], EntityZombie['Zombie'/175, l='MpServer', x=-328.66, y=40.00, z=323.66], EntitySheep['Sheep'/176, l='MpServer', x=-325.19, y=64.00, z=322.16], EntitySheep['Sheep'/177, l='MpServer', x=-324.25, y=64.00, z=326.16], EntitySheep['Sheep'/178, l='MpServer', x=-312.53, y=64.00, z=339.16], EntityCow['Cow'/179, l='MpServer', x=-334.50, y=63.00, z=347.75], EntitySkeleton['Skeleton'/1459, l='MpServer', x=-405.16, y=13.14, z=314.59], EntityZombie['Zombie'/1210, l='MpServer', x=-411.50, y=14.00, z=366.50], EntitySheep['Sheep'/192, l='MpServer', x=-317.13, y=64.00, z=242.06], EntitySheep['Sheep'/193, l='MpServer', x=-314.44, y=64.00, z=242.91], EntityCreeper['Creeper'/194, l='MpServer', x=-307.34, y=55.00, z=265.00], EntityRabbit['Rabbit'/195, l='MpServer', x=-314.78, y=67.00, z=267.47], EntitySheep['Sheep'/197, l='MpServer', x=-314.75, y=64.00, z=320.38], EntitySheep['Sheep'/198, l='MpServer', x=-308.25, y=64.00, z=307.66], EntitySheep['Sheep'/199, l='MpServer', x=-316.47, y=64.00, z=349.09], EntitySheep['Sheep'/200, l='MpServer', x=-311.41, y=64.00, z=353.75], EntitySheep['Sheep'/201, l='MpServer', x=-309.66, y=64.00, z=350.53], EntitySkeleton['Skeleton'/1481, l='MpServer', x=-352.50, y=42.00, z=281.50], EntityChicken['Chicken'/202, l='MpServer', x=-317.38, y=64.00, z=386.44], EntityChicken['Chicken'/203, l='MpServer', x=-310.72, y=64.00, z=391.44], EntityChicken['Chicken'/205, l='MpServer', x=-314.34, y=64.00, z=396.56], EntityRabbit['Rabbit'/216, l='MpServer', x=-298.44, y=67.00, z=271.59], EntityCreeper['Creeper'/1497, l='MpServer', x=-375.50, y=43.00, z=298.50], EntityPlayerSP['HotWillNotE'/419, l='MpServer', x=-362.88, y=63.00, z=318.18], EntityCreeper['Creeper'/1772, l='MpServer', x=-405.50, y=44.00, z=341.50], EntitySpider['Spider'/1018, l='MpServer', x=-416.50, y=21.00, z=337.50], EntityBat['Bat'/2044, l='MpServer', x=-424.67, y=15.90, z=266.51]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.func_72914_a(WorldClient.java:347)
+	at net.minecraft.client.Minecraft.func_71396_d(Minecraft.java:2536)
+	at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:378)
+	at net.minecraft.client.main.Main.main(SourceFile:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.polymc.impl.OneSixLauncher.invokeMain(OneSixLauncher.java:104)
+	at org.polymc.impl.OneSixLauncher.launchWithMainClass(OneSixLauncher.java:176)
+	at org.polymc.impl.OneSixLauncher.launch(OneSixLauncher.java:186)
+	at org.polymc.EntryPoint.listen(EntryPoint.java:144)
+	at org.polymc.EntryPoint.main(EntryPoint.java:74)
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Linux (amd64) version 6.17.0-40-generic
+	Java Version: 1.8.0_502, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 1227122480 bytes (1170 MB) / 1858076672 bytes (1772 MB) up to 3817865216 bytes (3641 MB)
+	JVM Flags: 2 total; -Xms512m -Xmx4096m
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	FML: MCP 9.19 Powered by Forge 11.15.1.2318 4 mods loaded, 4 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forge-1.8.9-11.15.1.2318-1.8.9-universal.jar) 
+	UCHIJAAAA	Forge{11.15.1.2318} [Minecraft Forge] (forge-1.8.9-11.15.1.2318-1.8.9-universal.jar) 
+	UCHIJAAAA	heatclient{1.2.0} [Heat Client] (HeatClient-1.2.0.jar) 
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'Intel' Version: '4.6 (Compatibility Profile) Mesa 26.1.5 (git-6a02618ccf)' Renderer: 'Mesa Intel(R) HD Graphics 630 (KBL GT2)'
+	Launched Version: 1.8.9
+	LWJGL: 2.9.4
+	OpenGL: Mesa Intel(R) HD Graphics 630 (KBL GT2) GL version 4.6 (Compatibility Profile) Mesa 26.1.5 (git-6a02618ccf), Intel
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 4x Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz
+[15:25:43] [Client thread/INFO] [STDOUT]: [net.minecraft.init.Bootstrap:func_179870_a:529]: #@!@# Game crashed! Crash report saved to: #@!@# /home/user/.var/app/org.polymc.PolyMC/data/PolyMC/instances/1.8.9 Heat Client/.minecraft/crash-reports/crash-2026-08-14_15.25.43-client.txt
+AL lib: (EE) alc_cleanup: 1 device not closed
+Process exited with code 255.
+Clipboard copy at: 14 Aug 2026 15:25:45 +0100

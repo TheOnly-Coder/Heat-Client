@@ -2,12 +2,14 @@ package com.hotwillnotelaborate.heatclient.event;
 
 import com.hotwillnotelaborate.heatclient.util.ReflectionUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -15,24 +17,36 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.*;
 
 /**
  * Renders ore ESP highlights through walls.
  * Scans loaded chunks around the player and draws colored wireframe cubes.
+ * All Minecraft field/method access uses reflection to avoid reobfuscation issues.
  */
 public class XrayRenderer {
 
     private static boolean enabled = false;
     private static boolean altMode = false;
 
-    /* ---- reflected fields (SRG name, MCP name) ---- */
-    private static final Field ENTITY_POS_X  = ReflectionUtil.getField(Entity.class, "field_70165_t", "posX");
-    private static final Field ENTITY_POS_Y  = ReflectionUtil.getField(Entity.class, "field_70163_u", "posY");
-    private static final Field ENTITY_POS_Z  = ReflectionUtil.getField(Entity.class, "field_70161_v", "posZ");
-    private static final Field RM_VIEWER_X   = ReflectionUtil.getField(RenderManager.class, "field_78730_l", "viewerPosX");
-    private static final Field RM_VIEWER_Y   = ReflectionUtil.getField(RenderManager.class, "field_78731_m", "viewerPosY");
-    private static final Field RM_VIEWER_Z   = ReflectionUtil.getField(RenderManager.class, "field_78728_n", "viewerPosZ");
+    /* ---- reflected fields (SRG, MCP) ---- */
+    private static final Field ENTITY_POS_X = ReflectionUtil.getField(Entity.class, "field_70165_t", "posX");
+    private static final Field ENTITY_POS_Y = ReflectionUtil.getField(Entity.class, "field_70163_u", "posY");
+    private static final Field ENTITY_POS_Z = ReflectionUtil.getField(Entity.class, "field_70161_v", "posZ");
+    private static final Field RM_VIEWER_X  = ReflectionUtil.getField(RenderManager.class, "field_78730_l", "viewerPosX");
+    private static final Field RM_VIEWER_Y  = ReflectionUtil.getField(RenderManager.class, "field_78731_m", "viewerPosY");
+    private static final Field RM_VIEWER_Z  = ReflectionUtil.getField(RenderManager.class, "field_78728_n", "viewerPosZ");
+
+    /* ---- reflected methods (SRG, MCP) ---- */
+    private static final Method WORLD_GET_CHUNK = ReflectionUtil.getMethod(
+            World.class, "func_72964_e", "getChunkFromChunkCoords", int.class, int.class);
+    private static final Method CHUNK_GET_BLOCK = ReflectionUtil.getMethod(
+            Chunk.class, "func_177438_a", "getBlock", int.class, int.class, int.class);
+    private static final Method WORLD_GET_BLOCKSTATE = ReflectionUtil.getMethod(
+            World.class, "func_180495_p", "getBlockState", BlockPos.class);
+    private static final Method IBS_GET_BLOCK = ReflectionUtil.getMethod(
+            IBlockState.class, "func_177230_c", "getBlock");
 
     static {
         for (Field f : new Field[]{ENTITY_POS_X, ENTITY_POS_Y, ENTITY_POS_Z,
@@ -78,9 +92,7 @@ public class XrayRenderer {
         enabled = v;
         if (!v) { chunkCache.clear(); scanQueue.clear(); }
     }
-    public static void setMode(boolean alt) {
-        altMode = alt;
-    }
+    public static void setMode(boolean alt) { altMode = alt; }
 
     /* ================================================================
      *  Chunk scanning  -  runs a few chunks per tick
@@ -98,29 +110,27 @@ public class XrayRenderer {
         int pcx = (int) Math.floor(px / 16.0);
         int pcz = (int) Math.floor(pz / 16.0);
 
-        // Rebuild queue when player moves to a new chunk
         if (pcx != lastPlayerCX || pcz != lastPlayerCZ) {
             lastPlayerCX = pcx;
             lastPlayerCZ = pcz;
             rebuildQueue(pcx, pcz);
         }
 
-        // Scan 3 chunks per tick
         for (int i = 0; i < 3 && !scanQueue.isEmpty(); i++) {
             int[] coord = scanQueue.poll();
             int cx = coord[0];
             int cz = coord[1];
             long key = cx * 31L + cz;
-            Chunk chunk = mc.theWorld.getChunkFromChunkCoords(cx, cz);
+            Chunk chunk = ReflectionUtil.invoke(mc.theWorld, WORLD_GET_CHUNK, cx, cz);
             List<int[]> ores = new ArrayList<int[]>();
-            for (int y = Y_MIN; y <= Y_MAX; y++) {
-                for (int x = 0; x < 16; x++) {
-                    for (int z = 0; z < 16; z++) {
-                        Block b = chunk.getBlock(x, y, z);
-                        if (ORE_BLOCKS.contains(b)) {
-                            ores.add(new int[]{
-                                    cx * 16 + x, y, cz * 16 + z
-                            });
+            if (chunk != null) {
+                for (int y = Y_MIN; y <= Y_MAX; y++) {
+                    for (int x = 0; x < 16; x++) {
+                        for (int z = 0; z < 16; z++) {
+                            Block b = ReflectionUtil.invoke(chunk, CHUNK_GET_BLOCK, x, y, z);
+                            if (ORE_BLOCKS.contains(b)) {
+                                ores.add(new int[]{cx * 16 + x, y, cz * 16 + z});
+                            }
                         }
                     }
                 }
@@ -142,7 +152,6 @@ public class XrayRenderer {
                 scanQueue.add(new int[]{cx, cz});
             }
         }
-        // Remove cache entries for out-of-range chunks
         Iterator<Map.Entry<Long, List<int[]>>> it = chunkCache.entrySet().iterator();
         while (it.hasNext()) {
             if (!validKeys.contains(it.next().getKey())) {
@@ -187,28 +196,24 @@ public class XrayRenderer {
                 float[] col = getOreColor(pos);
                 if (col == null) continue;
 
-                double px = pos[0] + 0.5;
-                double py = pos[1] + 0.5;
-                double pz = pos[2] + 0.5;
+                double bx = pos[0] + 0.5;
+                double by = pos[1] + 0.5;
+                double bz = pos[2] + 0.5;
 
                 if (altMode) {
-                    // Semi-transparent filled quads
                     GlStateManager.color(col[0], col[1], col[2], 0.15f);
-                    drawFilledBox(px - 0.5, py - 0.5, pz - 0.5,
-                                  px + 0.5, py + 0.5, pz + 0.5);
+                    drawFilledBox(bx - 0.5, by - 0.5, bz - 0.5,
+                                  bx + 0.5, by + 0.5, bz + 0.5);
                 } else {
-                    // Bright wireframe
                     GlStateManager.color(col[0], col[1], col[2], 0.85f);
-                    drawOutlinedBox(px - 0.5, py - 0.5, pz - 0.5,
-                                    px + 0.5, py + 0.5, pz + 0.5);
+                    drawOutlinedBox(bx - 0.5, by - 0.5, bz - 0.5,
+                                    bx + 0.5, by + 0.5, bz + 0.5);
                 }
             }
         }
 
         GlStateManager.depthMask(true);
-        if (altMode) {
-            GlStateManager.disableBlend();
-        }
+        if (altMode) GlStateManager.disableBlend();
         GlStateManager.enableCull();
         GlStateManager.enableLighting();
         GlStateManager.enableTexture2D();
@@ -221,7 +226,10 @@ public class XrayRenderer {
     private float[] getOreColor(int[] pos) {
         Minecraft mc = Minecraft.getMinecraft();
         if (mc.theWorld == null) return null;
-        Block b = mc.theWorld.getBlockState(new BlockPos(pos[0], pos[1], pos[2])).getBlock();
+        IBlockState state = ReflectionUtil.invoke(mc.theWorld, WORLD_GET_BLOCKSTATE,
+                new BlockPos(pos[0], pos[1], pos[2]));
+        if (state == null) return null;
+        Block b = ReflectionUtil.invoke(state, IBS_GET_BLOCK);
         float[] col = ORE_COLORS.get(b);
         return col != null ? col : new float[]{1f, 1f, 1f};
     }
@@ -231,17 +239,14 @@ public class XrayRenderer {
     private static void drawOutlinedBox(double x1, double y1, double z1,
                                          double x2, double y2, double z2) {
         GL11.glBegin(GL11.GL_LINES);
-        // Bottom face
         GL11.glVertex3d(x1, y1, z1); GL11.glVertex3d(x2, y1, z1);
         GL11.glVertex3d(x2, y1, z1); GL11.glVertex3d(x2, y1, z2);
         GL11.glVertex3d(x2, y1, z2); GL11.glVertex3d(x1, y1, z2);
         GL11.glVertex3d(x1, y1, z2); GL11.glVertex3d(x1, y1, z1);
-        // Top face
         GL11.glVertex3d(x1, y2, z1); GL11.glVertex3d(x2, y2, z1);
         GL11.glVertex3d(x2, y2, z1); GL11.glVertex3d(x2, y2, z2);
         GL11.glVertex3d(x2, y2, z2); GL11.glVertex3d(x1, y2, z2);
         GL11.glVertex3d(x1, y2, z2); GL11.glVertex3d(x1, y2, z1);
-        // Vertical edges
         GL11.glVertex3d(x1, y1, z1); GL11.glVertex3d(x1, y2, z1);
         GL11.glVertex3d(x2, y1, z1); GL11.glVertex3d(x2, y2, z1);
         GL11.glVertex3d(x2, y1, z2); GL11.glVertex3d(x2, y2, z2);
@@ -252,22 +257,16 @@ public class XrayRenderer {
     private static void drawFilledBox(double x1, double y1, double z1,
                                        double x2, double y2, double z2) {
         GL11.glBegin(GL11.GL_QUADS);
-        // Bottom
         GL11.glVertex3d(x1, y1, z1); GL11.glVertex3d(x2, y1, z1);
         GL11.glVertex3d(x2, y1, z2); GL11.glVertex3d(x1, y1, z2);
-        // Top
         GL11.glVertex3d(x1, y2, z1); GL11.glVertex3d(x1, y2, z2);
         GL11.glVertex3d(x2, y2, z2); GL11.glVertex3d(x2, y2, z1);
-        // North
         GL11.glVertex3d(x1, y1, z1); GL11.glVertex3d(x1, y2, z1);
         GL11.glVertex3d(x2, y2, z1); GL11.glVertex3d(x2, y1, z1);
-        // South
         GL11.glVertex3d(x1, y1, z2); GL11.glVertex3d(x2, y1, z2);
         GL11.glVertex3d(x2, y2, z2); GL11.glVertex3d(x1, y2, z2);
-        // West
         GL11.glVertex3d(x1, y1, z1); GL11.glVertex3d(x1, y1, z2);
         GL11.glVertex3d(x1, y2, z2); GL11.glVertex3d(x1, y2, z1);
-        // East
         GL11.glVertex3d(x2, y1, z1); GL11.glVertex3d(x2, y2, z1);
         GL11.glVertex3d(x2, y2, z2); GL11.glVertex3d(x2, y1, z2);
         GL11.glEnd();

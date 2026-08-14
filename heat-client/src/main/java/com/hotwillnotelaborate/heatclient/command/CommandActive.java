@@ -1,7 +1,6 @@
 package com.hotwillnotelaborate.heatclient.command;
 
 import com.hotwillnotelaborate.heatclient.HeatClient;
-import com.hotwillnotelaborate.heatclient.event.CritHandler;
 import com.hotwillnotelaborate.heatclient.event.XrayRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
@@ -44,9 +43,6 @@ public class CommandActive implements Command {
                     + EnumChatFormatting.GRAY + " ("
                     + EnumChatFormatting.AQUA + mode
                     + EnumChatFormatting.GRAY + ")");
-        }
-        if (CritHandler.isEnabled()) {
-            active.add(EnumChatFormatting.GREEN + "Critical Hits" + EnumChatFormatting.GRAY);
         }
 
         mc.thePlayer.addChatMessage(new ChatComponentText(
