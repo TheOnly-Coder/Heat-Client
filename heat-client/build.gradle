@@ -17,9 +17,9 @@ archivesBaseName = "HeatClient"
 sourceCompatibility = targetCompatibility = '1.8'
 
 minecraft {
-    version = "1.8-11.14.4.1563-1.8"
+    version = "1.8.9-11.15.1.2318-1.8.9"
     runDir = "run"
-    mappings = "stable_18"
+    mappings = "stable_22"
 }
 
 repositories {
