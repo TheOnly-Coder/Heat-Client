@@ -2,7 +2,6 @@ package com.hotwillnotelaborate.heatclient.event;
 
 import com.hotwillnotelaborate.heatclient.util.McHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.ChatComponentText;
 
@@ -11,12 +10,12 @@ import java.util.List;
 public class DupeHandler {
 
     public static boolean enabled = false;
-    // Default: 1 tick after item enters pickup range (pickup animation starting)
+    // Default: 1 tick after item enters pickup range
     public static int tickDelay = 1;
     public static boolean pending = false;
     private static int countdown = -1;
     private static final float PICKUP_RANGE = 1.8f;
-    // Flag to disconnect on the NEXT tick (avoids mid-frame world null crash)
+    // Flag to disconnect on the NEXT tick
     private static boolean shouldDisconnect = false;
 
     public static void setTickDelay(int d) {
@@ -54,7 +53,6 @@ public class DupeHandler {
         for (Object obj : entities) {
             if (!(obj instanceof EntityItem)) continue;
             EntityItem item = (EntityItem) obj;
-            // Only trigger when item's pickup delay has expired (can be collected)
             if (McHelper.getItemPickupDelay(item) > 0) continue;
 
             double ix = McHelper.getPosX(item);
@@ -89,28 +87,21 @@ public class DupeHandler {
     }
 
     private static void disconnect(Minecraft mc) {
+        // Just close the network channel and let Minecraft's own disconnect
+        // handler (NetHandlerPlayClient.onDisconnect) do everything safely.
+        // This avoids the GPU driver crash caused by manually calling
+        // sendQuittingDisconnectingPacket + displayGuiScreen concurrently
+        // with the server stopping on another thread.
         try {
-            if (mc.isIntegratedServerRunning()) {
-                // Singleplayer: send quit packet then show main menu
-                // Using displayGuiScreen instead of loadWorld(null) prevents
-                // the EntityRenderer NPE crash (render skips world draw when GUI is open)
-                if (mc.theWorld != null) {
-                    mc.theWorld.sendQuittingDisconnectingPacket();
-                }
-                mc.displayGuiScreen(new GuiMainMenu());
-            } else {
-                // Multiplayer: close connection then show main menu
-                if (mc.thePlayer != null && mc.thePlayer.sendQueue != null
-                        && mc.thePlayer.sendQueue.getNetworkManager() != null) {
-                    mc.thePlayer.sendQueue.getNetworkManager().closeChannel(
-                        new ChatComponentText("Dupe"));
-                }
-                mc.displayGuiScreen(new GuiMainMenu());
+            if (mc.thePlayer != null && mc.thePlayer.sendQueue != null
+                    && mc.thePlayer.sendQueue.getNetworkManager() != null) {
+                mc.thePlayer.sendQueue.getNetworkManager().closeChannel(
+                    new ChatComponentText("Dupe"));
             }
         } catch (Exception e) {
-            // Absolute fallback: just show main menu
-            try { mc.displayGuiScreen(new GuiMainMenu()); } catch (Exception ignored) {}
+            // Fallback: let Minecraft handle it naturally
         }
+        enabled = false;
         reset();
     }
 }

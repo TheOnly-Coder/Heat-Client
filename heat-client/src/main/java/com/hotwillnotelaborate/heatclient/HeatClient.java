@@ -21,7 +21,7 @@ public class HeatClient {
 
     public static final String MODID = "heatclient";
     public static final String NAME = "Heat Client";
-    public static final String VERSION = "1.5.1";
+    public static final String VERSION = "1.5.2";
     public static final String PREFIX = "!";
     public static final String CHAT_PREFIX = "\u00a76[Heat] ";
 

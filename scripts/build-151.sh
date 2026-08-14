@@ -22,7 +22,7 @@ SRC=/home/z/my-project/heat-client/src/main/java
 RES=/home/z/my-project/heat-client/src/main/resources
 OUT=/home/z/my-project/heat-client/build-classes
 DIST=/home/z/my-project/heat-client/dist
-MOD_JAR=$DIST/HeatClient-1.5.1.jar
+MOD_JAR=$DIST/HeatClient-1.5.2.jar
 
 echo "=== Step 1: Compile ==="
 rm -rf "$OUT" "$DIST"
@@ -49,7 +49,7 @@ rm -rf "$TMP_REOBF"
 
 echo "=== Step 3: Package ==="
 cp "$RES/mcmod.info" "$OUT/mcmod.info"
-sed -i 's/\${version}/1.5.1/g; s/\${mcversion}/1.8.9-11.15.1.2318-1.8.9/g' "$OUT/mcmod.info"
+sed -i 's/\${version}/1.5.2/g; s/\${mcversion}/1.8.9-11.15.1.2318-1.8.9/g' "$OUT/mcmod.info"
 
 echo "Manifest-Version: 1.0" > /tmp/manifest.mf
 echo "Created-By: 1.8.0 (Heat Client Build)" >> /tmp/manifest.mf
