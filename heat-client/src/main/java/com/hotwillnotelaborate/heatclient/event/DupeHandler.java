@@ -3,7 +3,6 @@ package com.hotwillnotelaborate.heatclient.event;
 import com.hotwillnotelaborate.heatclient.util.McHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.util.ChatComponentText;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ public class DupeHandler {
     public static boolean pending = false;
     private static int countdown = -1;
     private static final float PICKUP_RANGE = 1.8f;
-    // Flag to disconnect on the NEXT tick
     private static boolean shouldDisconnect = false;
 
     public static void setTickDelay(int d) {
@@ -34,7 +32,6 @@ public class DupeHandler {
             return;
         }
 
-        // If disconnect was flagged last tick, do it now
         if (shouldDisconnect) {
             shouldDisconnect = false;
             pending = false;
@@ -86,20 +83,37 @@ public class DupeHandler {
         }
     }
 
-    private static void disconnect(Minecraft mc) {
-        // Just close the network channel and let Minecraft's own disconnect
-        // handler (NetHandlerPlayClient.onDisconnect) do everything safely.
-        // This avoids the GPU driver crash caused by manually calling
-        // sendQuittingDisconnectingPacket + displayGuiScreen concurrently
-        // with the server stopping on another thread.
+    private static void disconnect(final Minecraft mc) {
+        // Schedule the disconnect on the client thread via addScheduledTask.
+        // This runs at the START of the next game loop iteration, BEFORE
+        // the tick and BEFORE the render. Using the vanilla Save and Quit
+        // code path (sendQuittingDisconnectingPacket + loadWorld(null)):
+        //   1. sendQuittingDisconnectingPacket tells the server to stop
+        //   2. loadWorld(null) calls integratedServer.stopServer() which
+        //      BLOCKS until the server thread finishes saving
+        //   3. Then theWorld is set to null, main menu shown
+        //   4. Next render frame: theWorld is null, render is skipped
+        // No concurrent GPU access = no Mesa driver crash.
         try {
-            if (mc.thePlayer != null && mc.thePlayer.sendQueue != null
-                    && mc.thePlayer.sendQueue.getNetworkManager() != null) {
-                mc.thePlayer.sendQueue.getNetworkManager().closeChannel(
-                    new ChatComponentText("Dupe"));
-            }
+            mc.addScheduledTask(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (mc.theWorld != null) {
+                            mc.theWorld.sendQuittingDisconnectingPacket();
+                        }
+                        mc.loadWorld(null);
+                    } catch (Exception e) {
+                        // If loadWorld fails, try at least showing main menu
+                        try {
+                            mc.displayGuiScreen(
+                                new net.minecraft.client.gui.GuiMainMenu());
+                        } catch (Exception ignored) {}
+                    }
+                }
+            });
         } catch (Exception e) {
-            // Fallback: let Minecraft handle it naturally
+            // addScheduledTask itself failed (shouldn't happen)
         }
         enabled = false;
         reset();
