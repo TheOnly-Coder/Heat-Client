@@ -8,3 +8,6 @@ and the- well, as of writing this it has the smallest community of only 2 people
 Built in Xray, Flight, Auto Dupe, Aim Assist, Safe Walk and more with unique settings per module, key binding and chat commands so you feel like you're on Meteor Client when you really, really aren't, meteor can't support 1.8.9 or forge. 
 
 Oh and the source code above this is outdated so you can't steal my client, I think the version the source code is on is before the Right Ctrl GUI was added but I'm not sure. 
+
+HEAT CLIENT ALSO INCLUDES AN ANARCHY SERVER DISCOVERY LIST (also includes hypixel as a server in server discovery but don't cheat on that or hypixel will get you banned from every single minecraft server in existence.... in GTA... not really) 
+Also Heat Client isn't compatible with Essential Mod anymore but who uses that on 1.8.9? Anyway, by the time you're reading this there's probably already friending people and chatting with them outside of servers in Heat Client anyway. 
