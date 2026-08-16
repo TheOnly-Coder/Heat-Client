@@ -234,7 +234,7 @@
         <div class="compat-row"><span>Price</span><span class="compat-pill compat-pill-good">Free</span></div>
 
         <div class="about-card-note">
-          Heat Client's official server is <strong>Will Anarchy</strong> — joinable on Minecraft 1.7 through 1.21.2, near-vanilla with only Frame Dupe and Legacy Edition Dupe Revival plugins.
+          Heat Client's official server is <strong>Will Anarchy</strong> — joinable on Minecraft 1.7 through 26.2, near-vanilla with only Frame Dupe and Legacy Edition Dupe Revival plugins.
         </div>
       </div>
     </div>
@@ -249,8 +249,19 @@
     <p class="section-sub">Everything you might want to know about Heat Client — what it is, how to install it, ban risk, compatibility, and where to get help.</p>
   </div>
 
+  <nav class="faq-toc reveal" data-reveal aria-label="FAQ table of contents">
+    <a href="#faq-basics" class="faq-toc-pill"><span class="faq-toc-icon">❉</span>Basics<span class="faq-toc-count">3</span></a>
+    <a href="#faq-install" class="faq-toc-pill"><span class="faq-toc-icon">⤓</span>Install &amp; Usage<span class="faq-toc-count">2</span></a>
+    <a href="#faq-modules" class="faq-toc-pill"><span class="faq-toc-icon">▣</span>Modules<span class="faq-toc-count">3</span></a>
+    <a href="#faq-safety" class="faq-toc-pill"><span class="faq-toc-icon">🛡</span>Safety &amp; Bans<span class="faq-toc-count">3</span></a>
+    <a href="#faq-compat" class="faq-toc-pill"><span class="faq-toc-icon">⇄</span>Compatibility<span class="faq-toc-count">2</span></a>
+    <a href="#faq-updates" class="faq-toc-pill"><span class="faq-toc-icon">↻</span>Source &amp; Updates<span class="faq-toc-count">2</span></a>
+    <a href="#faq-support" class="faq-toc-pill"><span class="faq-toc-icon">?</span>Support &amp; Community<span class="faq-toc-count">3</span></a>
+    <a href="#faq-compare" class="faq-toc-pill"><span class="faq-toc-icon">⚖</span>Comparison<span class="faq-toc-count">2</span></a>
+  </nav>
+
   <div class="faq-list reveal" data-reveal>
-    <details class="faq-item">
+    <details class="faq-item" id="faq-basics">
       <summary><span class="faq-q-num">01</span><span class="faq-q-text">What is Heat Client?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
       <div class="faq-a"><p>Heat Client is a 1.8.9 Forge Ghost client built for maximum server compatibility. It's designed to feel like a premium cheat client — without the premium price tag.</p></div>
     </details>
@@ -265,7 +276,7 @@
       <div class="faq-a"><p>Yes — Heat Client is completely free and will <strong>never</strong> be paid. Donations are always welcome, but the client itself will stay free forever.</p></div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-install">
       <summary><span class="faq-q-num">04</span><span class="faq-q-text">How do I install it?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
       <div class="faq-a"><p>Just drop the jar into your <code>mods/</code> folder and you're done — you can instantly start using some of Heat Client's best features. No extra setup, no config files, no external launchers.</p></div>
     </details>
@@ -275,7 +286,7 @@
       <div class="faq-a"><p>The default GUI hotkey is <kbd>Right Ctrl</kbd>. A custom keybind option is coming soon so you can rebind it to whatever you prefer.</p></div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-modules">
       <summary><span class="faq-q-num">06</span><span class="faq-q-text">How many modules are there, and what categories?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
       <div class="faq-a"><p>The module count is always changing as Heat Client gets daily updates, but as of writing this it has <strong>53 modules</strong> across six categories: <strong>Render</strong>, <strong>Player</strong>, <strong>Exploit</strong>, <strong>Combat</strong>, <strong>Movement</strong> and <strong>Utility</strong>.</p></div>
     </details>
@@ -290,7 +301,7 @@
       <div class="faq-a"><p>Yes. If you don't like using the GUI or keybinds, you can toggle any module from chat with the syntax <code>![module name] [optional setting]</code>. For example, <code>!fly</code> toggles Flight, and <code>!fly speed 2</code> adjusts its speed setting. The chat input also has autocomplete for module names.</p></div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-safety">
       <summary><span class="faq-q-num">09</span><span class="faq-q-text">Will I get banned using Heat Client?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
       <div class="faq-a"><p>Prolonged usage of any client — ghost or not — can get you banned from certain servers. That said, native 1.8 servers have limited anticheat options, so on those you're looking at roughly an <strong>80% no-ban guarantee</strong>. <br><br>ViaBackwards / ViaRewind modern servers are a different story: their plugins are more flexible and usually target old clients specifically, since old client code is well-known and easy to block. Expect to be flagged much faster on those.</p></div>
     </details>
@@ -300,7 +311,7 @@
       <div class="faq-a"><p>Technically yes — but you shouldn't. You'll likely get banned after about <strong>1 competitive game</strong>, or around <strong>6 games</strong> if you're sneaky. Hypixel's anticheat is in a different league from typical anarchy servers; don't risk your account.</p></div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-compat">
       <summary><span class="faq-q-num">11</span><span class="faq-q-text">Is Heat Client compatible with other clients and mods?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
       <div class="faq-a"><p>Yes — Heat Client is compatible with other clients and mods. The one exception is <strong>Essential Mod</strong>: it isn't officially compatible because most of the time it crashes your game, though it can occasionally be fine. If you want to use both, test on a singleplayer world first.</p></div>
     </details>
@@ -315,7 +326,7 @@
       <div class="faq-a"><p>Yes, Heat Client is malware-free. The hard part is verifying that — there's no automated way to prove it yet, and the developer is still figuring that out. Users are welcome to <strong>decompile the mod</strong> to inspect it, with the only condition being that you don't reuse any of the code or take inspiration from it for your own projects.</p></div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-updates">
       <summary><span class="faq-q-num">14</span><span class="faq-q-text">Is the source code open?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
       <div class="faq-a"><p>The source code is open but only visible on special occasions (such as milestone releases or community events). To know when source drops happen, join the HotWillNotElaborate's Mods Discord server: <a href="https://discord.gg/5SbGUwnxkt" target="_blank" rel="noopener noreferrer">discord.gg/5SbGUwnxkt</a>.</p></div>
     </details>
@@ -325,7 +336,7 @@
       <div class="faq-a"><p>Heat Client is updated daily — and so far it's been updated <strong>multiple times per day</strong>. To know when a new version drops, either join the Discord (<a href="https://discord.gg/5SbGUwnxkt" target="_blank" rel="noopener noreferrer">discord.gg/5SbGUwnxkt</a>) or just check this page regularly — the version badge at the top auto-updates whenever a new release goes live.</p></div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-support">
       <summary><span class="faq-q-num">16</span><span class="faq-q-text">Where do I report bugs or suggest features?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
       <div class="faq-a"><p>Use the <a href="https://github.com/TheOnly-Coder/Heat-Client/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a> tab on the Heat Client repo. Please include your Heat Client version, Minecraft version, OS, and steps to reproduce the bug — that makes it much easier to fix quickly.</p></div>
     </details>
@@ -337,10 +348,10 @@
 
     <details class="faq-item">
       <summary><span class="faq-q-num">18</span><span class="faq-q-text">What's the official Heat Client server, and how do I join?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
-      <div class="faq-a"><p>The official server is <strong>Will Anarchy</strong> at <code>willanarchy.exaroton.me</code>. You can join on Minecraft versions <strong>1.7 through 1.21.2</strong> — it's almost pure vanilla, with the only plugins being Frame Dupe and Legacy Edition Dupe Revival. A great place to test Heat Client in a real anarchy environment.</p></div>
+      <div class="faq-a"><p>The official server is <strong>Will Anarchy</strong> at <code>willanarchy.exaroton.me</code>. You can join on Minecraft versions <strong>1.7 through 26.2</strong> — it's almost pure vanilla, with the only plugins being Frame Dupe and Legacy Edition Dupe Revival. A great place to test Heat Client in a real anarchy environment.</p></div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-compare">
       <summary><span class="faq-q-num">19</span><span class="faq-q-text">What's the difference between Heat Client and other 1.8.9 clients?</span><span class="faq-q-icon" aria-hidden="true"></span></summary>
       <div class="faq-a"><p>Two main differences. First, Heat Client <strong>hasn't been abandoned for over 4 years</strong> like most other 1.8.9 clients. Second, Heat Client is literally <strong>7 clients in one</strong> — it uses source code from Hydrogen, SkidBounce, ProModule, SkilledClient and others to deliver premium anticheat-detection prevention and the best modules from each, all in a single download.</p></div>
     </details>
@@ -359,7 +370,7 @@
     <div class="server-inner">
       <span class="section-tag">Official Server</span>
       <h2 class="section-title">Will Anarchy</h2>
-      <p class="section-sub">A near-vanilla anarchy server you can join on Minecraft 1.7 through 1.21.2 — the perfect place to test Heat Client in a real anarchy environment. Only plugins: Frame Dupe and Legacy Edition Dupe Revival.</p>
+      <p class="section-sub">A near-vanilla anarchy server you can join on Minecraft 1.7 through 26.2 — the perfect place to test Heat Client in a real anarchy environment. Only plugins: Frame Dupe and Legacy Edition Dupe Revival.</p>
 
       <div class="server-ip" id="serverIp">
         <span class="server-ip-label">Server IP</span>
