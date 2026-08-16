@@ -189,6 +189,10 @@
       const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
+      // If the target is a closed <details>, open it (so users see the answer)
+      if (target.tagName === 'DETAILS' && !target.open) {
+        target.open = true;
+      }
       const top = target.getBoundingClientRect().top + window.scrollY - 70;
       window.scrollTo({ top, behavior: 'smooth' });
     });
