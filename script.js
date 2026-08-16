@@ -194,6 +194,84 @@
     });
   });
 
+  /* ---------- Lightbox ---------- */
+  const triggers = Array.from(document.querySelectorAll('[data-lightbox]'));
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  const lbCaption = document.getElementById('lightboxCaption');
+  const lbClose = document.getElementById('lightboxClose');
+  const lbPrev = document.getElementById('lightboxPrev');
+  const lbNext = document.getElementById('lightboxNext');
+
+  let currentIdx = 0;
+
+  // Inject a hover "click to zoom" hint badge into each gallery frame
+  triggers.forEach(t => {
+    const hint = document.createElement('span');
+    hint.className = 'zoom-hint';
+    hint.innerHTML = `
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M11 8v6M8 11h6M20 20l-3.5-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Click to expand
+    `;
+    t.appendChild(hint);
+  });
+
+  function openLightbox(idx) {
+    if (!triggers.length) return;
+    currentIdx = ((idx % triggers.length) + triggers.length) % triggers.length;
+    const t = triggers[currentIdx];
+    const url = t.getAttribute('href');
+    const title = t.getAttribute('data-title') || '';
+    const alt = t.querySelector('img')?.getAttribute('alt') || '';
+    lbImg.setAttribute('src', url);
+    lbImg.setAttribute('alt', alt);
+    lbCaption.textContent = title;
+    lb.classList.add('is-open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('is-open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // Clear src after transition to free memory
+    setTimeout(() => { if (!lb.classList.contains('is-open')) lbImg.setAttribute('src', ''); }, 350);
+  }
+
+  function navLightbox(delta) {
+    openLightbox(currentIdx + delta);
+  }
+
+  triggers.forEach((t, i) => {
+    t.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(i);
+    });
+  });
+
+  if (lbClose) lbClose.addEventListener('click', closeLightbox);
+  if (lbPrev)  lbPrev.addEventListener('click', () => navLightbox(-1));
+  if (lbNext)  lbNext.addEventListener('click', () => navLightbox(1));
+
+  // Click on backdrop closes
+  if (lb) {
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) closeLightbox();
+    });
+  }
+
+  // Keyboard controls
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    else if (e.key === 'ArrowLeft')  navLightbox(-1);
+    else if (e.key === 'ArrowRight') navLightbox(1);
+  });
+
   /* ---------- Kick off ---------- */
   refreshLatestDownload();
 })();
