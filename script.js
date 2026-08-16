@@ -200,6 +200,38 @@
 
   /* ---------- FAQ accordion (one-open-at-a-time) ---------- */
   const faqItems = document.querySelectorAll('.faq-item');
+
+  // Inject a "#" anchor link inside each <summary> for direct sharing
+  faqItems.forEach(item => {
+    if (!item.id) return;
+    const summary = item.querySelector('summary');
+    if (!summary) return;
+    const anchor = document.createElement('a');
+    anchor.className = 'faq-q-anchor';
+    anchor.href = '#' + item.id;
+    anchor.setAttribute('aria-label', 'Copy direct link to this question');
+    anchor.title = 'Copy direct link to this question';
+    anchor.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    // Prevent default scroll-jump; instead update URL hash without scrolling
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      history.replaceState(null, '', '#' + item.id);
+      // Visual feedback
+      anchor.style.background = 'rgba(74, 222, 128, 0.18)';
+      anchor.style.color = 'var(--good)';
+      setTimeout(() => {
+        anchor.style.background = '';
+        anchor.style.color = '';
+      }, 700);
+      // Briefly copy the full URL to clipboard
+      try {
+        navigator.clipboard.writeText(window.location.href);
+      } catch (_) {}
+    });
+    summary.appendChild(anchor);
+  });
+
   faqItems.forEach(item => {
     item.addEventListener('toggle', () => {
       if (item.open) {
@@ -219,6 +251,35 @@
 
   // Open the first FAQ by default for discoverability
   if (faqItems.length) faqItems[0].open = true;
+
+  // If the URL has a hash pointing to a specific FAQ, open it on load
+  if (location.hash) {
+    const target = document.querySelector(location.hash);
+    if (target && target.classList.contains('faq-item')) {
+      // Close the default-opened first item
+      if (faqItems[0] !== target) faqItems[0].open = false;
+      target.open = true;
+      setTimeout(() => {
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 120);
+    }
+  }
+
+  /* ---------- Back to top button ---------- */
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    const toggleVisibility = () => {
+      if (window.scrollY > 600) backToTop.classList.add('is-visible');
+      else backToTop.classList.remove('is-visible');
+    };
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    toggleVisibility();
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   /* ---------- Lightbox ---------- */
   const triggers = Array.from(document.querySelectorAll('[data-lightbox]'));
