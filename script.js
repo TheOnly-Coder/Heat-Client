@@ -25,6 +25,11 @@
       document.querySelectorAll(DOWNLOAD_SELECTOR).forEach(a => {
         a.setAttribute('href', url);
       });
+      // Auto-update the version badge in the hero
+      const badge = document.getElementById('versionBadge');
+      if (badge && data.tag_name) {
+        badge.textContent = data.tag_name;
+      }
     } catch (e) {
       /* silent — fall back to static v1.9.0 link */
     }
