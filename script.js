@@ -194,6 +194,28 @@
     });
   });
 
+  /* ---------- FAQ accordion (one-open-at-a-time) ---------- */
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    item.addEventListener('toggle', () => {
+      if (item.open) {
+        faqItems.forEach(other => {
+          if (other !== item && other.open) other.open = false;
+        });
+        // Scroll the opened item into view nicely (below the fixed navbar)
+        setTimeout(() => {
+          const top = item.getBoundingClientRect().top + window.scrollY - 80;
+          if (top < window.scrollY) {
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        }, 60);
+      }
+    });
+  });
+
+  // Open the first FAQ by default for discoverability
+  if (faqItems.length) faqItems[0].open = true;
+
   /* ---------- Lightbox ---------- */
   const triggers = Array.from(document.querySelectorAll('[data-lightbox]'));
   const lb = document.getElementById('lightbox');
