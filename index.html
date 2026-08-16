@@ -139,9 +139,9 @@
 
   <div class="gallery">
     <figure class="gallery-item reveal" data-reveal data-delay="0">
-      <div class="gallery-frame">
+      <a class="gallery-frame" href="modules-settings.png" data-lightbox="heat-gallery" data-title="Modules & Settings — a slice of Heat Client's 50+ modules with per-module settings, key bindings and live config.">
         <img src="modules-settings.png" alt="Heat Client module list and per-module settings" loading="lazy" />
-      </div>
+      </a>
       <figcaption>
         <span class="gallery-num">01</span>
         <div class="gallery-caption">
@@ -152,9 +152,9 @@
     </figure>
 
     <figure class="gallery-item gallery-item-rev reveal" data-reveal data-delay="80">
-      <div class="gallery-frame">
+      <a class="gallery-frame" href="chat-commands.png" data-lightbox="heat-gallery" data-title="Chat Commands & Autocomplete — type a prefix and Heat Client autocompletes the rest.">
         <img src="chat-commands.png" alt="Heat Client chat commands with autocomplete" loading="lazy" />
-      </div>
+      </a>
       <figcaption>
         <span class="gallery-num">02</span>
         <div class="gallery-caption">
@@ -165,14 +165,27 @@
     </figure>
 
     <figure class="gallery-item reveal" data-reveal data-delay="0">
-      <div class="gallery-frame">
+      <a class="gallery-frame" href="server-browser.png" data-lightbox="heat-gallery" data-title="Server Discovery — built-in anarchy server list, jump straight into a server that won't auto-ban you.">
         <img src="server-browser.png" alt="Heat Client built-in server discovery browser" loading="lazy" />
-      </div>
+      </a>
       <figcaption>
         <span class="gallery-num">03</span>
         <div class="gallery-caption">
           <h3>Server Discovery</h3>
           <p>Built-in anarchy server discovery list, so you can hop straight into a server that won't auto-ban you the moment you toggle a module.</p>
+        </div>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery-item gallery-item-rev reveal" data-reveal data-delay="80">
+      <a class="gallery-frame" href="modules-in-action.png" data-lightbox="heat-gallery" data-title="Modules In Action — ESP, Tracers, Fly, Spammer and Fullbright all running live.">
+        <img src="modules-in-action.png" alt="Heat Client modules in action: ESP, Tracers, Fly, Spammer, Fullbright" loading="lazy" />
+      </a>
+      <figcaption>
+        <span class="gallery-num">04</span>
+        <div class="gallery-caption">
+          <h3>Modules In Action</h3>
+          <p>ESP, Tracers, Fly, Spammer and Fullbright all running at once — see Heat Client's combat, movement and rendering modules working together in a real game.</p>
         </div>
       </figcaption>
     </figure>
@@ -288,6 +301,23 @@
     <div class="footer-note">Not affiliated with Mojang or Microsoft. Use at your own risk on servers you trust.</div>
   </div>
 </footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <figure class="lightbox-figure">
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+    <figcaption class="lightbox-caption" id="lightboxCaption"></figcaption>
+  </figure>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
 
 <script src="script.js"></script>
 </body>
