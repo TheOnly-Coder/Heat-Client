@@ -1177,7 +1177,7 @@ kbd {
   letter-spacing: -0.02em;
   margin-bottom: 28px;
 }
-.youtube-btn, .faketube-btn {
+.youtube-btn, .faketube-btn, .all-projects-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
