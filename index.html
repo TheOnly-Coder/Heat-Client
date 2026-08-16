@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Heat Client — Minecraft 1.8.9 Forge Ghost Client</title>
+<meta name="description" content="Heat Client — the ultimate Minecraft 1.8.9 forge ghost client. 50+ modules, zero malware, daily updates. Free download." />
+<link rel="icon" type="image/png" href="channels4_profile.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Ember canvas -->
+<canvas id="ember-canvas" aria-hidden="true"></canvas>
+
+<!-- Navbar -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">🔥</span>
+      <span class="brand-text">Heat<span class="brand-accent">Client</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#server">Server</a>
+      <a href="#credits">Credits</a>
+    </div>
+    <a href="https://github.com/TheOnly-Coder/Heat-Client/releases/download/v1.9.0/HeatClient-1.9.0.jar" class="nav-download" data-track="nav-download">Download</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" id="top">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-content">
+    <div class="badge reveal" data-reveal>
+      <span class="badge-dot"></span>
+      v1.9.0 · Latest Release
+    </div>
+    <h1 class="hero-title reveal" data-reveal data-delay="60">
+      <span class="title-line">Heat</span>
+      <span class="title-line title-gradient">Client</span>
+    </h1>
+    <p class="hero-subtitle reveal" data-reveal data-delay="140">
+      The ultimate <strong>Minecraft 1.8.9 Forge Ghost Client</strong>.
+      7 clients in one. 50+ modules. Zero malware. Free forever.
+    </p>
+
+    <div class="hero-actions reveal" data-reveal data-delay="220">
+      <a
+        href="https://github.com/TheOnly-Coder/Heat-Client/releases/download/v1.9.0/HeatClient-1.9.0.jar"
+        class="download-btn"
+        id="downloadBtn"
+        data-track="hero-download"
+      >
+        <span class="download-btn-bg"></span>
+        <span class="download-btn-glow" id="btnGlow"></span>
+        <span class="download-btn-content">
+          <svg class="download-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Download</span>
+        </span>
+      </a>
+      <a href="#features" class="ghost-btn">Explore Features</a>
+    </div>
+
+    <div class="hero-stats reveal" data-reveal data-delay="300">
+      <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Modules</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">1.8.9</span><span class="stat-label">Forge</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Malware</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Forever</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-mouse"><span class="scroll-wheel"></span></div>
+  </div>
+</header>
+
+<!-- Features -->
+<section class="section" id="features">
+  <div class="section-head reveal" data-reveal>
+    <span class="section-tag">Features</span>
+    <h2 class="section-title">Everything you need. <span class="accent">Nothing you don't.</span></h2>
+    <p class="section-sub">Built for anarchy servers, daily updates, fully configurable. Heat Client packs the value of a $20 cheat client — completely free.</p>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card reveal" data-reveal data-delay="0">
+      <div class="feature-icon">🧩</div>
+      <h3>50+ Modules</h3>
+      <p>Xray, Flight, Auto Dupe, Aim Assist, Safe Walk and more — each with unique per-module settings, key bindings and chat commands.</p>
+    </div>
+    <div class="feature-card reveal" data-reveal data-delay="80">
+      <div class="feature-icon">🛡️</div>
+      <h3>Zero Malware</h3>
+      <p>Heat Client ships with absolutely zero malware. Small download size, clean forge integration, no shady background processes.</p>
+    </div>
+    <div class="feature-card reveal" data-reveal data-delay="160">
+      <div class="feature-icon">⚡</div>
+      <h3>Daily Updates</h3>
+      <p>Heat Client gets daily updates with new modules, fixes and tweaks. The latest jar is always one click away from this page.</p>
+    </div>
+    <div class="feature-card reveal" data-reveal data-delay="0">
+      <div class="feature-icon">💎</div>
+      <h3>Auto Dupe</h3>
+      <p>Auto Dupe module — works on 1.8–1.9 servers. Drop, dupe, repeat. The kind of feature paid clients gate behind paywalls.</p>
+    </div>
+    <div class="feature-card reveal" data-reveal data-delay="80">
+      <div class="feature-icon">🎛️</div>
+      <h3>Highly Configurable GUI</h3>
+      <p>Press Right Ctrl to open the GUI. Every module is fully tunable, so it feels like Meteor Client — except this one actually runs on 1.8.9 Forge.</p>
+    </div>
+    <div class="feature-card reveal" data-reveal data-delay="160">
+      <div class="feature-icon">🌐</div>
+      <h3>Server Discovery</h3>
+      <p>Built-in anarchy server discovery list, including Hypixel (but please, don't cheat on Hypixel — they will end you, in GTA, not really).</p>
+    </div>
+  </div>
+</section>
+
+<!-- About / Why Heat -->
+<section class="section section-alt" id="about">
+  <div class="about-grid">
+    <div class="about-text reveal" data-reveal>
+      <span class="section-tag">Why Heat Client?</span>
+      <h2 class="section-title">7 clients in <span class="accent">ONE</span>.</h2>
+      <p>
+        Heat Client is the ultimate Minecraft 1.8.9 ghost client — built from
+        almost every 1.8.9 forge client's source code, fused into a single
+        free download. It packs an 80% guarantee that you won't get banned
+        from any 1.8 servers you play on. (ViaBackwards / ViaRewind modern
+        servers will most likely ban you after around 7 hours of use, so
+        stick to native 1.8 / 1.9 servers when you can.)
+      </p>
+      <p>
+        Heat Client is compatible with other clients, although honestly —
+        after this, you won't want another one. Zero malware, a tiny
+        download size, and the smallest community on the planet (two whole
+        people, including the dev) mean anticheats haven't had time to
+        study us yet. That's a feature, not a bug.
+      </p>
+      <ul class="about-list">
+        <li><span class="check">✓</span> Free forever — value of a $20 cheat client, $0 price tag</li>
+        <li><span class="check">✓</span> Native 1.8.9 Forge, works on 1.8–1.9 servers</li>
+        <li><span class="check">✓</span> Built-in Xray, Flight, Aim Assist, Safe Walk</li>
+        <li><span class="check">✓</span> Daily updates with new modules &amp; fixes</li>
+      </ul>
+    </div>
+
+    <div class="about-card reveal" data-reveal data-delay="120">
+      <div class="about-card-glow"></div>
+      <div class="about-card-inner">
+        <div class="about-card-label">Compatibility</div>
+        <div class="compat-row"><span>Minecraft</span><span class="compat-pill">1.8.9</span></div>
+        <div class="compat-row"><span>Loader</span><span class="compat-pill">Forge</span></div>
+        <div class="compat-row"><span>Servers</span><span class="compat-pill">1.8 – 1.9</span></div>
+        <div class="compat-row"><span>Essential Mod</span><span class="compat-pill compat-pill-warn">Not compatible</span></div>
+        <div class="compat-row"><span>Malware</span><span class="compat-pill compat-pill-good">None</span></div>
+        <div class="compat-row"><span>Price</span><span class="compat-pill compat-pill-good">Free</span></div>
+
+        <div class="about-card-note">
+          Heat Client's official server is <strong>Will Anarchy</strong> — a 1.12.2 server that works perfectly with 1.8–1.9 clients like Heat Client.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Server -->
+<section class="section" id="server">
+  <div class="server-card reveal" data-reveal>
+    <div class="server-glow"></div>
+    <div class="server-inner">
+      <span class="section-tag">Official Server</span>
+      <h2 class="section-title">Will Anarchy</h2>
+      <p class="section-sub">A 1.12.2 anarchy server that fully supports Heat Client and 1.8–1.9 clients. Hop in and test your modules in a real anarchy environment.</p>
+
+      <div class="server-ip" id="serverIp">
+        <span class="server-ip-label">Server IP</span>
+        <code class="server-ip-value">willanarchy.exaroton.me</code>
+        <button class="copy-btn" id="copyIp" aria-label="Copy server IP">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 4h10a2 2 0 0 1 2 2v10M6 8v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Credits -->
+<section class="section section-alt" id="credits">
+  <div class="credits-wrap">
+    <div class="credits-card reveal" data-reveal>
+      <div class="credits-glow"></div>
+      <div class="credits-inner">
+        <img src="channels4_profile.png" alt="HotWillNotElaborate profile" class="credits-avatar" />
+        <div class="credits-role">Owner &amp; Developer</div>
+        <div class="credits-name">HotWillNotElaborate</div>
+
+        <a href="https://www.youtube.com/@HotWillNotElaborate" target="_blank" rel="noopener noreferrer" class="youtube-btn">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M23 12s0-3.6-.46-5.33a2.78 2.78 0 0 0-1.95-1.96C18.88 4.25 12 4.25 12 4.25s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.67C1 8.4 1 12 1 12s0 3.6.46 5.33a2.78 2.78 0 0 0 1.95 1.96c1.71.46 8.59.46 8.59.46s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96C23 15.6 23 12 23 12zM9.75 15.5v-7l6 3.5-6 3.5z" fill="currentColor"/></svg>
+          <span>YouTube — @HotWillNotElaborate</span>
+        </a>
+
+        <a href="https://theonly-coder.github.io/FakeTube/" target="_blank" rel="noopener noreferrer" class="faketube-btn">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>See FakeTube, my other project</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark">🔥</span>
+      <span>Heat Client</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/TheOnly-Coder/Heat-Client" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://github.com/TheOnly-Coder/Heat-Client/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+      <a href="https://www.youtube.com/@HotWillNotElaborate" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <a href="https://theonly-coder.github.io/FakeTube/" target="_blank" rel="noopener noreferrer">FakeTube</a>
+    </div>
+    <div class="footer-note">Not affiliated with Mojang or Microsoft. Use at your own risk on servers you trust.</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
