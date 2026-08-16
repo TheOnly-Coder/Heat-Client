@@ -857,6 +857,62 @@ kbd {
 }
 
 /* ===================== FAQ ===================== */
+.faq-toc {
+  max-width: 880px;
+  margin: 0 auto 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 18px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255, 122, 26, 0.04), transparent);
+  border: 1px solid var(--border);
+}
+.faq-toc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.faq-toc-pill:hover {
+  background: rgba(255, 122, 26, 0.1);
+  border-color: var(--border-strong);
+  color: var(--accent-3);
+  transform: translateY(-1px);
+}
+.faq-toc-icon {
+  font-size: 13px;
+  color: var(--accent);
+  line-height: 1;
+}
+.faq-toc-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(255, 122, 26, 0.15);
+  color: var(--accent-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.faq-toc-pill:hover .faq-toc-count {
+  background: rgba(255, 122, 26, 0.3);
+  color: #fff;
+}
+
 .faq-list {
   max-width: 880px;
   margin: 0 auto;
